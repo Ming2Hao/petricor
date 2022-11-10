@@ -1,0 +1,20 @@
+https://colorhunt.co/palette/ffdecfba79675e6f643f4441
+https://colorhunt.co/palette/ffeedbffd8ccffbd9b0a1d37
+
+#eaebfe	(234,235,254)
+#b0b8ce	(176,184,206)
+#505a74	(80,90,116)
+#354c7c	(53,76,124)
+#022954	(2,41,84)
+
+Josefin Sans
+
+https://fonts.google.com/
+https://mdbootstrap.com/docs/b4/jquery/
+
+#3F4441
+#5E6F64
+#BA7967
+#FFDECF
+
+https://mdbootstrap.com/docs/b4/jquery/css/hover-effects/#:~:text=A%20Bootstrap%20hover%20effect%20appears,make%20a%20website%20more%20interactive
