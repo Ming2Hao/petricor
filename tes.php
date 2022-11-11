@@ -1,4 +1,7 @@
 <?php
+require("connection.php");
+$listItem = mysqli_query($conn,"SELECT * from items where it_id='".$_SESSION["itemsekarang"]."'");
+$row = mysqli_fetch_assoc($listItem);
     // $_SESSION["message"] = "HAHAHA"
 ?>
 <!DOCTYPE html>
@@ -47,7 +50,7 @@
     <nav class="navbar navbar-expand-lg sticky-top" style="background-color:#3F4441;">
         <div class="container-fluid d-flex">
             <div class="d-flex mb-0">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index.php">
                 <img src="assets/img/Logo.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
                 </a>
             
@@ -116,8 +119,27 @@
             </div>
         </div>
     </nav>
-    <div class="bg-image hover-zoom">
-        <img src="assets/img/burger.png" class="w-50 h-50">
+    <div class="col">
+        <div class="card" style="width: 300px; height: 280px; box-shadow: #3F4441 12px 15px 15px -20px; border-radius:15px">
+            <button class="btn p-1 btnHover" style="border-radius:15px; width: 300px; height:280px;" value="<?=$row["it_id"]?>" name="detaildiklik">
+                <div class="bg-image hover-zoom">
+                    <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="width:200px; top:0; margin-left:auto; margin-right:auto;">
+                </div>
+                
+                <div class="card-body p-0">
+                    <p class="text-secondary mb-0"><?php
+                        $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
+                        $kat = mysqli_query($conn,$querykategori);
+                        $rowss = mysqli_fetch_array($kat);
+                        echo $rowss["ca_name"];
+                    ?></p>
+                    <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
+                    <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
+                    <p class="text-danger"><?=$row['it_price'] ?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                </div>
+            </button>
+            <?=$row["it_desc"]?>
+        </div>
     </div>
     <!-- <div class="view overlay zoom">
     <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).webp" class="img-fluid " alt="smaple image">
