@@ -18,3 +18,18 @@ https://mdbootstrap.com/docs/b4/jquery/
 #FFDECF
 
 https://mdbootstrap.com/docs/b4/jquery/css/hover-effects/#:~:text=A%20Bootstrap%20hover%20effect%20appears,make%20a%20website%20more%20interactive
+
+
+//INJECTION
+$query .= "WHERE br_name LIKE ? OR co_id LIKE ? ";
+$tempresult = $conn->prepare($query);
+if(isset($_SESSION["search-val"])){
+    $search = "%".$_SESSION["search-val"]."%";
+    $tempresult->bind_param('ss', $search, $search);
+}
+$tempresult->execute();
+
+$exeresult = $tempresult->get_result();
+while ($row = mysqli_fetch_array($exeresult)) {
+    $result[] = $row;
+}

@@ -19,6 +19,6 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.all.js"></script>
+
 </body>
 </html>

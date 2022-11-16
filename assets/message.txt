@@ -1,0 +1,318 @@
+<?php
+    session_start();
+    set_time_limit(10000);
+
+    $conn = mysqli_connect("localhost", "root", "", "db_petricor");
+
+    //Untuk melakukan check apabila ada error atau tidak
+    if(mysqli_connect_errno()){
+        echo mysqli_error($conn);
+    }
+
+    if(isset($_SESSION["message"])){
+        echo "<script>alert('$_SESSION[message]')</script>";
+        unset($_SESSION["message"]);
+    }
+
+    // $result = mysqli_query($conn,"SELECT * from items");
+    
+    // include('simple_html_dom.php');
+    // $html = file_get_html('https://www.viverecollection.com/furniture/living-room-furniture/side-table?p=1&product_list_limit=all');
+    
+    // // find all image
+    // $ctr=1;
+    // foreach($html->find('.product-item') as $e){
+    //     $tempgambar;
+    //     $tempjudul;
+    //     foreach ($e->find('.product-image-photo') as $f) {
+    //         $tempgambar=$f->src;
+    //     }
+    //     foreach ($e->find('.product-item-link') as $f) {
+    //         $tempjudul=$f->innertext;
+    //     }
+    //     foreach ($e->find('.price') as $f) {
+    //         $tempprice=$f->innertext;
+    //     }
+    //     foreach($e->find('a') as $f){
+    //         $temphref=$f->href;
+    //         // $temphref=$temphref;
+    //         // $html2 = file_get_html($temphref);
+    //         // $tempdesc="";
+    //         // foreach ($html2->find('.value') as $g) {
+    //         //     foreach ($g->find('p') as $h) {
+    //         //         $tempdesc=$tempdesc.$h->innertext."<br>";
+    //         //     }
+    //         // }
+    //     }
+
+    //     $templist=[];
+    //     $templist["gambar"]=$tempgambar;
+    //     $templist["judul"]=$tempjudul;
+    //     $templist["href"]=$temphref;
+    //     $templist["price"]=$tempprice;
+        
+    //     $list[$ctr]=$templist;
+    //     // echo $tempgambar .'  -  '.$tempjudul .'<br>';
+    //     // mysqli_query($conn,"INSERT into item values('$tempgambar','$tempjudul','$ctr')");
+    //     $ctr++;
+    //     flush();ob_flush();
+    // }
+    // foreach ($list as $key => $data) {
+    //     $html = file_get_html($data["href"]);
+    //     $tempdesc="";
+    //     foreach ($html->find('.product.attribute.description') as $g) {
+    //         // foreach ($g->find('p') as $h) {
+    //             $tempdesc=$tempdesc.$g->innertext;
+    //         // }
+    //     }
+    //     $ukuran=0;
+    //     // $ukuran=mysqli_num_rows(mysqli_query($conn,"select count(it_id) from items"));
+    //     // if($ukuran==0){
+    //     //     $ukuran=1;
+    //     // }
+    //     // else{
+    //         $ukuran = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(it_id,3,3) AS UNSIGNED)) FROM items");
+    //         $ukuran=mysqli_fetch_row($ukuran)[0];
+    //         $ukuran=$ukuran+1;
+    //         // $ukuran=$ukuran+1;
+    //     // }
+    //     $val1="IT".str_pad($ukuran,3,"0",STR_PAD_LEFT);
+    //     $val2=$data["gambar"];
+    //     $val3=$data["judul"];
+    //     $val4=$data["price"];
+    //     $val5=str_replace("'","",$tempdesc);
+    //     $val6="CA013";
+    //     $cek = mysqli_num_rows(mysqli_query($conn,"select it_gambar FROM items WHERE it_gambar='$val2'"));
+    //     if($cek==0){
+    //         mysqli_query($conn,"INSERT INTO `items`(`it_id`, `it_gambar`, `it_name`, `it_price`, `it_desc`, `it_ca_id`) VALUES ('$val1','$val2','$val3','$val4','$val5','$val6')");
+    //     }
+    // }
+    // echo "sukses";
+    // if(isset($_POST["silek"])){
+    //     $_SESSION["terpilih"]=$_POST["silek"];
+    //     header('Location: detail.php');
+    // }
+    include_once('simple_html_dom.php');
+    // $list=[];
+    // $ctr=1;
+    // for ($i=1; $i <= 2; $i++) { 
+    //     $ch = curl_init();
+    //     curl_setopt($ch, CURLOPT_URL, 'detail.php');
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    //     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    //     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1');
+    //     curl_setopt($ch, CURLOPT_REFERER, 'detail.php');
+    //     curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
+    //     curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+    //     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
+    //     curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+    //     curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+    //     $html = curl_exec($ch);
+    //     curl_close($ch);
+    
+    //     $dom = new simple_html_dom();
+    //     $dom->load($html);
+    //     echo $dom;
+    //     foreach($dom->find('.display-image') as $e){
+    //         // echo $e->src;
+    //         // foreach($dom->find('.title.pb-1.product-data-layer.data-layer-1') as $f){
+    //         //     echo $f->innertext."<br>";
+    //         //     echo $f->href."<br>";
+    //         // }
+    //         // foreach($dom->find('.product-category.pt-0.pb-2') as $f){
+    //         //     echo $f->innertext."<br>";
+    //         // }
+    //         // echo $e->src;
+    //         // echo $e;
+    //         // foreach ($e->find('img') as $f) {
+    //         //     $tempgambar=$f->src;
+    //         //     echo $tempgambar."<br>";
+    //         // }
+    //         // foreach ($e->find('.gdqlKPEW0WGrWRPRMEEBv') as $f) {
+    //         //     $tempjudul=$f->innertext;
+    //         // }
+    //         // foreach ($e->find('.text-normal.Gq0CJSOOiMzXOulTcT-bY') as $f) {
+    //         //     $temphref=$f->href;
+    //         // }
+    //         // foreach ($e->find('.price.fs2._2XWxun7WUr5xBmidGRPaS-') as $f) {
+    //         //     $tempprice=$f->innertext;
+    //         // }
+    //         // $templist=[];
+    //         // $templist["gambar"]=$tempgambar;
+    //         // $templist["judul"]=$tempjudul;
+    //         // $templist["href"]=$temphref;
+    //         // $templist["price"]=$tempprice;
+            
+    //         // $list[$ctr]=$templist;
+    //         // $ctr++;
+    //     }
+    // }
+
+    $list=[];
+    for ($i=83; $i <=100 ; $i++) {
+        $html = file_get_html('kana/kana'.$i.'.php');
+        $ctr=1;
+        $tempctrsss=1;
+        foreach($html->find('.row.product-container') as $z){
+            foreach($z->find('.col-md-4.col-12.mb-4.mb-md-1') as $zz){
+                foreach ($zz->find('.display-image') as $f) {
+                    $tempgambar=$f->src;
+                }
+                $tempctr=0;
+                foreach($zz->find('.color') as $f){
+                    $tempctr++;
+                }
+                foreach($zz->find('.info-wrap.px-0.pt-0') as $e){
+                    foreach ($e->find('.title') as $f) {
+                        $tempjudul=$f->innertext;
+                    }
+                    foreach ($e->find('.price-utama') as $f) {
+                        $tempprice=$f->innertext;
+                    }
+                    foreach ($e->find('.title') as $f){
+                        $temphref=$f->href;
+                    }
+                    foreach ($e->find('.product-category') as $f){
+                        $tempcat=$f->innertext;
+                    }
+                }
+                if($tempctr<=1||$tempgambar==""||$tempjudul==""||$tempprice==""||$temphref==""||$tempcat==""){
+                    $tempstatus=true;
+                }
+                else{
+                    $tempstatus=false;
+                }
+                $templist=[];
+                $templist["gambar"]=$tempgambar;
+                $templist["judul"]=$tempjudul;
+                $templist["href"]=$temphref;
+                $templist["price"]=$tempprice;
+                $templist["status"]=$tempstatus;
+                $templist["category"]=$tempcat;
+                
+                $list[$ctr]=$templist;
+                // echo $tempgambar .'  -  '.$tempjudul .'<br>';
+                // mysqli_query($conn,"INSERT into item values('$tempgambar','$tempjudul','$ctr')");
+                $ctr++;
+                // flush();ob_flush();
+            }
+        }
+        foreach ($list as $key => $data) {
+            if($data["status"]==true){
+                $html = file_get_html($data["href"]);
+                $tempdesc="";
+                foreach ($html->find('#desc') as $g) {
+                    $tempdesc=$tempdesc.$g->plaintext;
+                }
+
+                $cek = mysqli_num_rows(mysqli_query($conn,"select ca_name FROM category WHERE ca_name='".$data['category']."'"));
+                if($cek==0){
+                    $ukuranc=0;
+                    $ukuranc = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ca_id,3,3) AS UNSIGNED)) FROM category");
+                    $ukuranc=mysqli_fetch_row($ukuranc)[0];
+                    $ukuranc=$ukuranc+1;
+                    $val1c="CA".str_pad($ukuranc,3,"0",STR_PAD_LEFT);
+                    $val2c=$data['category'];
+                    $qwery="INSERT INTO `category`(`ca_id`, `ca_name`) VALUES ('".$val1c."','".$val2c."')";
+                    $result = mysqli_query($conn, $qwery);
+                }
+                $ukuran=0;
+                // $ukuran=mysqli_num_rows(mysqli_query($conn,"select count(it_id) from items"));
+                // if($ukuran==0){
+                //     $ukuran=1;
+                // }
+                // else{
+                    $ukuran = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(it_id,3,3) AS UNSIGNED)) FROM items");
+                    $ukuran=mysqli_fetch_row($ukuran)[0];
+                    $ukuran=$ukuran+1;
+                    // $ukuran=$ukuran+1;
+                // }
+                $val1="IT".str_pad($ukuran,3,"0",STR_PAD_LEFT);
+                $val2=$data["gambar"];
+                $val3=$data["judul"];
+                $val4=$data["price"];
+                $val5=str_replace("'","",$tempdesc);
+                $val5=str_replace("<div>","",$val5);
+                $val5=str_replace("</div>","",$val5);
+                $val5=str_replace("<br>","",$val5);
+                $val5=str_replace("<p>","",$val5);
+                $val5=str_replace("</p>","",$val5);
+                $idca = mysqli_query($conn,"SELECT ca_id FROM category where ca_name='".$data['category']."'");
+                $idca=mysqli_fetch_row($idca)[0];
+                $val6=$idca;
+                $cek = mysqli_num_rows(mysqli_query($conn,"select it_name FROM items WHERE it_name='".$val3."' and it_ca_id='".$val6."'"));
+                if($cek==0){
+                    mysqli_query($conn,"INSERT INTO `items`(`it_id`, `it_gambar`, `it_name`, `it_price`, `it_desc`, `it_ca_id`) VALUES ('$val1','$val2','$val3','$val4','$val5','$val6')");
+                }
+            }
+        }
+    }
+
+
+
+    //     foreach ($list as $key => $data) {
+    //         $ch2 = curl_init();
+    //         curl_setopt($ch2, CURLOPT_URL, 'https://www.dekoruma.com'.$data["href"]);
+    //         curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
+    //         curl_setopt($ch2, CURLOPT_SSL_VERIFYPEER, false);
+    //         curl_setopt($ch2, CURLOPT_SSL_VERIFYHOST, false);
+    //         curl_setopt($ch2, CURLOPT_FOLLOWLOCATION, true);
+    //         curl_setopt($ch2, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1');
+    //         curl_setopt($ch2, CURLOPT_REFERER, 'https://www.dekoruma.com'.$data["href"]);
+    //         curl_setopt($ch2, CURLOPT_ENCODING, 'gzip, deflate');
+    //         curl_setopt($ch2, CURLOPT_AUTOREFERER, true);
+    //         curl_setopt($ch2, CURLOPT_CONNECTTIMEOUT, 120);
+    //         curl_setopt($ch2, CURLOPT_TIMEOUT, 120);
+    //         curl_setopt($ch2, CURLOPT_MAXREDIRS, 10);
+    //         $html2 = curl_exec($ch2);
+    //         curl_close($ch2);
+        
+    //         $dom2 = new simple_html_dom();
+    //         $dom2->load($html2);
+    //     $tempdesc="";
+    //     foreach ($dom2->find('.pure-g .pure-u-1-1.prxl') as $g) {
+    //         foreach ($g->find('p') as $h) {
+    //                 $tempdesc=$h->innertext;
+    //         }
+    //     }
+    //     if($tempdesc==""){
+    //         $tempdesc="Tidak ada Deskripsi";
+    //     }
+    //     $ukuran=0;
+    //     // $ukuran=mysqli_num_rows(mysqli_query($conn,"select count(it_id) from items"));
+    //     // if($ukuran==0){
+    //     //     $ukuran=1;
+    //     // }
+    //     // else{
+    //         $ukuran = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(it_id,3,3) AS UNSIGNED)) FROM items");
+    //         $ukuran=mysqli_fetch_row($ukuran)[0];
+    //         $ukuran=$ukuran+1;
+    //     // }
+    //     $val1="IT".str_pad($ukuran,3,"0",STR_PAD_LEFT);
+    //     $val2=$data["gambar"];
+    //     $val3=$data["judul"];
+    //     $val4=$data["price"];
+    //     $val5=str_replace("'","",$tempdesc);
+    //     $val6="CA001";
+    //     $cek = mysqli_num_rows(mysqli_query($conn,"select it_gambar FROM items WHERE it_gambar='$val2'"));
+    //     if($cek==0){
+    //         mysqli_query($conn,"INSERT INTO `items`(`it_id`, `it_gambar`, `it_name`, `it_price`, `it_desc`, `it_ca_id`) VALUES ('$val1','$val2','$val3','$val4','$val5','$val6')");
+    //     }
+    // }
+    echo "sukses";
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
