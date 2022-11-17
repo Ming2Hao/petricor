@@ -190,7 +190,9 @@
                 </div> -->
                 <div class="row">
                     <div class="col-1">
-                        <img src="assets/img/cart.png" alt="iconCart" class="me-1 me-lg-5 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
+                        <a href="cart.php">
+                            <img src="assets/img/cart.png" alt="iconCart" class="me-1 me-lg-5 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
+                        </a>
                         <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
                     </div>
                     <div class="col-11 mt-4 mt-lg-2">

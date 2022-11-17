@@ -16,6 +16,27 @@ $listItem = mysqli_query($conn,"SELECT * from items");
 if(!isset($_SESSION["querysekarang"])){
     $_SESSION["querysekarang"]="SELECT * from items";
 }
+if(isset($_POST["tambahkeranjang"])){
+    
+    $cek=0;
+    $itemdipilih=$_SESSION["itemsekarang"];
+    $usersekarang=$_SESSION['currentUser'];
+    $tempqty=$_POST["quantiti"];
+    $cek = mysqli_num_rows(mysqli_query($conn,"SELECT ct_id FROM cart WHERE ct_it_id='$itemdipilih'"));
+    if($cek==0){
+        $nextinid = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ct_id,3,3) AS UNSIGNED)) FROM cart");
+        $nextinid=mysqli_fetch_row($nextinid)[0];
+        $nextinid=$nextinid+1;
+        $nextinid="CT".str_pad($nextinid,3,"0",STR_PAD_LEFT);
+        $qwery="INSERT INTO `cart`(`ct_id`, `ct_it_id`, `ct_us_id`, `ct_qty`) VALUES ('$nextinid','$itemdipilih','$usersekarang','$tempqty')";
+        $result = mysqli_query($conn, $qwery);
+    }
+    else{
+        $update_query88 = "UPDATE cart SET `ct_qty`=ct_qty+$tempqty WHERE ct_us_id='$usersekarang' and ct_it_id='$itemdipilih'";
+        $res88 = $conn->query($update_query88);
+    }
+    header('Location: detailSudahLogin.php');
+}
 // while($row = $listItem -> fetch_assoc()){
 //     $daftarBarang[] = $row;
 // }
@@ -264,8 +285,10 @@ $row = mysqli_fetch_assoc($listItem);
                 </div>
             </button>
             <?=$row["it_desc"]?>
-            <input type="number" name="" id="">
-            <button>Masukin cart</button>
+            <form action="#" method="post">
+                <input type="number" name="quantiti" id="">
+                <button type="submit" name="tambahkeranjang">Masukin cart</button>
+            </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
