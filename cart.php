@@ -3,6 +3,17 @@
     if(!isset($_SESSION['currentUser'])){
         header('Location: login.php');
     }
+
+    if(isset($_SESSION['currentUser'])) $currentUser = $_SESSION['currentUser'];
+    else $currentUser = [];
+    if (!isset($_SESSION['currentUser'])) header("Location: index.php");
+    $user = mysqli_query($conn, "SELECT * FROM users WHERE us_id = '$currentUser'");
+    $curUser = mysqli_fetch_array($user);
+
+    function rupiah($angka){
+        return "Rp " . number_format($angka,2,',','.');
+    }
+
     if(isset($_SESSION['currentUser'])){
         $result = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
     }
@@ -128,15 +139,124 @@
         html, body{
             width: 100%;
         }
+
+         /* PROFILE */
+         .action {
+            position: fixed;
+            top: 10px;
+            right: 30px;
+        }
+
+        .action .profile {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .action .profile img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .action .menu {
+            position: absolute;
+            top: 120px;
+            right: -10px;
+            background: #fff;
+            width: 200px;
+            box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transition: 0.5s;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .action .menu.active {
+            top: 50px;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .action .menu::before {
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 28px;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            transform: rotate(45deg);
+        }
+
+        .action .menu .username {
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            padding: 15px 0px 0px 0px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .action .menu .printilan {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #cecece;
+        }
+
+        /* .action .menu h3 span {
+            font-size: 14px;
+            color: #cecece;
+            font-weight: 300;
+        } */
+
+        .action .menu ul li {
+            list-style: none;
+            padding: 16px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .action .menu ul li img {
+            max-width: 20px;
+            margin-right: 10px;
+            opacity: 0.5;
+            transition: 0.5s;
+        }
+
+        .action .menu ul li:hover img {
+            opacity: 1;
+        }
+
+        .action .menu ul li a {
+            display: inline-block;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: 0.5s;
+        }
+
+        .action .menu ul li:hover a {
+            color: #ff5d94;
+        }
     </style>
 </head>
 <body style="background-color:#FFDECF;" onload="load_ajax()">
     <div class="container-fluid px-0">
         
-        <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
+    <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
+                <div class="text-white">CATALOG</div>
             </a>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                 <!-- <span class="navbar-toggler-icon"></span> -->
@@ -158,15 +278,23 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
-            <div class="d-flex w-75">
+            <div class="d-flex container-fluid">
                 <div class="input-group">
                     <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
                     <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
                         <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
                     </button>   
                 </div>
+                <form action="">
+                    <button class="d-flex" style="margin-right:80px; border:none; background:none;" formaction="cart.php">
+                        <img src="assets/img/cart.png" alt="iconCart" class="mt-lg-1" style="width:30px; height:30px;">
+                        <a class="text-white mt-lg-2">CART</a>
+                    </button>
+                </form>
+                
+                
             </div>
-            <div class="d-lg-flex justify-content-end d-sm-block">
+            <div class="d-lg-flex d-sm-block">
                 <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
                     <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
                         FILTERS
@@ -196,31 +324,42 @@
                         ?>
                     </ul>
                 </div> -->
-                <div class="row">
-                    <div class="col-1">
-                        <a href="cart.php">
-                            <img src="assets/img/cart.png" alt="iconCart" class="me-1 me-lg-5 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
-                        </a>
-                        <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
+                <!-- PROFILEEEEEEEEEE USERRRRRRR -->
+                <div class="action">
+                    <div class="profile" onclick="menuToggle();">
+                        <img src="temp/nahida2.jpg">
                     </div>
-                    <div class="col-11 mt-4 mt-lg-2">
-                        <!-- <div class="mt-sm-5"> -->
-                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">CATALOG</a>
-                            <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                            <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">ABOUT US</a>
-                            <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                            <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">SIGN IN</a>
-                        <!-- </div> -->
-                    </div>
+                    <div class="menu">
+
+                        <div class="username" style="margin-bottom: -5px">
+                            
+                            <?=$curUser["us_name"]?>
+                        </div>
+                        <div class="printilan" style="margin-bottom: -5px"><?=$curUser["us_username"]?> 
+                        </div>
+                        <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> 
+                        </div> -->
+                        
+                        <ul>
+                        <!-- <li>
+                            <img src="./assets/icons/user.png" /><a href="#">My profile</a>
+                        </li>
+                        <li>
+                            <img src="./assets/icons/settings.png" /><a href="#">Setting</a>
+                        </li>
+                        <li>
+                            <img src="./assets/icons/question.png" /><a href="#">Help</a>
+                        </li> -->
+                            <li>
+                                <img src="assets/img/logout.png" /><a href="index.php">Logout</a>
+                            </li>
+                        </ul>
+                    </div>  
                 </div>
                 
-                
-                
             </div>
-            <!-- <div class="d-flex float-end mt-0 mt-lg-3 mt-lg-0">-->
-                
+
             </div>
-        </div>
         </nav>
     
         <!-- carousel jumbotron -->
@@ -403,20 +542,12 @@
        	  })
        })
     </script>
-    <!-- <?php if(@$_SESSION['sukses']){ ?>
-        <script>
-            swal("Hore! Berhasil Register", {
-                buttons: true,
-                }    ); -->
-            // swal("Good job!", "<?php echo $_SESSION['sukses']; ?>", "success");
-            // Swal.fire({
-            //     title: 'Batal Hapus',
-            //     text: 'Data Anda batal dihapus!',
-            //     icon: 'error',
-            // })
-        <!-- </script> -->
-    <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
-    <!-- <?php unset($_SESSION['sukses']); } ?> -->
-    <!-- <script src="coba.js"></script> -->
+    <script>
+        function menuToggle() {
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active");
+        }
+    </script>
+   
 </body>
 </html>

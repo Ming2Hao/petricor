@@ -282,8 +282,8 @@
                         <div class="username" style="margin-bottom: -5px">
                             <?=$curUser["us_name"]?>
                         </div>
-                        <div class="printilan" style="margin-bottom: -5px"><?=$curUser["us_username"]?> </div>
-                        <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div>
+                        <div class="printilan"><?=$curUser["us_username"]?> </div>
+                        <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div> -->
                         
                         <ul>
                         <!-- <li>
@@ -332,7 +332,7 @@
                                         ?></p>
                                         <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
                                         <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
-                                        <p class="text-danger"><?=$row['it_price'] ?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                                        <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
                                     </div>
                                 </button>
                             </div>

@@ -11,9 +11,10 @@
     // }
     if(isset($_POST["search"])){
         if(isset($_POST["searchbar"])){
+            // echo "<script>alert('haha') </script>";
             $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
-            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'");
-            header('Location: index.php');
+            // $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'");
+            header('Location: catalogue.php');
             // $tempquery="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
             // while($row = $listItem -> fetch_assoc()){
             //     $daftarBarang[] = $row;
@@ -71,7 +72,7 @@
         *{
             /* font-family: 'Josefins Sans'; */
             font-family:'Montserrat';
-            text-transform:capitalize;
+            /* text-transform:capitalize; */
             box-sizing: border-box;
         }
 
@@ -82,6 +83,7 @@
 </head>
 <body style="background-color:#FFDECF;">
     <!-- <div class="container-fluid"> -->
+        <form action="" method="post">
         <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php" name="logodipencet">
@@ -116,43 +118,10 @@
                 </div>
             </div>
             <div class="d-lg-flex d-sm-block container-fluid">
-                <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
-                    <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
-                        FILTERS
-                    </button>
-                    <ul class="dropdown-menu p-2">
-                        <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
-                        <li><button class="dropdown-item" href="#">Name : Descending</button></li>
-                        <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
-                        <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><button class="dropdown-item" href="#">All Products</button></li>
-                    </ul>
-                </div>
-                <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
-                    <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
-                        KATEGORI
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <?php
-                            $resultkategori = mysqli_query($conn, "select * from category"); 
-                            while($row = mysqli_fetch_array($resultkategori)){
-                                ?>
-                                    <li><a class="dropdown-item" href="#"><?=$row["ca_name"]?></a></li>
-                                <?php
-                            }
-                        ?>
-                    </ul>
-                </div>
+               
                 <div class="row">
                     <div class="col-1">
-                        <<form action="">
-                    <button class="d-flex" style="margin-right:80px; border:none; background:none;" formaction="cart.php">
-                        <img src="assets/img/cart.png" alt="iconCart" class="mt-lg-1" style="width:30px; height:30px;">
-                        <a class="text-white mt-lg-2">CART</a>
-                    </button>
-                </form>
+                        <img src="assets/img/cart.png" alt="iconCart" class="me-1 me-lg-5 mt-3 mt-lg-1 ms-lg-2" style="width:36px; height:36px;" id="lebar">
                         <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
                     </div>
                     <div class="col-11 mt-4 mt-lg-2">
@@ -165,46 +134,45 @@
                         <!-- </div> -->
                     </div>
                 </div>
-                
-                
-                
             </div>
-            <!-- <div class="d-flex float-end mt-0 mt-lg-3 mt-lg-0">
-                
-            </div> -->
         </div>
         </nav>
+        </form>
                         
             <!-- munculin gambar -->
-            <form action="" method="post">
-            <div class="mt-3 tes w-100">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="mt-3 container-fluid">
+                <div class="d-flex justify-content-center row row-cols-sm-1 row-cols-md-4 g-4 w-100">
                 <?php
+                
                 // for($i=0; $i<sizeof($daftarBarang); $i++){
-                while($row = mysqli_fetch_array($result)){
+                while($row = mysqli_fetch_assoc($result)){
                 ?>
                         <!-- <form action="tes.php"> -->
-                        <div class="col">
-                            <div class="card" style="width: 300px; height: 280px; box-shadow: #3F4441 12px 15px 15px -20px; border-radius:15px; background-color:#f7f7f7;">
-                                <button class="btn p-1 btnHover" style="border-radius:15px; width: 300px; height:280px;" value="<?=$row["it_id"]?>" name="detaildiklik">
-                                    <div class="bg-image hover-zoom">
-                                        <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="width:200px; top:0; margin-left:auto; margin-right:auto;">
-                                    </div>
-                                    
-                                    <div class="card-body p-0">
-                                        <p class="text-secondary mb-0"><?php
-                                            $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
-                                            $kat = mysqli_query($conn,$querykategori);
-                                            $rowss = mysqli_fetch_array($kat);
-                                            echo $rowss["ca_name"];
-                                        ?></p>
-                                        <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
-                                        <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
-                                        <p class="text-danger"><?=$row['it_price'] ?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
-                                    </div>
-                                </button>
-                            </div>
+                    <div class="col d-flex justify-content-center" style="width: 350px;">
+                        <div class="card" style="width: 300px; height: 280px; box-shadow: #3F4441 12px 15px 15px -20px; border-radius:15px; background-color:#f7f7f7;">
+                        <form action="" method="post">    
+                        <button class="btn p-1 btnHover" style="border-radius:15px; width: 300px; height:280px;" value="<?=$row["it_id"]?>" name="detaildiklik">
+                                <div class="bg-image hover-zoom">
+                                    <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="width:200px; top:0; margin-left:auto; margin-right:auto;">
+                                </div>
+                                
+                                <div class="card-body p-0">
+                                    <p class="text-secondary mb-0">
+                                        <?php
+                                        $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
+                                        $kat = mysqli_query($conn,$querykategori);
+                                        $rowss = mysqli_fetch_assoc($kat);
+                                        echo $rowss["ca_name"];
+                                        ?>
+                                    </p>
+                                    <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
+                                    <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
+                                    <p class="text-danger"><?=$row['it_price'] ?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                                </div>
+                            </button>
+                        </form>
                         </div>
+                    </div>
                         <!-- </form> -->
                         
                 <?php
@@ -226,7 +194,7 @@
                                 else{
                                     ?>
                                         <li class="page-item d-flex">
-                                            <a class="page-link" href="index.php?page=<?=$now-1?>">Previous</a>
+                                            <a class="page-link" href="catalogue.php?page=<?=$now-1?>">Previous</a>
                                         </li>
                                     <?php
                                 }
@@ -236,14 +204,14 @@
                                     if($page==$now){
                                         ?>
                                             <li class="page-item active d-flex" aria-current="page">
-                                                <a class="page-link" href="index.php?page=<?=$page?>"><?=$page?></a>
+                                                <a class="page-link" href="catalogue.php?page=<?=$page?>"><?=$page?></a>
                                             </li>
                                         <?php
                                     }
                                     else{
                                         ?>
                                             <li class="page-item d-flex">
-                                                <a class="page-link" href="index.php?page=<?=$page?>"><?=$page?></a>
+                                                <a class="page-link" href="catalogue.php?page=<?=$page?>"><?=$page?></a>
                                             </li>
                                         <?php
                                     }
@@ -260,7 +228,7 @@
                                 else{
                                     ?>
                                         <li class="page-item d-flex">
-                                            <a class="page-link" href="index.php?page=<?=$now+1?>">Next</a>
+                                            <a class="page-link" href="catalogue.php?page=<?=$now+1?>">Next</a>
                                         </li>
                                     <?php
                                 }
@@ -268,31 +236,13 @@
                         </ul>
                     </nav>
             </div>
-            
-        </form>
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
             &#169; 2022 Erefir Indonesia
         </footer>
-    <!-- </div> -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
-    <!-- <?php if(@$_SESSION['sukses']){ ?>
-        <script>
-            swal("Hore! Berhasil Register", {
-                buttons: true,
-                }    ); -->
-            // swal("Good job!", "<?php echo $_SESSION['sukses']; ?>", "success");
-            // Swal.fire({
-            //     title: 'Batal Hapus',
-            //     text: 'Data Anda batal dihapus!',
-            //     icon: 'error',
-            // })
-        <!-- </script> -->
-    <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
-    <!-- <?php unset($_SESSION['sukses']); } ?> -->
-    <!-- <script src="coba.js"></script> -->
 </body>
 </html>

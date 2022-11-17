@@ -250,8 +250,8 @@ $row = mysqli_fetch_assoc($listItem);
                             <div class="username" style="margin-bottom: -5px">
                                 <?=$curUser["us_name"]?>
                             </div>
-                            <div class="printilan" style="margin-bottom: -5px"><?=$curUser["us_username"]?> </div>
-                            <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div>
+                            <div class="printilan"><?=$curUser["us_username"]?> </div>
+                            <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div> -->
                             
                             <ul>
                             <li>
