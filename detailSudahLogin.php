@@ -1,7 +1,7 @@
 <?php
 require_once("connection.php");
 function rupiah($angka){
-    return "Rp " . number_format($angka,2,',','.');
+    return "IDR " . number_format($angka,2,',','.');
 }
 // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
 if(isset($_SESSION['currentUser'])) $currentUser = $_SESSION['currentUser'];

@@ -20,7 +20,7 @@
         if(isset($_POST["searchbar"])){
             $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
             $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'");
-            header('Location: index.php');
+            header('Location: catalogAfterLogin.php');
             // $tempquery="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
             // while($row = $listItem -> fetch_assoc()){
             //     $daftarBarang[] = $row;
@@ -48,7 +48,7 @@
     $now=$page;
 
     function rupiah($angka){
-        return "Rp " . number_format($angka,2,',','.');
+        return "IDR " . number_format($angka,2,',','.');
     }
 ?>
 <!DOCTYPE html>
@@ -227,22 +227,22 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
-            <div class="d-flex container-fluid">
-                <div class="input-group">
-                    <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
-                        <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                    </button>   
-                </div>
-                <form action="">
-                    <button class="d-flex" style="margin-right:80px; border:none; background:none;" formaction="cart.php">
-                        <img src="assets/img/cart.png" alt="iconCart" class="mt-lg-1" style="width:30px; height:30px;">
-                        <a class="text-white mt-lg-2">CART</a>
-                    </button>
+            <div class="container-fluid">
+                <form action="" method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control ms-lg-2" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
+                        <button class="rounded-end me-lg-3 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
+                            <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
+                        </button>   
+                    </div>
                 </form>
-                
-                
             </div>
+            <form class="">
+                <a href="cart.php" class="navbar-brand" style="margin-right: 80px;">
+                    <img src="assets/img/cart.png" alt="iconCart" class="mt-lg-1" style="width:30px; height:30px;">
+                    <div class="text-white mt-lg-2" style="font-size: 15px;">CART</div>
+                </a>
+            </form>  
             <div class="d-lg-flex d-sm-block">
                 <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
                     <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
@@ -332,7 +332,7 @@
                                         ?></p>
                                         <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
                                         <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
-                                        <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                                        <p class="text-danger" style="text-transform:capitalize;"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
                                     </div>
                                 </button>
                             </div>

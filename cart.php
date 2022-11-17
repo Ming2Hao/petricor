@@ -11,45 +11,52 @@
     $curUser = mysqli_fetch_array($user);
 
     function rupiah($angka){
-        return "Rp " . number_format($angka,2,',','.');
+        return "IDR " . number_format($angka,2,',','.');
     }
 
     if(isset($_SESSION['currentUser'])){
         $result = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
     }
     if(isset($_POST["cekout"])){
-        $nextht = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ht_id,3,3) AS UNSIGNED)) FROM h_transaksi");
-        $nextht=mysqli_fetch_row($nextht)[0];
-        $nextht=$nextht+1;
-        $nextht="HT".str_pad($nextht,3,"0",STR_PAD_LEFT);
-        $_SESSION["notransaksi"]=$nextht;
-        $curruser=$_SESSION["currentUser"];
-        $total=10000;
-        $result22 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
-        while($row = mysqli_fetch_assoc($result22)){
-            $item2 = mysqli_query($conn,"SELECT * from items where it_id='".$row["ct_it_id"]."'");
-            $item2=mysqli_fetch_assoc($item2);
-            $total=$total+($item2["it_price"]*$row["ct_qty"]);
+        $tempuser=$_SESSION['currentUser'];
+        $cek = mysqli_num_rows(mysqli_query($conn,"SELECT ct_id FROM cart WHERE ct_us_id='$tempuser'"));
+        if($cek==0){
+            
         }
-        $tanggal=date("Y-m-d");
-        $iht_query = "INSERT INTO `h_transaksi`(`ht_id`, `ht_us_id`, `ht_date`, `ht_total`) VALUES ('$nextht','$curruser','$tanggal','$total')";
-        $resht = $conn->query($iht_query);
-
-        $result33 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
-        while($row = mysqli_fetch_assoc($result33)){
-            $nextdt = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(dt_id,3,3) AS UNSIGNED)) FROM d_transaksi");
-            $nextdt=mysqli_fetch_row($nextdt)[0];
-            $nextdt=$nextdt+1;
-            $nextdt="DT".str_pad($nextdt,3,"0",STR_PAD_LEFT);
-            $ctitid=$row["ct_it_id"];
-            $ctqty=$row["ct_qty"];
-            $idt_query = "INSERT INTO `d_transaksi`(`dt_id`, `dt_it_id`, `dt_ht_id`, `dt_qty`) VALUES ('$nextdt','$ctitid','$nextht','$ctqty')";
-            $resdt = $conn->query($idt_query);
+        else{
+            $nextht = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ht_id,3,3) AS UNSIGNED)) FROM h_transaksi");
+            $nextht=mysqli_fetch_row($nextht)[0];
+            $nextht=$nextht+1;
+            $nextht="HT".str_pad($nextht,3,"0",STR_PAD_LEFT);
+            $_SESSION["notransaksi"]=$nextht;
+            $curruser=$_SESSION["currentUser"];
+            $total=10000;
+            $result22 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+            while($row = mysqli_fetch_assoc($result22)){
+                $item2 = mysqli_query($conn,"SELECT * from items where it_id='".$row["ct_it_id"]."'");
+                $item2=mysqli_fetch_assoc($item2);
+                $total=$total+($item2["it_price"]*$row["ct_qty"]);
+            }
+            $tanggal=date("Y-m-d");
+            $iht_query = "INSERT INTO `h_transaksi`(`ht_id`, `ht_us_id`, `ht_date`, `ht_total`) VALUES ('$nextht','$curruser','$tanggal','$total')";
+            $resht = $conn->query($iht_query);
+    
+            $result33 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+            while($row = mysqli_fetch_assoc($result33)){
+                $nextdt = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(dt_id,3,3) AS UNSIGNED)) FROM d_transaksi");
+                $nextdt=mysqli_fetch_row($nextdt)[0];
+                $nextdt=$nextdt+1;
+                $nextdt="DT".str_pad($nextdt,3,"0",STR_PAD_LEFT);
+                $ctitid=$row["ct_it_id"];
+                $ctqty=$row["ct_qty"];
+                $idt_query = "INSERT INTO `d_transaksi`(`dt_id`, `dt_it_id`, `dt_ht_id`, `dt_qty`) VALUES ('$nextdt','$ctitid','$nextht','$ctqty')";
+                $resdt = $conn->query($idt_query);
+            }
+            $delet_query2 = "DELETE from cart where ct_us_id='".$_SESSION['currentUser']."'";
+            $resdelet2= $conn->query($delet_query2);
+            
+            header('Location: terimakasih.php');
         }
-        $delet_query2 = "DELETE from cart where ct_us_id='".$_SESSION['currentUser']."'";
-        $resdelet2= $conn->query($delet_query2);
-        
-        header('Location: terimakasih.php');
     }
     if(isset($_POST["delet"])){
         $delet_query = "DELETE from cart where ct_id='".$_POST["delet"]."'";
@@ -254,9 +261,9 @@
         
     <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" name="logodipencet">
+            <a class="navbar-brand" href="catalogAfterLogin.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">CATALOG</div>
+                <div class="text-white">CART</div>
             </a>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                 <!-- <span class="navbar-toggler-icon"></span> -->
@@ -361,29 +368,6 @@
 
             </div>
         </nav>
-    
-        <!-- carousel jumbotron -->
-        <div id="carouselExampleFade" class="carousel slide carousel-fade px-lg-5 py-lg-3" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                <img src="temp/bg1.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
-                </div>
-                <div class="carousel-item">
-                <img src="temp/bg2.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
-                </div>
-                <div class="carousel-item">
-                <img src="temp/bg3.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <img src="assets/img/previous.jpg" alt="prev" style="width: 30px; height:30px; background:whitesmoke;">
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <img src="assets/img/next.png" alt="next" style="width: 30px; height:30px; background:whitesmoke;">
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
 
         <!-- cart-->
         <div class="px-3 mx-5">
@@ -426,43 +410,17 @@
                 <div class="col-3" style="background-color:#f7f7f7;">
                 ongkir: 10000
                 <form action="#" method="post">
-                    <button type="submit" value="" name="cekout" id="" class="btn w-100 bg-primary text-white">
-                        Checkout
+                    <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" name="cekout" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
                     </button>
+        
                 </form>
-                </div>
-            </div>
-        </div>
-        <div class="fw-bolder" style="height: 130px; background-color:#BA7967; color:#3F4441;">
-            <div class="row w-100">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-4 mt-lg-3">
-                    <h1>REGISTER NOW FOR SPECIAL OFFERS</h1>
-                </div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-3 mt-5">
-                    <div class="mt-2">
-                        <form action="" method="get">
-                            <div class="form-field">
-                                <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="input">
-                                <div class="border-line">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-2" style="margin-top:65px;">
-                    <button type="submit" style="background:none; border: 1px white solid">
-                        <img src="assets/img/arrow.png" alt="" style="width: 25px; height:25px;">
-                    </button>
                 </div>
             </div>
         </div>
         <div class="befooter2" style="height: 100px; background-color:#FFDECF;">
                 
         </div>
-        <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+        <footer class="text-center p-2 fixed-bottom" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
             &#169; 2022 Erefir Indonesia
         </footer>
     </div>
