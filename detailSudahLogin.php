@@ -286,7 +286,7 @@ $row = mysqli_fetch_assoc($listItem);
             </button>
             <?=$row["it_desc"]?>
             <form action="#" method="post">
-                <input type="number" name="quantiti" id="">
+                <input type="number" name="quantiti" id="" value="1" min="1">
                 <button type="submit" name="tambahkeranjang">Masukin cart</button>
             </form>
         </div>

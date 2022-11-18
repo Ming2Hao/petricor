@@ -150,7 +150,7 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
-            <div class="d-flex w-75">
+            <div class="d-flex w-md-50 w-75">
                 <div class="input-group">
                     <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
                     <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
@@ -209,9 +209,6 @@
                 
                 
             </div>
-            <!-- <div class="d-flex float-end mt-0 mt-lg-3 mt-lg-0">-->
-                
-            <!-- </div> -->
         </div>
         </nav>
     
@@ -240,7 +237,7 @@
 
         <!-- 4 REKOMENDASI TERBAIK-->
         <div class="my-4 tes">
-            <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <?php
             // for($i=0; $i<sizeof($daftarBarang); $i++){
             // $ctr = 1;
@@ -277,13 +274,12 @@
             </div>
         </div>
         <div class="fw-bolder" style="height: 130px; background-color:#BA7967; color:#3F4441;">
-            <div class="row w-100">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-4 mt-lg-3">
-                    <h1>REGISTER NOW FOR SPECIAL OFFERS</h1>
+            <div class="row w-100 container-fluid mx-0">
+                <div class="col-lg-1 me-lg-5"></div>
+                <div class="col-lg-4 mt-lg-3 me-lg-5 text-white">
+                    <h1 class="fw-bolder">REGISTER NOW FOR SPECIAL OFFERS</h1>
                 </div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-3 mt-5">
+                <div class="col-lg-4 mt-5">
                     <div class="mt-2">
                         <form action="" method="get">
                             <div class="form-field">
@@ -295,16 +291,90 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-2" style="margin-top:65px;">
+                <div class="col-lg-1" style="margin-top:65px;">
                     <button type="submit" style="background:none; border: 1px white solid">
                         <img src="assets/img/arrow.png" alt="" style="width: 25px; height:25px;">
                     </button>
                 </div>
             </div>
         </div>
-        <div class="befooter2" style="height: 100px; background-color:#FFDECF;">
-                
+        <!-- <div class="befooter2" style="height: 100px; background-color:#FFDECF;"> -->
+        <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
+            <div class="col-lg-1 me-lg-5"></div>
+            <div class="col-lg-2 mt-lg-3">
+                <h5 class="fw-bold mb-2">Categories</h5>
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-5">
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Bangku</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Tulis</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-5">
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Utilitas</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Karpet</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Lampu</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Vas</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-5">
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Keranjang</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Linen</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Bingkai</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-3">
+                <h5 class="fw-bold mb-2">Legal</h5>
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="" style="text-decoration:none; color:#57615b">Privacy Policy</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Terms and Conditions</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Delivery Terms</a></li>
+                </ul>
+                <h5 class="fw-bold mb-2 mt-2">Support</h5>
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="" style="text-decoration:none; color:#57615b">Contact Us</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Payment</a></li>
+                </ul>
+            </div>
+            <!-- <div class="col-lg-2 mt-lg-3"></div> -->
         </div>
+        <!-- </div> -->
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
             &#169; 2022 Erefir Indonesia
         </footer>

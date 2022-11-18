@@ -388,10 +388,11 @@
                         <div class="col-9 border-start border-end mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                             <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
                             <!-- <div class="p-0 m-0"> -->
-                                <?=$item["it_price"]?>X
+                                <?=rupiah($item["it_price"])?>X
                                 <input type="number" name="<?=$row["ct_id"]?>" class="idupdown" value="<?=$row["ct_qty"]?>" min="0">
-                                =
-                                <p class="<?=$row["ct_id"]?>idnumericupdown">asd</p>
+                                <br>
+                                <b class="d-flex"> TOTAL : &nbsp; <p class="<?=$row["ct_id"]?>idnumericupdown">asd</p> </b> 
+                                <!-- HARUS BISA BRUBAH TOTALNYA TANPA DIREFRESH -->
                             <!-- </div> -->
                         </div>
                         <div class="col-2 border-start mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
@@ -456,7 +457,7 @@
                     $items=mysqli_fetch_assoc($items);
                     ?>
                     // alert("halo");
-                    $('.<?=$row["ct_id"]?>idnumericupdown').html('<?=$row["ct_qty"]*$item["it_price"]?>');
+                    $('.<?=$row["ct_id"]?>idnumericupdown').html('<?=rupiah($row["ct_qty"]*$item["it_price"])?>');
                     <?php
                 }    
             ?>

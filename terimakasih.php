@@ -257,6 +257,7 @@
             <a class="navbar-brand" href="#" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
                 <div class="text-white">THANK YOU</div>
+                
             </a>
             <!-- <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;"> -->
                 <!-- <span class="navbar-toggler-icon"></span> -->
@@ -382,10 +383,12 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div> -->
-
-        <h1>Terimakasih telah memesan</h1>
-        <h3>No Transaksi: <?=$_SESSION["notransaksi"]?></h3>
-        <a href="contactUs.php">Contact Us</a>
+        <div class="text-center mt-3">
+            <h1>Terimakasih telah memesan <?=$curUser["us_name"]?> di Erefiv</h1>
+            <div class="text-dark">SILAKAN BERBELANJA KEMBALI SEMOGA HARIMU MENYENANGKAN DAN DIBERKATI</div>
+            <h3>No Transaksi: <?=$_SESSION["notransaksi"]?></h3>
+            <a href="contactUs.php">Contact Us</a>
+        </div>
         <div class="befooter2" style="height: 100px; background-color:#FFDECF;">
                 
         </div>
