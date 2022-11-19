@@ -1,5 +1,8 @@
 <?php
     require_once("connection.php");
+    function rupiah($angka){
+        return "IDR " . number_format($angka,2,',','.');
+    }
     // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
     $listItem = mysqli_query($conn,"SELECT * from items");
     // $tempquery="SELECT * from items";
@@ -71,7 +74,7 @@
         *{
             /* font-family: 'Josefins Sans'; */
             font-family:'Montserrat';
-            text-transform:capitalize;
+            /* text-transform:capitalize; */
             box-sizing: border-box;
         }
 
@@ -120,6 +123,24 @@
 
         html, body{
             width: 100%;
+        }
+
+        /* CAROUSEL THINGS */
+        .drk:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: black;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .carousel-caption {
+        z-index: 2;
         }
     </style>
 </head>
@@ -189,18 +210,22 @@
                     </ul>
                 </div> -->
                 <div class="row">
-                    <div class="col-1">
-                        <a href="cart.php">
-                            <img src="assets/img/cart.png" alt="iconCart" class="me-1 me-lg-5 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
+                    <div class="col-lg-3">
+                        <form action="">
+                        <a hred="cart.php" class="d-flex">
+                            <img src="assets/img/cart.png" alt="iconCart" class="me-1 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
+                            <div class="text-white mt-lg-2">CART</div>
                         </a>
+                        </form>
                         <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
                     </div>
-                    <div class="col-11 mt-4 mt-lg-2">
+                    <div class="col-lg-9 mt-4 mt-lg-2">
                         <!-- <div class="mt-sm-5"> -->
-                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">CATALOG</a>
+                            <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span>
+                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 ms-5 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">CATALOG</a>
                             <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                            <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">ABOUT US</a>
-                            <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
+                            <!-- <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">ABOUT US</a>
+                            <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
                             <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">SIGN IN</a>
                         <!-- </div> -->
                     </div>
@@ -215,22 +240,34 @@
         <!-- carousel jumbotron -->
         <div id="carouselExampleFade" class="carousel slide carousel-fade px-lg-5 py-lg-3" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                <img src="temp/bg1.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
+                <div class="carousel-item drk active">
+                    <img src="temp/bg1.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px; z-index:-1;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3 class="fw-bold">Welcome to Erefiv</h3>
+                        <p>We have many furniture to beautify your house</p>
+                    </div>
                 </div>
-                <div class="carousel-item">
-                <img src="temp/bg2.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
+                <div class="carousel-item drk">
+                    <img src="temp/bg2.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3 class="fw-bold">Welcome to Erefiv</h3>
+                        <p>We have many furniture to comfort your house</p>
+                    </div>    
                 </div>
-                <div class="carousel-item">
-                <img src="temp/bg3.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
+                <div class="carousel-item drk">
+                    <img src="temp/bg3.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3 class="fw-bold">Welcome to Erefiv</h3>
+                        <p>We have many furniture to embelish your house</p>
+                    </div>    
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <img src="assets/img/previous.jpg" alt="prev" style="width: 30px; height:30px; background:whitesmoke;">
+                <img src="assets/img/previous.jpg" alt="prev" style="width: 30px; height:30px; opacity:50%; background:whitesmoke; border-radius:25px; padding: 0px 2px 0px 2px;">
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <img src="assets/img/next.png" alt="next" style="width: 30px; height:30px; background:whitesmoke;">
+                <img src="assets/img/next.png" alt="next" style="width: 30px; height:30px; opacity:50%; background:whitesmoke; border-radius:25px; padding: 0px 2px 0px 2px;">
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
@@ -260,7 +297,7 @@
                                     ?></p>
                                     <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
                                     <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
-                                    <p class="text-danger"><?=$row['it_price'] ?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                                    <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
                                 </div>
                             </button>
                         </div>
