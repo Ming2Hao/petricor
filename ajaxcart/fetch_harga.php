@@ -12,9 +12,4 @@
     $temp=$cartnow["ct_it_id"];
     $itemnya = mysqli_query($conn,"SELECT * FROM items WHERE it_id='$temp'");
     $itemnya=mysqli_fetch_assoc($itemnya);
-
-
-
-    $totals=$cartnow["ct_qty"]*$itemnya["it_price"];
-    echo "<p>".$totals."</p>";
     ?>
