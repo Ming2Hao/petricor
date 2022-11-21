@@ -4,38 +4,42 @@ function rupiah($angka){
     return "IDR " . number_format($angka,2,',','.');
 }
 // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
-if(isset($_SESSION['currentUser'])) $currentUser = $_SESSION['currentUser'];
-else $currentUser = [];
-if (!isset($_SESSION['currentUser'])) header("Location: index.php");
+// if(isset($_SESSION['currentUser'])) $currentUser = $_SESSION['currentUser'];
+// else $currentUser = [];
+// if (!isset($_SESSION['currentUser'])) header("Location: index.php");
 
-$user = mysqli_query($conn, "SELECT * FROM users WHERE us_id = '$currentUser'");
-$curUser = mysqli_fetch_array($user);
+// $user = mysqli_query($conn, "SELECT * FROM users WHERE us_id = '$currentUser'");
+// $curUser = mysqli_fetch_array($user);
 
-$listItem = mysqli_query($conn,"SELECT * from items");
+// $listItem = mysqli_query($conn,"SELECT * from items");
 // $tempquery="SELECT * from items";
-if(!isset($_SESSION["querysekarang"])){
-    $_SESSION["querysekarang"]="SELECT * from items";
-}
+// if(!isset($_SESSION["querysekarang"])){
+//     $_SESSION["querysekarang"]="SELECT * from items";
+// }
+
 if(isset($_POST["tambahkeranjang"])){
-    
-    $cek=0;
-    $itemdipilih=$_SESSION["itemsekarang"];
-    $usersekarang=$_SESSION['currentUser'];
-    $tempqty=$_POST["quantiti"];
-    $cek = mysqli_num_rows(mysqli_query($conn,"SELECT ct_id FROM cart WHERE ct_it_id='$itemdipilih'"));
-    if($cek==0){
-        $nextinid = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ct_id,3,3) AS UNSIGNED)) FROM cart");
-        $nextinid=mysqli_fetch_row($nextinid)[0];
-        $nextinid=$nextinid+1;
-        $nextinid="CT".str_pad($nextinid,3,"0",STR_PAD_LEFT);
-        $qwery="INSERT INTO `cart`(`ct_id`, `ct_it_id`, `ct_us_id`, `ct_qty`) VALUES ('$nextinid','$itemdipilih','$usersekarang','$tempqty')";
-        $result = mysqli_query($conn, $qwery);
+    if (!isset($_SESSION['currentUser'])) {
+        header("Location: login.php");
+    } else {
+        $cek=0;
+        $itemdipilih=$_SESSION["itemIni"];
+        $usersekarang=$_SESSION['currentUser'];
+        $tempqty=$_POST["quantiti"];
+        $cek = mysqli_num_rows(mysqli_query($conn,"SELECT ct_id FROM cart WHERE ct_it_id='$itemdipilih'"));
+        if($cek==0){
+            $nextinid = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ct_id,3,3) AS UNSIGNED)) FROM cart");
+            $nextinid=mysqli_fetch_row($nextinid)[0];
+            $nextinid=$nextinid+1;
+            $nextinid="CT".str_pad($nextinid,3,"0",STR_PAD_LEFT);
+            $qwery="INSERT INTO `cart`(`ct_id`, `ct_it_id`, `ct_us_id`, `ct_qty`) VALUES ('$nextinid','$itemdipilih','$usersekarang','$tempqty')";
+            $result = mysqli_query($conn, $qwery);
+        }
+        else{
+            $update_query88 = "UPDATE cart SET `ct_qty`=ct_qty+$tempqty WHERE ct_us_id='$usersekarang' and ct_it_id='$itemdipilih'";
+            $res88 = $conn->query($update_query88);
+        }
+        header('Location: detailBelumLogin.php');
     }
-    else{
-        $update_query88 = "UPDATE cart SET `ct_qty`=ct_qty+$tempqty WHERE ct_us_id='$usersekarang' and ct_it_id='$itemdipilih'";
-        $res88 = $conn->query($update_query88);
-    }
-    header('Location: detailSudahLogin.php');
 }
 // while($row = $listItem -> fetch_assoc()){
 //     $daftarBarang[] = $row;
@@ -51,8 +55,9 @@ if(isset($_POST["search"])){
         // }
     }
 }
-$listItem = mysqli_query($conn,"SELECT * from items where it_id='".$_SESSION["itemsekarang"]."'");
+$listItem = mysqli_query($conn,"SELECT * from items where it_id='".$_SESSION["itemIni"]."'");
 $row = mysqli_fetch_assoc($listItem);
+// var_dump($row); die;
     // $_SESSION["message"] = "HAHAHA"
 ?>
 <!DOCTYPE html>
@@ -216,9 +221,9 @@ $row = mysqli_fetch_assoc($listItem);
     </style>
 </head>
 <body style="background-color:#f5f5f5;">
-    <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
+<nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="catalogAfterLogin.php" name="logodipencet">
+            <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
                 <div class="text-white">DETIL BARANG</div>
             </a>
@@ -227,47 +232,83 @@ $row = mysqli_fetch_assoc($listItem);
                 <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="d-flex container-fluid">
-                    <div class="input-group">
-                        <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                        <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
-                            <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                        </button>   
-                    </div>
-                    <form action="">
-                        <button class="d-flex" style="margin-right:80px; border:none; background:none;" formaction="cart.php">
-                            <img src="assets/img/cart.png" alt="iconCart" class="mt-lg-1" style="width:30px; height:30px;">
-                            <a class="text-white mt-lg-2">KERANJANG</a>
-                        </button>
-                    </form>
-                </div>
-                <div class="d-lg-flex d-sm-block">
-                    <div class="action">
-                        <div class="profile" onclick="menuToggle();">
-                            <img src="temp/nahida2.jpg">
-                        </div>
-                        <div class="menu">
-                            <div class="username" style="margin-bottom: -5px">
-                                <?=$curUser["us_name"]?>
-                            </div>
-                            <div class="printilan"><?=$curUser["us_username"]?> </div>
-                            <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div> -->
-                            
-                            <ul>
-                            <li>
-                                <img src="assets/img/logout.png" /><a href="index.php">Logout</a>
-                            </li>
-                            </ul>
-                        </div>  
-                    </div>
+            <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item me-3">
+                    <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
+                </li> -->
+                <!-- <li class="nav-item me-3">
+                    <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
+                </li> -->
+            <!-- </ul> -->
+            <!-- <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+            <div class="d-flex w-md-50 w-75">
+                <div class="input-group">
+                    <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
+                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
+                        <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
+                    </button>   
                 </div>
             </div>
+            <div class="d-lg-flex justify-content-end d-sm-block">
+                <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
+                    <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
+                        FILTERS
+                    </button>
+                    <ul class="dropdown-menu p-2">
+                        <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
+                        <li><button class="dropdown-item" href="#">Name : Descending</button></li>
+                        <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
+                        <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><button class="dropdown-item" href="#">All Products</button></li>
+                    </ul>
+                </div> -->
+                <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
+                    <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
+                        KATEGORI
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                       
+                    </ul>
+                </div> -->
+                <!-- <div class="row"> -->
+                    <!-- <div class="col-lg-3"> -->
+                        <!-- <form action="">
+                        <a hred="cart.php" class="d-flex">
+                            <img src="assets/img/cart.png" alt="iconCart" class="me-1 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
+                            <div class="text-white mt-lg-2">CART</div>
+                        </a>
+                        </form> -->
+                        <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
+                    <!-- </div> -->
+                    <!-- <div class="col-lg-12 mt-4 mt-lg-2"> -->
+                        <!-- <div class="mt-sm-5"> -->
+                            <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
+                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 ms-5 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
+                            <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                            <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                            <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                            <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+                
+                
+                
+            </div>
         </div>
-    </nav>
+        </nav>
     <div class="row w-100">
         <div class="col-lg-4 col-sm-12 col-md-12">
             <div class="bg-image hover-zoom">
-                <a href="catalogAfterLogin.php"><img src="assets/img/return.png" alt="" style="width:25px; z-index:2;" class="mt-lg-2 ms-lg-3"></a>
+                <a href="catalogue.php"><img src="assets/img/return.png" alt="" style="width:25px; z-index:2;" class="mt-lg-2 ms-lg-3"></a>
                 <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="z-index:-1; margin-top:-90px; width:500px; top:0; margin-left:auto; margin-right:auto;">
                 <div class="text-center" style="margin-top: -80px;">
                     <?php

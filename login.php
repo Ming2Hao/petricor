@@ -151,14 +151,14 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">LOGIN</div>
+                <div class="text-white">MASUK</div>
             </a>
             <div class= "mt-4 mt-lg-0 text-end">
-                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">ABOUT US</a>
+                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
                 <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                <a href="register.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">SIGN UP</a>
+                <a href="register.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">DAFTAR</a>
                 <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">SIGN IN</a>
+                <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>
         </div>
     </nav>
@@ -167,7 +167,7 @@
             <img src="assets/img/bgRegist.jpg" alt="" style="width: 625px; height:608px;" class="gambar">
         </div>
         <div class="col-lg-7 col-md-12 col-sm-12 p-3 mt-lg-2">
-            <h1 class="fw-bolder px-lg-4">LOGIN</h1>
+            <h1 class="fw-bolder px-lg-4">MASUK</h1>
             <form class="px-lg-4 pe-0 pt-2" method="POST">
                 <div class="mt-2">
                     <div class="form-field">
@@ -186,7 +186,7 @@
                     </div>
                 </div>
                 <div class="text-end mt-0">
-                    <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnLogin">Login</button>
+                    <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnLogin">Masuk</button>
                 </div>
             </form>
         </div>

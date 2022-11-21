@@ -33,3 +33,20 @@ $exeresult = $tempresult->get_result();
 while ($row = mysqli_fetch_array($exeresult)) {
     $result[] = $row;
 }
+
+////////////////////////////////////////////////////////////////////////////////////
+    <!-- <?php if(@$_SESSION['sukses']){ ?>
+        <script>
+            swal("Hore! Berhasil Register", {
+                buttons: true,
+                }    ); -->
+            // swal("Good job!", "<?php echo $_SESSION['sukses']; ?>", "success");
+            // Swal.fire({
+            //     title: 'Batal Hapus',
+            //     text: 'Data Anda batal dihapus!',
+            //     icon: 'error',
+            // })
+        <!-- </script> -->
+    <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
+    <!-- <?php unset($_SESSION['sukses']); } ?> -->
+    <!-- <script src="coba.js"></script> -->

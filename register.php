@@ -1,6 +1,10 @@
 <?php
     require_once("connection.php");
     $result = mysqli_query($conn,"SELECT * from users");
+
+    if(isset($_SESSION['emailPassing'])) $emailYangDipassing = $_SESSION['emailPassing'];
+    else $emailYangDipassing = [];
+
     if(isset($_POST["btnRegister"])){
         $name = $_POST["name"];
         $username = $_POST["username"];
@@ -165,14 +169,14 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">REGISTER</div>
+                <div class="text-white">DAFTAR</div>
             </a>
             <div class= "mt-4 mt-lg-0 text-end">
-                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">ABOUT US</a>
+                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
                 <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">SIGN UP</a>
+                <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">DAFTAR</a>
                 <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">SIGN IN</a>
+                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>
         </div>
     </nav>
@@ -181,11 +185,11 @@
             <img src="assets/img/bgRegist.jpg" alt="" style="width: 625px;" class="gambar">
         </div>
         <div class="col-lg-7 col-md-12 col-sm-12 p-3 mt-lg-2">
-            <h1 class="fw-bolder px-lg-4">REGISTER</h1>
+            <h1 class="fw-bolder px-lg-4">DAFTAR</h1>
             <form class="px-lg-4 pe-0 pt-2" method="POST">
                 <div class="mt-2">
                     <div class="form-field">
-                        <label>Name <span class="text-danger">*</span></label>
+                        <label>Nama <span class="text-danger">*</span></label>
                         <input type="text" name="name" class="input" autocomplete="off">
                         <div class="border-line">
                         </div>
@@ -200,9 +204,21 @@
                     </div>
                 </div>
                 <div class="mt-2">
-                    <div class="form-field">
+                    <?php
+                        if(isset($_SESSION['emailPassing'])){
+                    ?>
+                        <div class="form-field active">
                         <label>Email <span class="text-danger">*</span></label>
-                        <input type="email" name="email" class="input" autocomplete="off">
+                        <input type='email' name='email' class='input' autocomplete='off' value='<?=$emailYangDipassing?>'>
+                    <?php
+                        } else {
+                    ?>
+                        <div class="form-field">
+                        <label>Email <span class="text-danger">*</span></label>
+                        <input type='email' name='email' class='input' autocomplete='off'>
+                    <?php
+                        }
+                    ?>
                         <div class="border-line">
                         </div>
                     </div>
@@ -217,18 +233,18 @@
                 </div>
                 <div class="mt-2">
                     <div class="form-field">
-                        <label>Confirm Password <span class="text-danger">*</span></label>
+                        <label>Konfirmasi Password <span class="text-danger">*</span></label>
                         <input type="password" id="cpassword" name="cpassword" class="input" autocomplete="off">
                         <i class="fa-solid fa-eye" id="eyes"></i>
                         <div class="border-line"></div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label>Date of Birth <span class="text-danger">*</span></label>
+                    <label>Tanggal Lahir <span class="text-danger">*</span></label>
                     <input id="startDate" class="form-control" type="date" style="background:transparent;" name="dob">
                 </div>
                 <div class="mb-1">
-                    <label class="me-3">Gender (OPTIONAL)</label>
+                    <label class="me-3">Jenis Kelamin (OPSIONAL)</label>
                     <div class="form-check form-check-inline mt-1">
                         <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="man">
                         <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
@@ -239,22 +255,22 @@
                     </div>
                 </div>
                 <br>
-                <h6 class="fw-bold mt-2">Erefiv Policy</h6>
+                <h6 class="fw-bold mt-2">Kebijaksanaan Erefiv</h6>
                 <span style="font-size:14px">
-                    Use of Personal Data for Marketing Purposes & Email Marketing Messages by erefiv. I understand erefiv will use my personal data for marketing and promotional purposes as set out in the Privacy Policy. I further understand that my email address, and other personal data provided will be used to send me information about the erefiv brand and its products through in-app notifications and email marketing messages to the email provided to create this account. 
+                Penggunaan Data Pribadi untuk Tujuan Pemasaran & Pesan Pemasaran Email oleh erefiv. Saya memahami erefiv akan menggunakan data pribadi saya untuk tujuan pemasaran dan promosi sebagaimana diatur dalam Kebijakan Privasi. Saya selanjutnya memahami bahwa alamat email saya, dan data pribadi lain yang diberikan akan digunakan untuk mengirimi saya informasi tentang merek erefiv dan produknya melalui pemberitahuan dalam aplikasi dan pesan pemasaran email ke email yang diberikan untuk membuat akun ini.
                 </span>
                 <br>
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-11">
                         <input type="checkbox" name="agree" id="">
                         <span style="font-size:14px;">
-                            &emsp13; By checked the "Sign Up" button, I agree to receive erefiv news by e-mail.
+                            &emsp13; Dengan mencentang tombol "Daftar", saya setuju untuk menerima berita erefiv melalui email.
                         </span>
                     </div>
                 </div>
                 
                 <div class="text-end mt-3">
-                    <button type="submit" class="mt-3 btn ps-4 pe-4 fw-bold text-center" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnRegister">Register</button>
+                    <button type="submit" class="mt-3 btn ps-4 pe-4 fw-bold text-center" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnRegister">Daftar</button>
                 </div>
             </form>
         </div>
@@ -283,14 +299,14 @@
 
 
         $(document).ready(function(){
-       	  $(".input").focus(function(){
-       	  	 $(this).parent(".form-field").addClass("active")
-       	  })
-       	  $(".input").blur(function(){
-       	  	 if($(this).val()==""){
-       	  	   $(this).parent(".form-field").removeClass("active")
-       	  	}
-       	  })
+            $(".input").focus(function(){
+                $(this).parent(".form-field").addClass("active")
+            })
+            $(".input").blur(function(){
+                if($(this).val()==""){
+                    $(this).parent(".form-field").removeClass("active")
+                } 
+            })
        })
     </script>
 </body>

@@ -5,6 +5,8 @@
     }
     // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
     $listItem = mysqli_query($conn,"SELECT * from items");
+    if (isset($_SESSION['currentUser'])) unset($_SESSION['currentUser']);
+    if (isset($_SESSION['emailPassing'])) unset($_SESSION['emailPassing']);
     // $tempquery="SELECT * from items";
     if(!isset($_SESSION["querysekarang"])){
         $_SESSION["querysekarang"]="SELECT * from items";
@@ -25,7 +27,7 @@
     }
     if(isset($_POST["detaildiklik"])){
         $_SESSION["itemsekarang"]=$_POST["detaildiklik"];
-        header('Location: tes.php');
+        header('Location: detailBelumLogin.php');
     }
     if (!isset ($_GET['page'])) {  
         $page = 2;
@@ -42,6 +44,11 @@
     $query = $_SESSION["querysekarang"]." LIMIT " . $page_first_result . ',' . $results_per_page;  
     $result = mysqli_query($conn, $query);  
     $now=$page;
+
+    if(isset($_POST['passing'])){
+        $_SESSION['emailPassing'] = $_POST['passingEmail'];
+        header('Location: register.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -156,30 +163,15 @@
                 <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
-                </li>
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
-                </li> -->
-                <!-- <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
-                </li> -->
-            <!-- </ul> -->
-            <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
-            <div class="d-flex w-md-50 w-75">
-                <div class="input-group">
-                    <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
-                        <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                    </button>   
+                <div class="d-flex w-md-50 w-75">
+                    <div class="input-group">
+                        <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
+                        <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
+                            <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
+                        </button>   
+                    </div>
                 </div>
-            </div>
-            <div class="d-lg-flex justify-content-end d-sm-block">
+                <div class="d-lg-flex justify-content-end d-sm-block">
                 <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
                     <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
                         FILTERS
@@ -209,30 +201,27 @@
                         ?>
                     </ul>
                 </div> -->
-                <div class="row">
-                    <div class="col-lg-3">
-                        <form action="">
+                <!-- <div class="row"> -->
+                    <!-- <div class="col-lg-3"> -->
+                        <!-- <form action="">
                         <a hred="cart.php" class="d-flex">
                             <img src="assets/img/cart.png" alt="iconCart" class="me-1 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
                             <div class="text-white mt-lg-2">CART</div>
                         </a>
-                        </form>
+                        </form> -->
                         <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
-                    </div>
-                    <div class="col-lg-9 mt-4 mt-lg-2">
+                    <!-- </div> -->
+                    <!-- <div class="col-lg-12 mt-4 mt-lg-2"> -->
                         <!-- <div class="mt-sm-5"> -->
-                            <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 ms-5 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">CATALOG</a>
-                            <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                            <!-- <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">ABOUT US</a>
-                            <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
-                            <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">SIGN IN</a>
+                            <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
+                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 ms-5 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
+                            <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                            <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                            <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                            <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
                         <!-- </div> -->
-                    </div>
-                </div>
-                
-                
-                
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
         </div>
         </nav>
@@ -243,22 +232,22 @@
                 <div class="carousel-item drk active">
                     <img src="temp/bg1.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px; z-index:-1;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3 class="fw-bold">Welcome to Erefiv</h3>
-                        <p>We have many furniture to beautify your house</p>
+                        <h3 class="fw-bold">Selamat Datang di Erefiv</h3>
+                        <p style="font-size:14px;">Kami siap untuk mempercantik rumah anda</p>
                     </div>
                 </div>
                 <div class="carousel-item drk">
                     <img src="temp/bg2.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3 class="fw-bold">Welcome to Erefiv</h3>
-                        <p>We have many furniture to comfort your house</p>
+                        <h3 class="fw-bold">Selamat Datang di Erefiv</h3>
+                        <p style="font-size:14px;">Kami siap untuk membuat anda nyaman</p>
                     </div>    
                 </div>
                 <div class="carousel-item drk">
                     <img src="temp/bg3.jpg" class="d-block w-100 kartu" alt="..." style="height: 450px;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3 class="fw-bold">Welcome to Erefiv</h3>
-                        <p>We have many furniture to embelish your house</p>
+                        <h3 class="fw-bold">Selamat Datang di Erefiv</h3>
+                        <p style="font-size:14px;">Kami siap untuk memperindah rumah Anda</p>
                     </div>    
                 </div>
             </div>
@@ -310,90 +299,92 @@
             ?>
             </div>
         </div>
-        <div class="fw-bolder" style="height: 130px; background-color:#BA7967; color:#3F4441;">
-            <div class="row w-100 container-fluid mx-0">
-                <div class="col-lg-1 me-lg-5"></div>
-                <div class="col-lg-4 mt-lg-3 me-lg-5 text-white">
+
+        <div class="d-flex justify-content-center" style="height: 130px; background-color:#BA7967; color:#3F4441;">
+            <form action="" method="post">
+            <div class="row w-100 mx-0">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5 mt-lg-3 me-lg-5 text-white">
                     <h1 class="fw-bolder">REGISTER NOW FOR SPECIAL OFFERS</h1>
                 </div>
+               
                 <div class="col-lg-4 mt-5">
                     <div class="mt-2">
-                        <form action="" method="get">
-                            <div class="form-field">
-                                <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="input">
-                                <div class="border-line">
-                                </div>
+                        <div class="form-field">
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input type="text" name="passingEmail" class="input" autocomplete="off">
+                            <div class="border-line">
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-1" style="margin-top:65px;">
-                    <button type="submit" style="background:none; border: 1px white solid">
+                    <button type="submit" style="background:none; border: none;" name="passing">
                         <img src="assets/img/arrow.png" alt="" style="width: 25px; height:25px;">
                     </button>
                 </div>
+                
             </div>
+            </form>
         </div>
-        <!-- <div class="befooter2" style="height: 100px; background-color:#FFDECF;"> -->
+
         <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5"></div>
             <div class="col-lg-2 mt-lg-3">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
+                    <li><a href="footerBelumLogin/kursiBerlengan.php" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
+                    <li><a href="footerBelumLogin/penyimpananSepatu.php" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
+                    <li><a href="footerBelumLogin/kursiSisi.php" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
+                    <li><a href="footerBelumLogin/lemariBuku.php" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
+                    <li><a href="footerBelumLogin/mejaLemariAksen.php" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
+                    <li><a href="footerBelumLogin/mejaTamu.php" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
+                    <li><a href="footerBelumLogin/kursiAksen.php" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
+                    <li><a href="footerBelumLogin/lemariPajangan.php" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
+                    <li><a href="footerBelumLogin/mejaMakan.php" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
+                    <li><a href="footerBelumLogin/ruangmakan.php" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-5">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Bangku</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Tulis</a></li>
+                    <li><a href="footerBelumLogin/kursiBar.php" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
+                    <li><a href="footerBelumLogin/mejaPP.php" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
+                    <li><a href="footerBelumLogin/bangku.php" style="text-decoration:none; color:#57615b">Bangku</a></li>
+                    <li><a href="footerBelumLogin/tempatTidur.php" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                    <li><a href="footerBelumLogin/mejaKerja.php" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
+                    <li><a href="footerBelumLogin/sofa3.php" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
+                    <li><a href="footerBelumLogin/sofa2.php" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
+                    <li><a href="footerBelumLogin/kursiKerja.php" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
+                    <li><a href="footerBelumLogin/sofatidur.php" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
+                    <li><a href="footerBelumLogin/kursiTulis.php" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
+                    <li><a href="footerBelumLogin/lemariPakaian.php" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-5">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Utilitas</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Karpet</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Lampu</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Vas</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Utilitas</a></li>
+                    <li><a href="footerBelumLogin/mejaRapat.php" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
+                    <li><a href="footerBelumLogin/karpet.php" style="text-decoration:none; color:#57615b">Karpet</a></li>
+                    <li><a href="footerBelumLogin/lampu.php" style="text-decoration:none; color:#57615b">Lampu</a></li>
+                    <li><a href="footerBelumLogin/vas.php" style="text-decoration:none; color:#57615b">Vas</a></li>
+                    <li><a href="footerBelumLogin/obyek.php" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-5">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Keranjang</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Linen</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Bingkai</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Keranjang</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Linen</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Bingkai</a></li>
+                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-3">
@@ -409,20 +400,17 @@
                     <li><a href="" style="text-decoration:none; color:#57615b">Payment</a></li>
                 </ul>
             </div>
-            <!-- <div class="col-lg-2 mt-lg-3"></div> -->
         </div>
-        <!-- </div> -->
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
             &#169; 2022 Erefir Indonesia
         </footer>
-    <!-- </div> -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script> //buat mata password
+    <script> 
         $(document).ready(function(){
        	  $(".input").focus(function(){
        	  	 $(this).parent(".form-field").addClass("active")
@@ -434,20 +422,5 @@
        	  })
        })
     </script>
-    <!-- <?php if(@$_SESSION['sukses']){ ?>
-        <script>
-            swal("Hore! Berhasil Register", {
-                buttons: true,
-                }    ); -->
-            // swal("Good job!", "<?php echo $_SESSION['sukses']; ?>", "success");
-            // Swal.fire({
-            //     title: 'Batal Hapus',
-            //     text: 'Data Anda batal dihapus!',
-            //     icon: 'error',
-            // })
-        <!-- </script> -->
-    <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
-    <!-- <?php unset($_SESSION['sukses']); } ?> -->
-    <!-- <script src="coba.js"></script> -->
 </body>
 </html>
