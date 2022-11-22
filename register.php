@@ -66,20 +66,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
-        @media screen and (min-device-width: 300px) and (max-device-width: 400px) { 
-            .tes{
+        @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+            /* .tes{
                margin-left: 38px;
-            }
+            } */
 
             .gambar{
                 display: none;
             }
         }
         @media screen and (min-width:1000px){
-            .tes{
+            /* .tes{
                 margin-left: 100px;
                 margin-right: 100px;
-            }
+            } */
 
             .gambar{
                 display: block;
@@ -169,10 +169,10 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">DAFTAR</div>
+                <div class="text-white gambar">DAFTAR</div>
             </a>
-            <div class= "mt-4 mt-lg-0 text-end">
-                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
+            <div class= "mt-2 mt-lg-0 text-end">
+                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-2 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
                 <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
                 <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">DAFTAR</a>
                 <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
@@ -244,7 +244,7 @@
                     <input id="startDate" class="form-control" type="date" style="background:transparent;" name="dob">
                 </div>
                 <div class="mb-1">
-                    <label class="me-3">Jenis Kelamin (OPSIONAL)</label>
+                    <label class="me-3">Jenis Kelamin (OPSIONAL)</label> <br>
                     <div class="form-check form-check-inline mt-1">
                         <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="man">
                         <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
@@ -268,7 +268,7 @@
                         </span>
                     </div>
                 </div>
-                
+                Sudah punya akun? <a href="login.php">Masuk Sekarang!</a>
                 <div class="text-end mt-3">
                     <button type="submit" class="mt-3 btn ps-4 pe-4 fw-bold text-center" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnRegister">Daftar</button>
                 </div>

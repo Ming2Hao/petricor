@@ -48,20 +48,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
-        @media screen and (min-device-width: 300px) and (max-device-width: 400px) { 
-            .tes{
+        @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+            /* .tes{
                margin-left: 38px;
-            }
+            } */
 
             .gambar{
                 display: none;
             }
         }
         @media screen and (min-width:1000px){
-            .tes{
+            /* .tes{
                 margin-left: 100px;
                 margin-right: 100px;
-            }
+            } */
 
             .gambar{
                 display: block;
@@ -153,11 +153,11 @@
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
                 <div class="text-white">MASUK</div>
             </a>
-            <div class= "mt-4 mt-lg-0 text-end">
-                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-5 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
-                <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
+            <div class= "mt-2 mt-lg-0 text-lg-end">
+                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-2 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                <span class="mx-lg-2 mx-2 mt-lg-2 text-white">|</span>
                 <a href="register.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">DAFTAR</a>
-                <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
+                <span class="mx-lg-2 mx-2 mt-lg-2 text-white">|</span>
                 <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>
         </div>
@@ -185,6 +185,7 @@
                         <div class="border-line"></div>
                     </div>
                 </div>
+                Belum punya akun? <a href="register.php">Daftar sekarang!</a>
                 <div class="text-end mt-0">
                     <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnLogin">Masuk</button>
                 </div>
@@ -192,7 +193,7 @@
         </div>
     </div>
         
-    <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+    <footer class="text-center p-2 fixed-bottom" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
         &#169; 2022 Erefir Indonesia
     </footer>
 

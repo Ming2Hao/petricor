@@ -258,14 +258,14 @@
                                     Filter Kategori
                                 </button>
                                 </h2>
-                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
                                 <?php
                                     $resultkategori = mysqli_query($conn, "select * from category where ca_id != 'CA001'"); 
                                     while($row = mysqli_fetch_array($resultkategori)){
                                         ?>
                                             <!-- <li><a class="dropdown-item" href="#"></a></li> -->
-                                            <input type="checkbox" name="" id="" class="me-3"> <?=$row["ca_name"]?> <br>
+                                            <input type="checkbox" name="" id="" class="me-2"> <?=$row["ca_name"]?> <br>
                                         <?php
                                     }
                                 ?>
@@ -280,10 +280,30 @@
                                 </h2>
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                                 <div class="accordion-body">
-                                    <input type="radio" name="" id=""> Nama: A-Z <br>
-                                    <input type="radio" name="" id=""> Nama: Z-A <br>
-                                    <input type="radio" name="" id=""> Harga: Rendah-Tinggi <br>
-                                    <input type="radio" name="" id=""> Harga: Tinggi-Rendah <br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Nama: A-Z
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Nama: Z-A
+                                        </label>
+                                    </div> 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Harga: Rendah-Tinggi
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Harga: Tinggi-Rendah
+                                        </label>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
@@ -411,7 +431,7 @@
                                     for($page = $start; $page <= $end; $page++) {
                                         if($page==$now){
                                             ?>
-                                                <li class="page-item active d-flex" aria-current="page">
+                                                <li class="page-item d-flex" aria-current="page" style="background-color:gainsboro; border-radius:5px;">
                                                     <a class="page-link" href="catalogue.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
                                                     {echo "&searchget=".$_GET["searchget"];}  ?>"><?=$page?></a>
                                                 </li>
@@ -563,14 +583,12 @@
             <div class="col-lg-2 mt-lg-3">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Privacy Policy</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Terms and Conditions</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Delivery Terms</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Contact Us</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Payment</a></li>
+                    <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                 </ul>
             </div>
         </div>

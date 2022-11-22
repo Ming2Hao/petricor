@@ -1,16 +1,5 @@
 <?php
     require_once("connection.php");
-    //PENTINGGGGGGGGG
-    // if(isset($_SESSION['currentUser'])) $currentUser = $_SESSION['currentUser'];
-    // else $currentUser = [];
-    // if (!isset($_SESSION['currentUser'])) header("Location: index.php");
-    // $user = mysqli_query($conn, "SELECT * FROM users WHERE us_id = '$currentUser'");
-    // $curUser = mysqli_fetch_array($user);
-
-    // function rupiah($angka){
-    //     return "IDR " . number_format($angka,2,',','.');
-    // }
-
     if(isset($_POST['passing'])){
         $_SESSION['emailPassing'] = $_POST['passingEmail'];
         header('Location: register.php');
@@ -74,95 +63,69 @@
             border:none;
             border-bottom:1px solid #3F4441;
         }
+
+        html, body{
+            width: 100%;
+        }
     </style>
 </head>
 <body style="background-color:#FFDECF;">
-    <!-- <div class="container-fluid px-0"> -->
-        <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#" name="logodipencet">
-                    <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                </a>
-                
-                <div class="d-lg-flex justify-content-end d-sm-block">
-                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
-                        <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
-                            FILTERS
-                        </button>
-                        <ul class="dropdown-menu p-2">
-                            <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
-                            <li><button class="dropdown-item" href="#">Name : Descending</button></li>
-                            <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
-                            <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><button class="dropdown-item" href="#">All Products</button></li>
-                        </ul>
-                    </div> -->
-                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
-                        <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
-                            KATEGORI
-                        </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <?php
-                                $resultkategori = mysqli_query($conn, "select * from category"); 
-                                while($row = mysqli_fetch_array($resultkategori)){
-                                    ?>
-                                        <li><a class="dropdown-item" href="#"><?=$row["ca_name"]?></a></li>
-                                    <?php
-                                }
-                            ?>
-                        </ul>
-                    </div> -->
-                    <!-- <div class="row"> -->
-                        <!-- <div class="col-lg-3"> -->
-                            <!-- <form action="">
-                            <a hred="cart.php" class="d-flex">
-                                <img src="assets/img/cart.png" alt="iconCart" class="me-1 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
-                                <div class="text-white mt-lg-2">CART</div>
-                            </a>
-                            </form> -->
-                            <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
-                        <!-- </div> -->
-                        <!-- <div class="col-lg-12 mt-4 mt-lg-2"> -->
-                            <!-- <div class="mt-sm-5"> -->
-                                <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
-                                <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 ms-5 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
-                                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
-                                <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">BANTUAN</a>
-                                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
-                                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
-                            <!-- </div> -->
-                        <!-- </div> -->
-                    <!-- </div> -->
-                    
-                    
-                    
-                </div>
-            </div>
-        </nav>
+    <div class="container-fluid px-0">
+    <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <h2 class="fw-bold mt-2">Hubungi Kami</h2>
-                    <form action="" method="post">
-                        <div class="mb-3 ">
-                        <label for="exampleFormControlInput1" class="form-label">Subjek</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                        </div>
-                        <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
-                            <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3" resize="none"></textarea>
-                        </div>
-                        <button type="submit" class="mt-2 btn px-5 fw-bold mb-lg-3 text-center float-end" style="border-radius: 15px; background-color:#8c594f; color:white;" name="btnLogin" formaction="catalogAfterLogin.php">Kirim</button>
-                    </form>
-                </div>
-                <div class="col-2"></div>
+            <a class="navbar-brand" href="index.php" name="logodipencet">
+                <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
+                
+            </a>
+            <div class="d-lg-flex justify-content-end d-sm-block">
+                <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>
         </div>
-        
-       
+        </nav>
+
+        <div class="pt-2 px-2 px-lg-2 col-lg-10 col-12">
+            <h2 class="fw-bold">Kebijakan Privasi</h2>
+            Website erefiv dimiliki oleh Erefiv, yang akan menjadi pengontrol atas data pribadi Anda. <br>
+            Kami telah mengadopsi Kebijakan Privasi ini untuk menjelaskan bagaimana kami memproses informasi yang dikumpulkan oleh erefiv, yang juga menjelaskan alasan mengapa kami perlu mengumpulkan data pribadi tertentu tentang Anda. Oleh karena itu, Anda harus membaca Kebijakan Privasi ini sebelum menggunakan website erefiv.<br>
+            Kami menjaga data pribadi Anda dan berjanji untuk menjamin kerahasiaan dan keamanannya. <br><br>
+            <h5 class="fw-bold">Informasi pribadi yang kami kumpulkan:</h5>
+            Saat Anda mengunjungi erefiv, kami secara otomatis mengumpulkan informasi tertentu mengenai perangkat Anda, termasuk informasi tentang browser web, alamat IP, zona waktu, dan sejumlah cookie yang terinstal di perangkat Anda. Selain itu, selama Anda menjelajahi Website, kami mengumpulkan informasi tentang setiap halaman web atau produk yang Anda lihat, website atau istilah pencarian apa yang mengarahkan Anda ke Website, dan cara Anda berinteraksi dengan Website. Kami menyebut informasi yang dikumpulkan secara otomatis ini sebagai "Informasi Perangkat". Kemudian, kami mungkin akan mengumpulkan data pribadi yang Anda berikan kepada kami (termasuk tetapi tidak terbatas pada, Nama, Nama belakang, Alamat, informasi pembayaran, dll.) selama pendaftaran untuk dapat memenuhi perjanjian. <br><br>
+            <h5 class="fw-bold">Mengapa kami memproses data Anda?</h5>
+            Menjaga data pelanggan agar tetap aman adalah prioritas utama kami. Oleh karena itu, kami hanya dapat memproses sejumlah kecil data pengguna, sebanyak yang benar-benar diperlukan untuk menjalankan website. Informasi yang dikumpulkan secara otomatis hanya digunakan untuk mengidentifikasi kemungkinan kasus penyalahgunaan dan menyusun informasi statistik terkait penggunaan website. Informasi statistik ini tidak digabungkan sedemikian rupa hingga dapat mengidentifikasi pengguna tertentu dari sistem. <br><br>
+
+            Anda dapat mengunjungi website tanpa memberi tahu kami identitas Anda atau mengungkapkan informasi apa pun, yang dapat digunakan oleh seseorang untuk mengidentifikasi Anda sebagai individu tertentu yang dapat dikenali. Namun, jika Anda ingin menggunakan beberapa fitur website, atau Anda ingin menerima newsletter kami atau memberikan detail lainnya dengan mengisi formulir, Anda dapat memberikan data pribadi kepada kami, seperti email, nama depan, nama belakang, kota tempat tinggal, organisasi, dan nomor telepon Anda. Anda dapat memilih untuk tidak memberikan data pribadi Anda kepada kami, tetapi Anda mungkin tidak dapat memanfaatkan beberapa fitur website. Contohnya, Anda tidak akan dapat menerima Newsletter kami atau menghubungi kami secara langsung dari website. Pengguna yang tidak yakin tentang informasi yang wajib diberikan dapat menghubungi kami melalui <span style="color:#5E6F64; font-weight:bold">erefiv.id@gmail.com</span>. <br><br>
+            <h5 class="fw-bold">Hak-hak Anda:</h5>
+            Jika Anda seorang warga Indonesia, Anda memiliki hak-hak berikut terkait data pribadi Anda: <br>
+            <ul>
+                <li>Hak untuk mendapatkan penjelasan.</li>
+                <li>Hak atas akses.</li>
+                <li>Hak untuk memperbaiki.</li>
+                <li>Hak untuk menghapus.</li>
+                <li>Hak untuk membatasi pemrosesan.</li>
+                <li>Hak atas portabilitas data.</li>
+                <li>Hak untuk menolak.</li>
+                <li>Hak-hak terkait pengambilan keputusan dan pembuatan profil otomatis.</li>
+            </ul>
+            Jika Anda ingin menggunakan hak ini, silakan hubungi kami melalui informasi kontak di bawah ini: <br>
+            <div class="ms-lg-3" style="font-size:15px;">
+                +62-822-7898-2345 <br>
+                <!-- CustomerCare@erefiv.com <br> -->
+                erefiv ID <br>
+                78245 Surabaya <br>
+                Indonesia <br> <br>
+            </div>
+            Selain itu, jika Anda seorang warga Indonesia, perlu diketahui bahwa kami akan memproses informasi Anda untuk memenuhi kontrak yang mungkin kami miliki dengan Anda (misalnya, jika Anda melakukan pemesanan melalui Website), atau untuk memenuhi kepentingan bisnis sah kami seperti yang tercantum di atas. Di samping itu, harap diperhatikan bahwa informasi Anda mungkin dapat dikirim ke luar Indonesia, termasuk Singapura dan Malaysia. <br><br>
+            <h5 class="fw-bold">Link ke website lain:</h5>
+            Website kami mungkin berisi tautan ke website lain yang tidak dimiliki atau dikendalikan oleh kami. Perlu diketahui bahwa kami tidak bertanggung jawab atas praktik privasi website lain atau pihak ketiga. Kami menyarankan Anda untuk selalu waspada ketika meninggalkan website kami dan membaca pernyataan privasi setiap website yang mungkin mengumpulkan informasi pribadi. <br> <br>
+            <h5 class="fw-bold">Keamanan informasi:</h5>
+            Kami menjaga keamanan informasi yang Anda berikan pada server komputer dalam lingkungan yang terkendali, aman, dan terlindungi dari akses, penggunaan, atau pengungkapan yang tidak sah. Kami menjaga pengamanan administratif, teknis, dan fisik yang wajar untuk perlindungan terhadap akses, penggunaan, modifikasi, dan pengungkapan tidak sah atas data pribadi dalam kendali dan pengawasannya. Namun, kami tidak menjamin tidak akan ada transmisi data melalui Internet atau jaringan nirkabel. <br> <br>
+            <h5 class="fw-bold">Pengungkapan hukum:</h5>
+            Kami akan mengungkapkan informasi apa pun yang kami kumpulkan, gunakan, atau terima jika diwajibkan atau diizinkan oleh hukum, misalnya untuk mematuhi panggilan pengadilan atau proses hukum serupa, dan jika kami percaya dengan itikad baik bahwa pengungkapan diperlukan untuk melindungi hak kami, melindungi keselamatan Anda atau keselamatan orang lain, menyelidiki penipuan, atau menanggapi permintaan dari pemerintah. <br><br>
+            <h5 class="fw-bold">Informasi kontak:</h5>
+            Jika Anda ingin menghubungi kami untuk mempelajari Kebijakan ini lebih lanjut atau menanyakan masalah apa pun yang berkaitan dengan hak perorangan dan Informasi pribadi Anda, Anda dapat mengirim email ke <span style="color:#5E6F64; font-weight:bold">erefiv.id@gmail.com</span>. <br> <br>
+        </div>
         <div class="d-flex justify-content-center" style="height: 140px; background-color:#BA7967; color:#3F4441;">
             <form action="" method="post">
                 <div class="row w-100 mx-0 d-flex">
@@ -184,8 +147,9 @@
                 </div>
             </form>
         </div>
-    
-        <div class="row gambar container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
+       
+    </div>
+    <div class="row gambar container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5"></div>
             <div class="col-lg-2 mt-lg-3">
                 <h5 class="fw-bold mb-2">Categories</h5>
@@ -248,8 +212,8 @@
             <div class="col-lg-2 mt-lg-3">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
-                    <li><a href="#" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                    <li><a href="#" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                    <li><a href="snkBelumLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
@@ -267,10 +231,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <script>
-        // function menuToggle() {
-        //     const toggleMenu = document.querySelector(".menu");
-        //     toggleMenu.classList.toggle("active");
-        // }
+        function menuToggle() {
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active");
+        }
         
         $(document).ready(function(){
        	  $(".input").focus(function(){
