@@ -367,7 +367,48 @@
                                     }
                                 ?>
                                 <?php
-                                    for($page = 1; $page<= $number_of_page; $page++) {
+                                    // $tempctr=0;
+                                    // for($page = $now-5; $page <= $now+5; $page++){
+                                    //     if($page>0){
+                                    //         $tempctr++;
+                                    //     }
+                                    // }
+                                    if($now-3<0){
+                                        $start=1;
+                                    }
+                                    else if($now-3==0){
+                                        $start=1;
+                                    }
+                                    else{
+                                        $start=$now-3;
+                                    }
+                                    if($now+3<$number_of_page){
+                                        $end=$now+3;
+                                    }
+                                    else if($now+3==$number_of_page){
+                                        $end=$number_of_page;
+                                    }
+                                    else{
+                                        $end=$number_of_page;
+                                    }
+                                    $kasihstart=false;
+                                    $kasihend=false;
+                                    if($start>1){
+                                        ?>
+                                            <li class="page-item d-flex" aria-current="page">
+                                                <a class="page-link" href="catalogue.php?page=1<?php if (isset($_GET["fcategory"])) 
+                                                    {echo "&fcategory=".$_GET["fcategory"];}
+                                                    if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];} 
+                                                    ?>">1</a>
+                                            </li>
+                                            <li class="page-item d-flex" aria-current="page">
+                                                <a class="page-link">...</a>
+                                            </li>
+                                        <?php
+                                    }
+                                    
+                                    for($page = $start; $page <= $end; $page++) {
                                         if($page==$now){
                                             ?>
                                                 <li class="page-item active d-flex" aria-current="page">
@@ -387,6 +428,20 @@
                                                 </li>
                                             <?php
                                         }
+                                    }
+                                    if($end<$number_of_page){
+                                        ?>
+                                            <li class="page-item d-flex" aria-current="page">
+                                                <a class="page-link">...</a>
+                                            </li>
+                                            <li class="page-item d-flex" aria-current="page">
+                                            <a class="page-link" href="catalogue.php?page=<?=$number_of_page?><?php if (isset($_GET["fcategory"])) 
+                                                    {echo "&fcategory=".$_GET["fcategory"];}
+                                                    if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];} 
+                                                    ?>"><?=$number_of_page?></a>
+                                            </li>
+                                        <?php
                                     }
                                 ?>
                                 <?php
