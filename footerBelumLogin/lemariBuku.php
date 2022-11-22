@@ -7,6 +7,7 @@
     $listItem = mysqli_query($conn,"SELECT * from items");
     if (isset($_SESSION['currentUser'])) unset($_SESSION['currentUser']);
     if (isset($_SESSION['emailPassing'])) unset($_SESSION['emailPassing']);
+    // header('Location=?page=1');
     // $tempquery="SELECT * from items";
     // if(!isset($_SESSION["querysekarang"])){
         
@@ -17,9 +18,9 @@
         header('Location: ../detailBelumLogin.php');
     }
     if (!isset ($_GET['page'])) {  
-        $page = 2;
+        $page = 1;
     } else {  
-        $page = $_GET['page'];  
+        $page = $_GET['page'];
     }
     $results_per_page = 20;  
     $page_first_result = ($page-1) * $results_per_page;

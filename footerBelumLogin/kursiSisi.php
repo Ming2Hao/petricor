@@ -28,7 +28,7 @@
     $number_of_result = mysqli_num_rows($result);
     $number_of_page = ceil ($number_of_result / $results_per_page);
     $page_first_result = ($page-1) * $results_per_page;   
-    $query = $_SESSION["queryFooter"]." LIMIT " . $page_first_result . ',' . $results_per_page;  
+    $query = $_SESSION["queryFooter"];  
     $result = mysqli_query($conn, $query);  
     // var_dump($result);
     $now=$page;

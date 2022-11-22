@@ -28,6 +28,16 @@
     
 require_once('midtrans/Veritrans.php');
 
+$result3 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+$_SESSION["totalsetelahongkir"]=0;
+while($rows = mysqli_fetch_assoc($result3)){
+    $result2=mysqli_query($conn,"SELECT * from items where it_id='".$rows["ct_it_id"]."'");
+    $result2=mysqli_fetch_assoc($result2);
+    $result2=$result2["it_price"];
+    $_SESSION["totalsetelahongkir"]=$_SESSION["totalsetelahongkir"]+($result2*$rows["ct_qty"]);
+}
+$_SESSION["totalsetelahongkir"]+=10000;
+
 //Set Your server key
 Veritrans_Config::$serverKey = "SB-Mid-server-AMzwelN9WnfCaC9Vfslm52gY";
 

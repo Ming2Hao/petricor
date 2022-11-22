@@ -30,7 +30,7 @@
         header('Location: detailBelumLogin.php');
     }
     if (!isset ($_GET['page'])) {  
-        $page = 1;
+        $page = 2;
     } else {  
         $page = $_GET['page'];  
     }
@@ -234,7 +234,55 @@
             <!-- <div class="mt-lg-3"> -->
                 <div class="row">
                     <div class="col-lg-3 sm-d-none" style="background-color:#f7f3f2;">
-                            
+                        <div class="accordion pt-3" id="accordionPanelsStayOpenExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                    Filter Kategori
+                                </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                <?php
+                                    $resultkategori = mysqli_query($conn, "select * from category where ca_id != 'CA001'"); 
+                                    while($row = mysqli_fetch_array($resultkategori)){
+                                        ?>
+                                            <!-- <li><a class="dropdown-item" href="#"></a></li> -->
+                                            <input type="checkbox" name="" id="" class="me-3"> <?=$row["ca_name"]?> <br>
+                                        <?php
+                                    }
+                                ?>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    Sort
+                                </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body">
+                                    <input type="radio" name="" id=""> Nama: A-Z <br>
+                                    <input type="radio" name="" id=""> Nama: Z-A <br>
+                                    <input type="radio" name="" id=""> Harga: Rendah-Tinggi <br>
+                                    <input type="radio" name="" id=""> Harga: Tinggi-Rendah <br>
+                                </div>
+                                </div>
+                            </div>
+                        <!-- <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                Range
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            </div>
+                            </div>
+                        </div> -->
+                        </div> 
                     </div>
                     <div class="col-lg-9 d-flex justify-content-center mt-lg-3">
                         <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3 w-100">
