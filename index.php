@@ -295,7 +295,7 @@
         </div>
 
         <!-- 4 REKOMENDASI TERBAIK-->
-        <div class="my-4 tes">
+        <div class="my-lg-4 tes d-flex justify-content-center">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <?php
             // for($i=0; $i<sizeof($daftarBarang); $i++){
@@ -367,7 +367,7 @@
             <div class="col-lg-2 mt-lg-3 col-6">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><p categ="CA001" style="text-decoration:none; color:#57615b" onClick="filterdiklik()" id="filtercateg">Meja Nakas</a></li>
+                    <li><a categ="CA001" style="text-decoration:none; color:#57615b" onClick="filterdiklik()" id="filtercateg">Meja Nakas</a></li>
                     <li><a href="footerBelumLogin/kursiBerlengan.php" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
                     <li><a href="footerBelumLogin/penyimpananSepatu.php" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
                     <li><a href="footerBelumLogin/kursiSisi.php" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
@@ -455,7 +455,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         function filterdiklik(){
-            <?php?>
+            
         }
     </script>
     <script> 

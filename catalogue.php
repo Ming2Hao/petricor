@@ -34,11 +34,11 @@
         header('Location: detailBelumLogin.php');
     }
     if (!isset ($_GET['page'])) {  
-        $page = 2;
+        $page = 1;
     } else {  
         $page = $_GET['page'];  
     }
-    $results_per_page = 2;  
+    $results_per_page = 18;  
     $page_first_result = ($page-1) * $results_per_page;
     // $query = $_SESSION["querysekarang"];  
     $result = mysqli_query($conn, $query);  
@@ -47,7 +47,7 @@
     $page_first_result = ($page-1) * $results_per_page;   
     $query .=" LIMIT " . $page_first_result . ',' . $results_per_page;  
     $result = mysqli_query($conn, $query);  
-    echo $query;
+    // echo $query;
     $now=$page;
 
     if(isset($_POST['passing'])){
@@ -144,7 +144,18 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">KATALOG</div>
+                <div class="text-white">
+                    <?php
+                        if ($sqlFilter!="") {
+                            $idKategori = substr($sqlFilter, 12, 5);
+                            $kategoriSekarang = mysqli_query($conn, "SELECT ca_name from category where ca_id='$idKategori'");
+                            $kategoriNow = mysqli_fetch_array($kategoriSekarang);
+                            echo "<div class='text-white' style='text-transform: uppercase;'>$kategoriNow[0]</div>";
+                        } else {
+                            echo "KATALOG";
+                        }
+                    ?>
+                </div>
             </a>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                 <!-- <span class="navbar-toggler-icon"></span> -->
@@ -238,9 +249,9 @@
         <div class="container-fluid">
             <!-- munculin gambar -->
             <!-- <div class="mt-lg-3"> -->
-                <div class="row">
+                <div class="row w-100">
                     <div class="col-lg-3 sm-d-none" style="background-color:#f7f3f2;">
-                        <div class="accordion pt-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion pt-3 " id="accordionPanelsStayOpenExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -330,9 +341,9 @@
                 </div>
                 
             <!-- </div> -->
-            <div class="row">
+            <div class="row w-100">
                 <div class="col-lg-3 sm-d-none" style="background-color:#f7f3f2;">
-
+                    
                 </div>
                 <div class="col-lg-9">
                     <div class="row w-100">
@@ -440,58 +451,58 @@
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogue.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA003" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA004" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
+                    <li><a href="catalogue.php?fcategory=CA005" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
+                    <li><a href="catalogue.php?fcategory=CA006" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
+                    <li><a href="catalogue.php?fcategory=CA007" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
+                    <li><a href="catalogue.php?fcategory=CA008" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
+                    <li><a href="catalogue.php?fcategory=CA009" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
+                    <li><a href="catalogue.php?fcategory=CA017" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA018" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-5">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Bangku</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Tulis</a></li>
+                    <li><a href="catalogue.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
+                    <li><a href="catalogue.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
+                    <li><a href="catalogue.php?fcategory=CA022" style="text-decoration:none; color:#57615b">Bangku</a></li>
+                    <li><a href="catalogue.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                    <li><a href="catalogue.php?fcategory=CA023" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
+                    <li><a href="catalogue.php?fcategory=CA010" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA011" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA012" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
+                    <li><a href="catalogue.php?fcategory=CA013" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
+                    <li><a href="catalogue.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                    <li><a href="catalogue.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-5">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Utilitas</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Karpet</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Lampu</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Vas</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
+                    <li><a href="catalogue.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
+                    <li><a href="catalogue.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
+                    <li><a href="catalogue.php?fcategory=CA024" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
+                    <li><a href="catalogue.php?fcategory=CA025" style="text-decoration:none; color:#57615b">Karpet</a></li>
+                    <li><a href="catalogue.php?fcategory=CA026" style="text-decoration:none; color:#57615b">Lampu</a></li>
+                    <li><a href="catalogue.php?fcategory=CA027" style="text-decoration:none; color:#57615b">Vas</a></li>
+                    <li><a href="catalogue.php?fcategory=CA028" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
+                    <li><a href="catalogue.php?fcategory=CA029" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
+                    <li><a href="catalogue.php?fcategory=CA030" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA031" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
+                    <li><a href="catalogue.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-5">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Keranjang</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Linen</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Bingkai</a></li>
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
+                    <li><a href="catalogue.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
+                    <li><a href="catalogue.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
+                    <li><a href="catalogue.php?fcategory=CA036" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA037" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA038" style="text-decoration:none; color:#57615b">Linen</a></li>
+                    <li><a href="catalogue.php?fcategory=CA039" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
+                    <li><a href="catalogue.php?fcategory=CA040" style="text-decoration:none; color:#57615b">Bingkai</a></li>
+                    <li><a href="catalogue.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-3">
