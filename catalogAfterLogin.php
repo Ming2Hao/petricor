@@ -8,25 +8,33 @@
     $user = mysqli_query($conn, "SELECT * FROM users WHERE us_id = '$currentUser'");
     $curUser = mysqli_fetch_array($user);
 
-    $listItem = mysqli_query($conn,"SELECT * from items");
-    // $tempquery="SELECT * from items";
-    if(!isset($_SESSION["querysekarang"])){
-        $_SESSION["querysekarang"]="SELECT * from items";
+    
+    $query = "SELECT * FROM items";
+    $filter=[];
+    if (isset($_GET["fcategory"])) {
+        $cat=$_GET["fcategory"];
+        $filter[]= "`it_ca_id`='$cat'";
     }
-    // while($row = $listItem -> fetch_assoc()){
-    //     $daftarBarang[] = $row;
-    // }
     if(isset($_POST["search"])){
-        if(isset($_POST["searchbar"])){
-            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
-            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'");
-            header('Location: catalogAfterLogin.php');
-            // $tempquery="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
-            // while($row = $listItem -> fetch_assoc()){
-            //     $daftarBarang[] = $row;
-            // }
-        }
+        $link = "location:catalogAfterLogin.php?searchget=".$_POST["searchbar"];
+        if (isset($_GET["fcategory"])) {
+            $cat=$_GET["fcategory"];
+            $link.= "&fcategory=".$cat;
+        }        
+        header($link);
     }
+    if(isset($_GET["searchget"])){
+        $filter[]="`it_name` LIKE '%".$_GET["searchget"]."%'";
+    }
+    // if (condition) {
+    //     # code...
+    // }
+    $sqlFilter = implode(" AND ",$filter);
+    if ($sqlFilter!="") {
+        $query.=" WHERE $sqlFilter";
+    }
+
+
     if(isset($_POST["detaildiklik"])){
         $_SESSION["itemsekarang"]=$_POST["detaildiklik"];
         header('Location: detailSudahLogin.php');
@@ -36,15 +44,16 @@
     } else {  
         $page = $_GET['page'];  
     }
-    $results_per_page = 20;  
+    $results_per_page = 18;  
     $page_first_result = ($page-1) * $results_per_page;
-    $query = $_SESSION["querysekarang"];  
+    // $query = $_SESSION["querysekarang"];  
     $result = mysqli_query($conn, $query);  
     $number_of_result = mysqli_num_rows($result);
     $number_of_page = ceil ($number_of_result / $results_per_page);
     $page_first_result = ($page-1) * $results_per_page;   
-    $query = $_SESSION["querysekarang"]." LIMIT " . $page_first_result . ',' . $results_per_page;  
+    $query .=" LIMIT " . $page_first_result . ',' . $results_per_page;  
     $result = mysqli_query($conn, $query);  
+    // echo $query;
     $now=$page;
 
     function rupiah($angka){
@@ -228,13 +237,16 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
             <div class="container-fluid">
-                <form action="" method="post">
-                    <div class="input-group">
-                        <input type="text" class="form-control ms-lg-2" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                        <button class="rounded-end me-lg-3 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
-                            <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                        </button>   
-                    </div>
+            <form action="" method="POST" class="d-flex container-fluid">
+                <div class="input-group">
+
+                    <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
+                    
+                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search">
+                        <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
+                    </button>   
+                    
+                </div>
                 </form>
             </div>
             <form class="">
@@ -346,62 +358,200 @@
             </div>
             <div class="row w-100">
                     <nav aria-label="..." class="w-100 d-flex justify-content-center mt-3">
-                        <ul class="pagination" class="w-100 d-flex">
-                            <?php
-                                if($now==1){
-                                    ?>
-                                        <li class="page-item disabled d-flex">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                    <?php
-                                }
-                                else{
-                                    ?>
-                                        <li class="page-item d-flex">
-                                            <a class="page-link" href="catalogAfterLogin.php?page=<?=$now-1?>">Previous</a>
-                                        </li>
-                                    <?php
-                                }
-                            ?>
-                            <?php
-                                for($page = 1; $page<= $number_of_page; $page++) {
-                                    if($page==$now){
+                    <ul class="pagination" class="w-100 d-flex">
+                                <?php
+                                    if($now==1){
                                         ?>
-                                            <li class="page-item active d-flex" aria-current="page">
-                                                <a class="page-link" href="catalogAfterLogin.php?page=<?=$page?>"><?=$page?></a>
+                                            <li class="page-item disabled d-flex">
+                                                <a class="page-link">Previous</a>
                                             </li>
                                         <?php
                                     }
                                     else{
                                         ?>
                                             <li class="page-item d-flex">
-                                                <a class="page-link" href="catalogAfterLogin.php?page=<?=$page?>"><?=$page?></a>
+                                                <a class="page-link" href="catalogAfterLogin.php?page=<?=$now-1?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];}  ?>">Previous</a>
                                             </li>
                                         <?php
                                     }
-                                }
-                            ?>
-                            <?php
-                                if($now==$number_of_page){
-                                    ?>
-                                        <li class="page-item disabled d-flex">
-                                            <a class="page-link">Next</a>
-                                        </li>
-                                    <?php
-                                }
-                                else{
-                                    ?>
-                                        <li class="page-item d-flex">
-                                            <a class="page-link" href="catalogAfterLogin.php?page=<?=$now+1?>">Next</a>
-                                        </li>
-                                    <?php
-                                }
-                            ?>
-                        </ul>
+                                ?>
+                                <?php
+                                    // $tempctr=0;
+                                    // for($page = $now-5; $page <= $now+5; $page++){
+                                    //     if($page>0){
+                                    //         $tempctr++;
+                                    //     }
+                                    // }
+                                    if($now-3<0){
+                                        $start=1;
+                                    }
+                                    else if($now-3==0){
+                                        $start=1;
+                                    }
+                                    else{
+                                        $start=$now-3;
+                                    }
+                                    if($now+3<$number_of_page){
+                                        $end=$now+3;
+                                    }
+                                    else if($now+3==$number_of_page){
+                                        $end=$number_of_page;
+                                    }
+                                    else{
+                                        $end=$number_of_page;
+                                    }
+                                    $kasihstart=false;
+                                    $kasihend=false;
+                                    if($start>1){
+                                        ?>
+                                            <li class="page-item d-flex" aria-current="page">
+                                                <a class="page-link" href="catalogAfterLogin.php?page=1<?php if (isset($_GET["fcategory"])) 
+                                                    {echo "&fcategory=".$_GET["fcategory"];}
+                                                    if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];} 
+                                                    ?>">1</a>
+                                            </li>
+                                            <li class="page-item d-flex" aria-current="page">
+                                                <a class="page-link">...</a>
+                                            </li>
+                                        <?php
+                                    }
+                                    
+                                    for($page = $start; $page <= $end; $page++) {
+                                        if($page==$now){
+                                            ?>
+                                                <li class="page-item d-flex" aria-current="page" style="background-color:gainsboro; border-radius:5px;">
+                                                    <a class="page-link" href="catalogAfterLogin.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];}  ?>"><?=$page?></a>
+                                                </li>
+                                            <?php
+                                        }
+                                        else{
+                                            ?>
+                                                <li class="page-item d-flex">
+                                                    <a class="page-link" href="catalogAfterLogin.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) 
+                                                    {echo "&fcategory=".$_GET["fcategory"];}
+                                                    if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];} 
+                                                    ?>"><?=$page?></a>
+                                                </li>
+                                            <?php
+                                        }
+                                    }
+                                    if($end<$number_of_page){
+                                        ?>
+                                            <li class="page-item d-flex" aria-current="page">
+                                                <a class="page-link">...</a>
+                                            </li>
+                                            <li class="page-item d-flex" aria-current="page">
+                                            <a class="page-link" href="catalogAfterLogin.php?page=<?=$number_of_page?><?php if (isset($_GET["fcategory"])) 
+                                                    {echo "&fcategory=".$_GET["fcategory"];}
+                                                    if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];} 
+                                                    ?>"><?=$number_of_page?></a>
+                                            </li>
+                                        <?php
+                                    }
+                                ?>
+                                <?php
+                                    if($now==$number_of_page){
+                                        ?>
+                                            <li class="page-item disabled d-flex">
+                                                <a class="page-link">Next</a>
+                                            </li>
+                                        <?php
+                                    }
+                                    else{
+                                        ?>
+                                            <li class="page-item d-flex">
+                                                <a class="page-link" href="catalogAfterLogin.php?page=<?=$now+1?><?php 
+                                                if (isset($_GET["fcategory"])) 
+                                                {echo "&fcategory=".$_GET["fcategory"];} 
+                                                if (isset($_GET["searchget"])) 
+                                                {echo "&searchget=".$_GET["searchget"];} 
+                                                ?>">Next</a>
+                                            </li>
+                                        <?php
+                                    }
+                                ?>
+                            </ul>
                     </nav>
             </div>
             
         </form>
+        <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
+            <div class="col-lg-1 me-lg-5"></div>
+            <div class="col-lg-2 mt-lg-3">
+                <h5 class="fw-bold mb-2">Categories</h5>
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="catalogAfterLogin.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA003" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA004" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA005" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA006" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA007" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA008" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA009" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA017" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA018" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-5">
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="catalogAfterLogin.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA022" style="text-decoration:none; color:#57615b">Bangku</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA023" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA010" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA011" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA012" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA013" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-5">
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="catalogAfterLogin.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA024" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA025" style="text-decoration:none; color:#57615b">Karpet</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA026" style="text-decoration:none; color:#57615b">Lampu</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA027" style="text-decoration:none; color:#57615b">Vas</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA028" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA029" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA030" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA031" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-5">
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="catalogAfterLogin.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA036" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA037" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA038" style="text-decoration:none; color:#57615b">Linen</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA039" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA040" style="text-decoration:none; color:#57615b">Bingkai</a></li>
+                    <li><a href="catalogAfterLogin.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mt-lg-3">
+                <h5 class="fw-bold mb-2">Legal</h5>
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                    <li><a href="" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                </ul>
+                <h5 class="fw-bold mb-2 mt-2">Support</h5>
+                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                    <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                </ul>
+            </div>
+        </div>
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
             &#169; 2022 Erefir Indonesia
         </footer>

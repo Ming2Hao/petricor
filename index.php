@@ -35,29 +35,9 @@
     // }
 
 
-    if(isset($_GET["filter"])){
-        if(isset($_GET["search"])){
-            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%' AND `it_ca_id` LIKE '%".$_GET["filter"]."%'";
-            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%' AND `it_ca_id` LIKE '%".$_GET["filter"]."%'");
-        }
-        else{
-            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["filter"]."%'";
-            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["filter"]."%'");
-        }
-    }
-    if(!isset($_GET["filter"])){
-        if(isset($_GET["search"])){
-            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%'";
-            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%'");
-        }
-        else{
-            $_SESSION["querysekarang"]="SELECT * FROM `items`";
-            $listItem = mysqli_query($conn,"SELECT * FROM `items`");
-        }
-    }
 
     if(isset($_POST["detaildiklik"])){
-        $_SESSION["itemsekarang"]=$_POST["detaildiklik"];
+        $_SESSION["itemIni"]=$_POST["detaildiklik"];
         header('Location: detailBelumLogin.php');
     }
     if (!isset ($_GET['page'])) {  
@@ -67,7 +47,8 @@
     }
     $results_per_page = 4;  
     $page_first_result = ($page-1) * $results_per_page;
-    $query = $_SESSION["querysekarang"];  
+    $_SESSION["querysekarang"]="SELECT * FROM items ORDER BY RAND()";
+    $query = $_SESSION["querysekarang"];
     $result = mysqli_query($conn, $query);  
     $number_of_result = mysqli_num_rows($result);
     $number_of_page = ceil ($number_of_result / $results_per_page);
@@ -205,11 +186,11 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                 <div class="d-flex w-md-50 w-100">
-                    <div class="input-group mt-2 mb-2">
-                        <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                        <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
+                    <div class="input-group mt-2 mb-2 justify-content-end">
+                        <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
+                        <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogue.php" type="submit">
                             <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                        </button>   
+                        </a>   
                     </div>
                 </div>
                 <div class="d-lg-flex justify-content-end d-sm-block">
@@ -313,29 +294,29 @@
             // $ctr = 1;
             while($row = mysqli_fetch_array($result)){
             ?>
-                    <!-- <form action="tes.php"> -->
-                    <div class="col">
-                        <div class="card" style="width: 300px; height: 280px; box-shadow: #3F4441 12px 15px 15px -20px; border-radius:15px; background-color:#f7f7f7;">
-                            <button class="btn p-1 btnHover" style="border-radius:15px; width: 300px; height:280px;" value="<?=$row["it_id"]?>" name="detaildiklik">
-                                <div class="bg-image hover-zoom">
-                                    <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="width:200px; top:0; margin-left:auto; margin-right:auto;">
-                                </div>
-                                
-                                <div class="card-body p-0">
-                                    <p class="text-secondary mb-0"><?php
-                                        $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
-                                        $kat = mysqli_query($conn,$querykategori);
-                                        $rowss = mysqli_fetch_array($kat);
-                                        echo $rowss["ca_name"];
-                                    ?></p>
-                                    <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
-                                    <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
-                                    <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
-                                </div>
-                            </button>
+                    <form action="" method="post">
+                        <div class="col">
+                            <div class="card" style="width: 300px; height: 280px; box-shadow: #3F4441 12px 15px 15px -20px; border-radius:15px; background-color:#f7f7f7;">
+                                <button class="btn p-1 btnHover" style="border-radius:15px; width: 300px; height:280px;" value="<?=$row["it_id"]?>" name="detaildiklik">
+                                    <div class="bg-image hover-zoom">
+                                        <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="width:200px; top:0; margin-left:auto; margin-right:auto;">
+                                    </div>
+                                    
+                                    <div class="card-body p-0">
+                                        <p class="text-secondary mb-0"><?php
+                                            $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
+                                            $kat = mysqli_query($conn,$querykategori);
+                                            $rowss = mysqli_fetch_array($kat);
+                                            echo $rowss["ca_name"];
+                                        ?></p>
+                                        <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
+                                        <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
+                                        <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <!-- </form> -->
+                    </form>
                     
             <?php
                     // $ctr++;
