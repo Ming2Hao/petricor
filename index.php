@@ -8,23 +8,54 @@
     if (isset($_SESSION['currentUser'])) unset($_SESSION['currentUser']);
     if (isset($_SESSION['emailPassing'])) unset($_SESSION['emailPassing']);
     // $tempquery="SELECT * from items";
-    if(!isset($_SESSION["querysekarang"])){
-        $_SESSION["querysekarang"]="SELECT * from items";
-    }
+
+
+    //penting
+    // if(!isset($_SESSION["querysekarang"])){
+    //     $_SESSION["querysekarang"]="SELECT * from items";
+    // }
+
+
+
     // while($row = $listItem -> fetch_assoc()){
     //     $daftarBarang[] = $row;
     // }
-    if(isset($_POST["search"])){
-        if(isset($_POST["searchbar"])){
-            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
-            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'");
-            header('Location: index.php');
-            // $tempquery="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
-            // while($row = $listItem -> fetch_assoc()){
-            //     $daftarBarang[] = $row;
-            // }
+
+    //penting
+    // if(isset($_POST["search"])){
+    //     if(isset($_POST["searchbar"])){
+    //         $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
+    //         $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'");
+    //         header('Location: index.php');
+    //         // $tempquery="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
+    //         // while($row = $listItem -> fetch_assoc()){
+    //         //     $daftarBarang[] = $row;
+    //         // }
+    //     }
+    // }
+
+
+    if(isset($_GET["filter"])){
+        if(isset($_GET["search"])){
+            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%' AND `it_ca_id` LIKE '%".$_GET["filter"]."%'";
+            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%' AND `it_ca_id` LIKE '%".$_GET["filter"]."%'");
+        }
+        else{
+            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["filter"]."%'";
+            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["filter"]."%'");
         }
     }
+    if(!isset($_GET["filter"])){
+        if(isset($_GET["search"])){
+            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%'";
+            $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_GET["search"]."%'");
+        }
+        else{
+            $_SESSION["querysekarang"]="SELECT * FROM `items`";
+            $listItem = mysqli_query($conn,"SELECT * FROM `items`");
+        }
+    }
+
     if(isset($_POST["detaildiklik"])){
         $_SESSION["itemsekarang"]=$_POST["detaildiklik"];
         header('Location: detailBelumLogin.php');
@@ -336,7 +367,7 @@
             <div class="col-lg-2 mt-lg-3 col-6">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
+                    <li><p categ="CA001" style="text-decoration:none; color:#57615b" onClick="filterdiklik()" id="filtercateg">Meja Nakas</a></li>
                     <li><a href="footerBelumLogin/kursiBerlengan.php" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
                     <li><a href="footerBelumLogin/penyimpananSepatu.php" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
                     <li><a href="footerBelumLogin/kursiSisi.php" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
@@ -422,6 +453,11 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function filterdiklik(){
+            <?php?>
+        }
+    </script>
     <script> 
         $(document).ready(function(){
        	  $(".input").focus(function(){

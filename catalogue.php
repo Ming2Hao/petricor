@@ -4,26 +4,30 @@
     function rupiah($angka){
         return "IDR " . number_format($angka,2,',','.');
     }
-    // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
-    $listItem = mysqli_query($conn,"SELECT * from items");
-    // $tempquery="SELECT * from items";
-    if(!isset($_SESSION["querysekarang"])){
-        $_SESSION["querysekarang"]="SELECT * from items";
+    
+    $query = "SELECT * FROM items";
+    $filter=[];
+    if (isset($_GET["fcategory"])) {
+        $cat=$_GET["fcategory"];
+        $filter[]= "`it_ca_id`='$cat'";
     }
-    // while($row = $listItem -> fetch_assoc()){
-    //     $daftarBarang[] = $row;
-    // }
     if(isset($_POST["search"])){
-        if(isset($_POST["searchbar"])){
-            // echo "<script>alert('haha') </script>";
-            $_SESSION["querysekarang"]="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
-            // $listItem = mysqli_query($conn,"SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'");
-            header('Location: catalogue.php');
-            // $tempquery="SELECT * FROM `items` WHERE `it_name` LIKE '%".$_POST["searchbar"]."%'";
-            // while($row = $listItem -> fetch_assoc()){
-            //     $daftarBarang[] = $row;
-            // }
-        }
+        $link = "location:catalogue.php?searchget=".$_POST["searchbar"];
+        if (isset($_GET["fcategory"])) {
+            $cat=$_GET["fcategory"];
+            $link.= "&fcategory=".$cat;
+        }        
+        header($link);
+    }
+    if(isset($_GET["searchget"])){
+        $filter[]="`it_name` LIKE '%".$_GET["searchget"]."%'";
+    }
+    // if (condition) {
+    //     # code...
+    // }
+    $sqlFilter = implode(" AND ",$filter);
+    if ($sqlFilter!="") {
+        $query.=" WHERE $sqlFilter";
     }
     if(isset($_POST["detaildiklik"])){
         $_SESSION["itemIni"]=$_POST["detaildiklik"];
@@ -34,21 +38,23 @@
     } else {  
         $page = $_GET['page'];  
     }
-    $results_per_page = 18;  
+    $results_per_page = 2;  
     $page_first_result = ($page-1) * $results_per_page;
-    $query = $_SESSION["querysekarang"];  
+    // $query = $_SESSION["querysekarang"];  
     $result = mysqli_query($conn, $query);  
     $number_of_result = mysqli_num_rows($result);
     $number_of_page = ceil ($number_of_result / $results_per_page);
     $page_first_result = ($page-1) * $results_per_page;   
-    $query = $_SESSION["querysekarang"]." LIMIT " . $page_first_result . ',' . $results_per_page;  
+    $query .=" LIMIT " . $page_first_result . ',' . $results_per_page;  
     $result = mysqli_query($conn, $query);  
+    echo $query;
     $now=$page;
 
     if(isset($_POST['passing'])){
         $_SESSION['emailPassing'] = $_POST['passingEmail'];
         header('Location: register.php');
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,12 +167,12 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
             <div class="d-flex w-md-50 w-75">
-                <form action="" method="post" class="d-flex container-fluid">
+                <form action="" method="POST" class="d-flex container-fluid">
                 <div class="input-group">
 
                     <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
                     
-                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
+                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search">
                         <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
                     </button>   
                     
@@ -343,7 +349,8 @@
                                     else{
                                         ?>
                                             <li class="page-item d-flex">
-                                                <a class="page-link" href="catalogue.php?page=<?=$now-1?>">Previous</a>
+                                                <a class="page-link" href="catalogue.php?page=<?=$now-1?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];}  ?>">Previous</a>
                                             </li>
                                         <?php
                                     }
@@ -353,14 +360,19 @@
                                         if($page==$now){
                                             ?>
                                                 <li class="page-item active d-flex" aria-current="page">
-                                                    <a class="page-link" href="catalogue.php?page=<?=$page?>"><?=$page?></a>
+                                                    <a class="page-link" href="catalogue.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];}  ?>"><?=$page?></a>
                                                 </li>
                                             <?php
                                         }
                                         else{
                                             ?>
                                                 <li class="page-item d-flex">
-                                                    <a class="page-link" href="catalogue.php?page=<?=$page?>"><?=$page?></a>
+                                                    <a class="page-link" href="catalogue.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) 
+                                                    {echo "&fcategory=".$_GET["fcategory"];}
+                                                    if (isset($_GET["searchget"])) 
+                                                    {echo "&searchget=".$_GET["searchget"];} 
+                                                    ?>"><?=$page?></a>
                                                 </li>
                                             <?php
                                         }
@@ -377,7 +389,12 @@
                                     else{
                                         ?>
                                             <li class="page-item d-flex">
-                                                <a class="page-link" href="catalogue.php?page=<?=$now+1?>">Next</a>
+                                                <a class="page-link" href="catalogue.php?page=<?=$now+1?><?php 
+                                                if (isset($_GET["fcategory"])) 
+                                                {echo "&fcategory=".$_GET["fcategory"];} 
+                                                if (isset($_GET["searchget"])) 
+                                                {echo "&searchget=".$_GET["searchget"];} 
+                                                ?>">Next</a>
                                             </li>
                                         <?php
                                     }
@@ -422,7 +439,7 @@
             <div class="col-lg-2 mt-lg-3">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
+                    <li><a href="catalogue.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
                     <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
                     <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
                     <li><a href="footerBelumLogin/mejanakas.php" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
