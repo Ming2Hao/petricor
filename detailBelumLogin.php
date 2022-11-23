@@ -90,15 +90,14 @@ $row = mysqli_fetch_assoc($listItem);
     rel="stylesheet"
     /> -->
     <style>
-         @media screen and (min-device-width: 300px) and (max-device-width: 400px) { 
-            .tes{
-               margin-left: 38px;
+         @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+            .potrek{
+                z-index:-1; margin-top:-35px;
             }
         }
         @media screen and (min-width:1000px){
-            .tes{
-                margin-left: 100px;
-                margin-right: 100px;
+            .potrek{
+                z-index:-1; margin-top:-90px; width:500px; top:0; margin-left:auto; margin-right:auto;
             }
         }
 
@@ -225,7 +224,7 @@ $row = mysqli_fetch_assoc($listItem);
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">DETIL BARANG</div>
+                <div class="text-white">DETAIL</div>
             </a>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                 <!-- <span class="navbar-toggler-icon"></span> -->
@@ -255,61 +254,20 @@ $row = mysqli_fetch_assoc($listItem);
                     </button>   
                 </div>
             </div>
-            <div class="d-lg-flex justify-content-end d-sm-block">
-                <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
-                    <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
-                        FILTERS
-                    </button>
-                    <ul class="dropdown-menu p-2">
-                        <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
-                        <li><button class="dropdown-item" href="#">Name : Descending</button></li>
-                        <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
-                        <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><button class="dropdown-item" href="#">All Products</button></li>
-                    </ul>
-                </div> -->
-                <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
-                    <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
-                        KATEGORI
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                       
-                    </ul>
-                </div> -->
-                <!-- <div class="row"> -->
-                    <!-- <div class="col-lg-3"> -->
-                        <!-- <form action="">
-                        <a hred="cart.php" class="d-flex">
-                            <img src="assets/img/cart.png" alt="iconCart" class="me-1 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
-                            <div class="text-white mt-lg-2">CART</div>
-                        </a>
-                        </form> -->
-                        <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
-                    <!-- </div> -->
-                    <!-- <div class="col-lg-12 mt-4 mt-lg-2"> -->
-                        <!-- <div class="mt-sm-5"> -->
-                            <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
-                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 ms-5 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
-                            <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
-                            <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
-                            <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
-                            <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
-                        <!-- </div> -->
-                    <!-- </div> -->
-                <!-- </div> -->
-                
-                
-                
+            <div class="d-lg-flex justify-content-end d-sm-block mt-lg-0 mt-2">
+                <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>
         </div>
         </nav>
     <div class="row w-100">
         <div class="col-lg-4 col-sm-12 col-md-12">
             <div class="bg-image hover-zoom">
-                <a href="catalogue.php"><img src="assets/img/return.png" alt="" style="width:25px; z-index:2;" class="mt-lg-2 ms-lg-3"></a>
-                <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="z-index:-1; margin-top:-90px; width:500px; top:0; margin-left:auto; margin-right:auto;">
+                <a href="catalogue.php"><img src="assets/img/return.png" alt="" style="width:25px; z-index:2;" class="mt-2 ms-3"></a>
+                <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom potrek" alt="...">
                 <div class="text-center" style="margin-top: -80px;">
                     <?php
                         $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
@@ -324,16 +282,19 @@ $row = mysqli_fetch_assoc($listItem);
                
             </div>
         </div>
-        <div class="col-lg-5 col-sm-12 col-md-12">
-            <h4 class="mt-lg-4 mb-lg-3 fw-bolder" style="text-transform:uppercase; text-decoration:underline;">Deskripsi Produk <?=$row['it_name']?></h4>
+        <div class="col-lg-5 col-sm-12 col-md-12 ms-lg-0 ms-2">
+            <h4 class="mt-lg-4 mt-1 mb-lg-3 fw-bolder" style="text-transform:uppercase; text-decoration:underline;">Deskripsi Produk <?=$row['it_name']?></h4>
             <?=$row["it_desc"]?>
-            <form action="#" method="post" class="mt-lg-4 float-end">
+            <form action="#" method="post" class="mt-lg-4 mt-3 float-end">
                 <input type="number" name="quantiti" id="" value="1" min="1" style="border-radius:8px; width: 72px;">
                 <button type="submit" name="tambahkeranjang" style="border-radius: 8px; background-color:#555; color:#ffffff;">Masukkan ke Keranjang</button>
             </form>
         </div>
     </div>
-   
+    <footer class="text-center p-2 fixed-bottom" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+        &#169; 2022 Erefir Indonesia
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>

@@ -71,6 +71,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <style>
         @media screen and (min-device-width: 300px) and (max-device-width: 400px) { 
             .tes{
@@ -206,6 +207,19 @@
         .action .menu ul li:hover a {
             color: #ff5d94;
         }
+
+        .badge:after{
+            content:attr(value);
+            font-size:15px;
+            color: #fff;
+            background: red;
+            border-radius:50%;
+            padding: 0 5px;
+            position:relative;
+            left:-8px;
+            top:-10px;
+            opacity:0.9;
+        }
     </style>
 </head>
 <body style="background-color:#FFDECF;">
@@ -236,25 +250,27 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
-            <div class="container-fluid">
+            <div class="container-fluid w-100">
             <form action="" method="POST" class="d-flex container-fluid">
                 <div class="input-group">
 
                     <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
                     
-                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search">
+                    <button class="rounded-end me-2" style="border:none; background-color:white; margin-top:5px;" name="search">
                         <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
                     </button>   
                     
                 </div>
                 </form>
             </div>
-            <form class="">
-                <a href="cart.php" class="navbar-brand" style="margin-right: 80px;">
-                    <img src="assets/img/cart.png" alt="iconCart" class="mt-lg-1" style="width:30px; height:30px;">
-                    <div class="text-white mt-lg-2" style="font-size: 15px;">CART</div>
-                </a>
-            </form>  
+            <a href="cart.php" class="me-lg-5 pe-lg-4 d-flex">
+                <?php
+                    $userIni = $curUser["us_id"];
+                    $hitungCart = mysqli_query($conn, "SELECT COUNT(ct_it_id) FROM cart WHERE ct_us_id = '$userIni'");
+                    $qtyCart = mysqli_fetch_row($hitungCart);
+                ?>
+                <i class="fa badge fa-lg p-0" value="<?=$qtyCart[0]?>">&#xf07a;</i>
+            </a>
             <div class="d-lg-flex d-sm-block">
                 <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
                     <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
@@ -319,46 +335,120 @@
         </div>
         </nav>
                         
+        <div class="container-fluid w-100">
             <!-- munculin gambar -->
-            <form action="" method="post">
-            <div class="mt-3 tes">
-                <div class="row row-cols-sm-1 row-cols-md-4 g-4 w-100">
-                <?php
-                // for($i=0; $i<sizeof($daftarBarang); $i++){
-                while($row = mysqli_fetch_array($result)){
-                ?>
-                        <!-- <form action="tes.php"> -->
-                        <div class="col">
-                            <div class="card" style="width: 300px; height: 280px; box-shadow: #3F4441 12px 15px 15px -20px; border-radius:15px; background-color:#f7f7f7;">
-                                <button class="btn p-1 btnHover" style="border-radius:15px; width: 300px; height:280px;" value="<?=$row["it_id"]?>" name="detaildiklik">
-                                    <div class="bg-image hover-zoom">
-                                        <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="width:200px; top:0; margin-left:auto; margin-right:auto;">
+            <!-- <div class="mt-lg-3"> -->
+                <div class="row">
+                    <div class="col-12 col-lg-3 pb-lg-0 pb-3" style="background-color:#f7f3f2;">
+                        <form action="" method="post">
+                            <div class="accordion pt-3 " id="accordionPanelsStayOpenExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                        Filter Kategori
+                                    </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body">
+                                    <?php
+                                        $resultkategori = mysqli_query($conn, "select * from category where ca_id != 'CA001'"); 
+                                        while($row = mysqli_fetch_array($resultkategori)){
+                                            ?>
+                                                <!-- <li><a class="dropdown-item" href="#"></a></li> -->
+                                                <input type="checkbox" name="" id="" class="me-2"> <?=$row["ca_name"]?> <br>
+                                            <?php
+                                        }
+                                    ?>
                                     </div>
-                                    
-                                    <div class="card-body p-0">
-                                        <p class="text-secondary mb-0"><?php
-                                            $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
-                                            $kat = mysqli_query($conn,$querykategori);
-                                            $rowss = mysqli_fetch_array($kat);
-                                            echo $rowss["ca_name"];
-                                        ?></p>
-                                        <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
-                                        <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
-                                        <p class="text-danger" style="text-transform:capitalize;"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
                                     </div>
-                                </button>
-                            </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                        Sort
+                                    </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                        <div class="accordion-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Nama: A-Z
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Nama: Z-A
+                                                </label>
+                                            </div> 
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Harga: Rendah-Tinggi
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Harga: Tinggi-Rendah
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn text-white px-4 mt-3 float-end" style="background-color:#BA7967;">Terapkan</button>
+                            </div> 
+                        </form>
+                    </div>
+                    <div class="col-lg-9 d-flex justify-content-center mt-3">
+                        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3 w-100">
+                            <?php
+                            
+                            // for($i=0; $i<sizeof($daftarBarang); $i++){
+                            while($row = mysqli_fetch_assoc($result)){
+                            ?>
+                                <div class="col d-flex justify-content-center" style="width: 350px;">
+                                    <div class="card" style="width: 300px; height: 280px; box-shadow: #3F4441 12px 15px 15px -20px; border-radius:15px; background-color:#f7f7f7;">
+                                        <form action="" method="post">    
+                                            <button class="btn p-1 btnHover" style="border-radius:15px; width: 300px; height:280px;" value="<?=$row["it_id"]?>" name="detaildiklik">
+                                                <div class="bg-image hover-zoom">
+                                                    <img src="<?=$row['it_gambar']?>" class="card-img-top bg-image hover-zoom" alt="..." style="width:200px; top:0; margin-left:auto; margin-right:auto;">
+                                                </div>
+                                                
+                                                <div class="card-body p-0">
+                                                    <p class="text-secondary mb-0">
+                                                        <?php
+                                                        $querykategori="select * from category where ca_id='".$row["it_ca_id"]."'";
+                                                        $kat = mysqli_query($conn,$querykategori);
+                                                        $rowss = mysqli_fetch_assoc($kat);
+                                                        echo $rowss["ca_name"];
+                                                        ?>
+                                                    </p>
+                                                    <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
+                                                    <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
+                                                    <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                                                </div>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            <?php
+                                }
+                            ?>
                         </div>
-                        <!-- </form> -->
-                        
-                <?php
-                    }
-                ?>
+                    </div>
                 </div>
-            </div>
-            <div class="row w-100">
-                    <nav aria-label="..." class="w-100 d-flex justify-content-center mt-3">
-                    <ul class="pagination" class="w-100 d-flex">
+                
+            <!-- </div> -->
+            <div class="row">
+                <div class="col-lg-3 col-12 sm-d-none" style="background-color:#f7f3f2;">
+                    
+                </div>
+                <div class="col-lg-9 col-12">
+                    <div class="row w-100 ms-lg-0 ms-3">
+                        <nav aria-label="..." class="w-100 d-flex justify-content-center mt-3">
+                            <ul class="pagination" class="w-100 d-flex">
                                 <?php
                                     if($now==1){
                                         ?>
@@ -370,7 +460,7 @@
                                     else{
                                         ?>
                                             <li class="page-item d-flex">
-                                                <a class="page-link" href="catalogAfterLogin.php?page=<?=$now-1?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
+                                                <a class="page-link" href="catalogue.php?page=<?=$now-1?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
                                                     {echo "&searchget=".$_GET["searchget"];}  ?>">Previous</a>
                                             </li>
                                         <?php
@@ -406,7 +496,7 @@
                                     if($start>1){
                                         ?>
                                             <li class="page-item d-flex" aria-current="page">
-                                                <a class="page-link" href="catalogAfterLogin.php?page=1<?php if (isset($_GET["fcategory"])) 
+                                                <a class="page-link" href="catalogue.php?page=1<?php if (isset($_GET["fcategory"])) 
                                                     {echo "&fcategory=".$_GET["fcategory"];}
                                                     if (isset($_GET["searchget"])) 
                                                     {echo "&searchget=".$_GET["searchget"];} 
@@ -422,7 +512,7 @@
                                         if($page==$now){
                                             ?>
                                                 <li class="page-item d-flex" aria-current="page" style="background-color:gainsboro; border-radius:5px;">
-                                                    <a class="page-link" href="catalogAfterLogin.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
+                                                    <a class="page-link" href="catalogue.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
                                                     {echo "&searchget=".$_GET["searchget"];}  ?>"><?=$page?></a>
                                                 </li>
                                             <?php
@@ -430,7 +520,7 @@
                                         else{
                                             ?>
                                                 <li class="page-item d-flex">
-                                                    <a class="page-link" href="catalogAfterLogin.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) 
+                                                    <a class="page-link" href="catalogue.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) 
                                                     {echo "&fcategory=".$_GET["fcategory"];}
                                                     if (isset($_GET["searchget"])) 
                                                     {echo "&searchget=".$_GET["searchget"];} 
@@ -445,7 +535,7 @@
                                                 <a class="page-link">...</a>
                                             </li>
                                             <li class="page-item d-flex" aria-current="page">
-                                            <a class="page-link" href="catalogAfterLogin.php?page=<?=$number_of_page?><?php if (isset($_GET["fcategory"])) 
+                                            <a class="page-link" href="catalogue.php?page=<?=$number_of_page?><?php if (isset($_GET["fcategory"])) 
                                                     {echo "&fcategory=".$_GET["fcategory"];}
                                                     if (isset($_GET["searchget"])) 
                                                     {echo "&searchget=".$_GET["searchget"];} 
@@ -465,7 +555,7 @@
                                     else{
                                         ?>
                                             <li class="page-item d-flex">
-                                                <a class="page-link" href="catalogAfterLogin.php?page=<?=$now+1?><?php 
+                                                <a class="page-link" href="catalogue.php?page=<?=$now+1?><?php 
                                                 if (isset($_GET["fcategory"])) 
                                                 {echo "&fcategory=".$_GET["fcategory"];} 
                                                 if (isset($_GET["searchget"])) 
@@ -476,10 +566,12 @@
                                     }
                                 ?>
                             </ul>
-                    </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
-            
-        </form>
+        </div>
+        <hr class="m-0" style="height:2px; color:#f7f3f2; background-color:#f7f3f2;">
         <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5"></div>
             <div class="col-lg-2 mt-lg-3">
@@ -543,12 +635,12 @@
             <div class="col-lg-2 mt-lg-3">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                    <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                    <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                    <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                 </ul>
             </div>
         </div>

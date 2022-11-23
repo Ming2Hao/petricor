@@ -68,15 +68,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
     <style>
-        @media screen and (min-device-width: 300px) and (max-device-width: 400px) { 
-            .tes{
-               margin-left: 38px;
+        @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+            .gambar{
+                display: none;
+            }
+            .futer{
+                display: none;
             }
         }
         @media screen and (min-width:1000px){
-            .tes{
-                margin-left: 100px;
-                margin-right: 100px;
+            .gambar{
+                display: block;
+            }
+            .futer{
+                display: flex;
             }
         }
 
@@ -191,7 +196,7 @@
                 </form>
             </div>
             </form>
-            <div class="d-lg-flex justify-content-end d-sm-block">
+            <div class="d-lg-flex justify-content-end d-sm-block mt-lg-0 mt-2">
                 <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
                     <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
                         FILTERS
@@ -234,7 +239,7 @@
                     <!-- <div class="col-lg-12 mt-4 mt-lg-2"> -->
                         <!-- <div class="mt-sm-5"> -->
                             <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
-                            <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 ms-5 mt-lg-0 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">KATALOG</a>
+                            <a href="catalogue.php" class="link-light mt-4 ms-2 ms-lg-3 mt-lg-0 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">KATALOG</a>
                             <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
                             <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
                             <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
@@ -246,82 +251,73 @@
         </div>
     </nav>
 
-        <div class="container-fluid">
+        <div class="container-fluid w-100">
             <!-- munculin gambar -->
             <!-- <div class="mt-lg-3"> -->
-                <div class="row w-100">
-                    <div class="col-lg-3 sm-d-none" style="background-color:#f7f3f2;">
-                        <div class="accordion pt-3 " id="accordionPanelsStayOpenExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                    Filter Kategori
-                                </button>
-                                </h2>
-                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                                <div class="accordion-body">
-                                <?php
-                                    $resultkategori = mysqli_query($conn, "select * from category where ca_id != 'CA001'"); 
-                                    while($row = mysqli_fetch_array($resultkategori)){
-                                        ?>
-                                            <!-- <li><a class="dropdown-item" href="#"></a></li> -->
-                                            <input type="checkbox" name="" id="" class="me-2"> <?=$row["ca_name"]?> <br>
-                                        <?php
-                                    }
-                                ?>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                    Sort
-                                </button>
-                                </h2>
-                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                                <div class="accordion-body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Nama: A-Z
-                                        </label>
+                <div class="row">
+                    <div class="col-12 col-lg-3 pb-lg-0 pb-3" style="background-color:#f7f3f2;">
+                        <form action="" method="post">
+                            <div class="accordion pt-3 " id="accordionPanelsStayOpenExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                        Filter Kategori
+                                    </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body">
+                                    <?php
+                                        $resultkategori = mysqli_query($conn, "select * from category where ca_id != 'CA001'"); 
+                                        while($row = mysqli_fetch_array($resultkategori)){
+                                            ?>
+                                                <!-- <li><a class="dropdown-item" href="#"></a></li> -->
+                                                <input type="checkbox" name="" id="" class="me-2"> <?=$row["ca_name"]?> <br>
+                                            <?php
+                                        }
+                                    ?>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Nama: Z-A
-                                        </label>
-                                    </div> 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Harga: Rendah-Tinggi
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Harga: Tinggi-Rendah
-                                        </label>
                                     </div>
                                 </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                        Sort
+                                    </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                        <div class="accordion-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Nama: A-Z
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Nama: Z-A
+                                                </label>
+                                            </div> 
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Harga: Rendah-Tinggi
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Harga: Tinggi-Rendah
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        <!-- <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                Range
-                            </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                            <div class="accordion-body">
-                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                            </div>
-                        </div> -->
-                        </div> 
+                                <button type="submit" class="btn text-white px-4 mt-3 float-end" style="background-color:#BA7967;">Terapkan</button>
+                            </div> 
+                        </form>
                     </div>
-                    <div class="col-lg-9 d-flex justify-content-center mt-lg-3">
+                    <div class="col-lg-9 d-flex justify-content-center mt-3">
                         <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3 w-100">
                             <?php
                             
@@ -361,12 +357,12 @@
                 </div>
                 
             <!-- </div> -->
-            <div class="row w-100">
-                <div class="col-lg-3 sm-d-none" style="background-color:#f7f3f2;">
+            <div class="row">
+                <div class="col-lg-3 col-12 sm-d-none" style="background-color:#f7f3f2;">
                     
                 </div>
-                <div class="col-lg-9">
-                    <div class="row w-100">
+                <div class="col-lg-9 col-12">
+                    <div class="row w-100 ms-lg-0 ms-3">
                         <nav aria-label="..." class="w-100 d-flex justify-content-center mt-3">
                             <ul class="pagination" class="w-100 d-flex">
                                 <?php
@@ -492,37 +488,38 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-center mb-lg-4" style="height: 130px; background-color:#BA7967; color:#3F4441;">
+        <div class="d-flex justify-content-center" style="height: 140px; background-color:#BA7967; color:#3F4441;">
             <form action="" method="post">
-            <div class="row w-100 mx-0">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-5 mt-lg-3 me-lg-5 text-white">
+            <div class="row w-100 mx-0 d-flex">
+                <div class="col-lg-1 col-sm-0"></div>
+                <div class="col-lg-5 mt-lg-4 mt-2 me-lg-5 col-sm-12 text-white">
                     <h1 class="fw-bolder">REGISTER NOW FOR SPECIAL OFFERS</h1>
                 </div>
-            
-                <div class="col-lg-4 mt-5">
-                    <div class="mt-2">
-                        <div class="form-field">
-                            <label>Email <span class="text-danger">*</span></label>
-                            <input type="text" name="passingEmail" class="input" autocomplete="off">
-                            <div class="border-line">
+                <!-- <div class="d-flex justify-content-end"> -->
+                    <div class="col-lg-5 mt-lg-5 mt-2 d-flex">
+                        <!-- <div class="mt-lg-2"> -->
+                            <div class="form-field">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input type="text" name="passingEmail" class="input" autocomplete="off">
+                                <div class="border-line">
+                                </div>
                             </div>
-                        </div>
+                        <!-- </div> -->
+                    
+                    <!-- <div class="col-lg-1 m-lg-5"> -->
+                        <button type="submit" class="mb-4" style="background:none; border: none;" name="passing">
+                            <img src="assets/img/arrow.png" alt="" style="width: 25px; height:25px;">
+                        </button>
                     </div>
-                </div>
-                <div class="col-lg-1" style="margin-top:65px;">
-                    <button type="submit" style="background:none; border: none;" name="passing">
-                        <img src="assets/img/arrow.png" alt="" style="width: 25px; height:25px;">
-                    </button>
-                </div>
-                
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
             </form>
         </div>
 
-        <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
+        <div class="row gambar container-fluid w-100 mb-4 mt-3 mx-0 futer">
             <div class="col-lg-1 me-lg-5"></div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 ">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogue.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
