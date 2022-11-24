@@ -22,7 +22,7 @@
                 $ada = true;
                 if($pass == $row["us_password"]){
                     $_SESSION['currentUser'] = $row["us_id"];
-                    header("Location: catalogAfterLogin.php");
+                    header("Location: indexSudahLogin.php");
                 }else{
                     echo "<script>alert('Password Salah!')</script>";
                 }

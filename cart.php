@@ -114,16 +114,27 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <style>
-        @media screen and (min-device-width: 300px) and (max-device-width: 400px) { 
-            .tes{
-               margin-left: 38px;
+        @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+            .kartu{
+               height: 200px;
+            }
+
+            .gambar{
+                display: none;
+            }
+
+            .hp{
+                display: block;
             }
         }
         @media screen and (min-width:1000px){
-            .tes{
-                margin-left: 100px;
-                margin-right: 100px;
+            .kartu{
+                height: 500px;
+            }
+            .hp{
+                display: none;
             }
         }
 
@@ -292,123 +303,141 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         .action .menu ul li:hover a {
             color: #ff5d94;
         }
+
+        /* KERANJANG */
+        .badge:after{
+            content:attr(value);
+            font-size:15px;
+            color: #fff;
+            background: red;
+            border-radius:50%;
+            padding: 0 5px;
+            position:relative;
+            left:-8px;
+            top:-10px;
+            opacity:0.9;
+        }
     </style>
 </head>
 <body style="background-color:#FFDECF;" onload="load_ajax()">
     <div class="container-fluid px-0">
         
     <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="catalogAfterLogin.php" name="logodipencet">
-                <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">CART</div>
-            </a>
-            <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
-                <!-- <span class="navbar-toggler-icon"></span> -->
-                <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
-                </li>
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
-                </li> -->
-                <!-- <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
-                </li> -->
-            <!-- </ul> -->
-            <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
-            <div class="d-flex container-fluid">
-                <div class="input-group">
-                    <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
-                        <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                    </button>   
-                </div>
-                <form action="">
-                    <button class="d-flex" style="margin-right:80px; border:none; background:none;" formaction="cart.php">
-                        <img src="assets/img/cart.png" alt="iconCart" class="mt-lg-1" style="width:30px; height:30px;">
-                        <a class="text-white mt-lg-2">CART</a>
-                    </button>
-                </form>
-                
-                
-            </div>
-            <div class="d-lg-flex d-sm-block">
-                <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
-                    <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
-                        FILTERS
-                    </button>
-                    <ul class="dropdown-menu p-2">
-                        <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
-                        <li><button class="dropdown-item" href="#">Name : Descending</button></li>
-                        <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
-                        <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><button class="dropdown-item" href="#">All Products</button></li>
-                    </ul>
-                </div> -->
-                <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
-                    <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
-                        KATEGORI
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <?php
-                            $resultkategori = mysqli_query($conn, "select * from category"); 
-                            while($row = mysqli_fetch_array($resultkategori)){
-                                ?>
-                                    <li><a class="dropdown-item" href="#"><?=$row["ca_name"]?></a></li>
-                                <?php
-                            }
-                        ?>
-                    </ul>
-                </div> -->
-                <!-- PROFILEEEEEEEEEE USERRRRRRR -->
-                <div class="action">
-                    <div class="profile" onclick="menuToggle();">
-                        <img src="temp/nahida2.jpg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="indexSudahLogin.php" name="logodipencet">
+                    <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
+                    <div class="text-white gambar">CART</div>
+                </a>
+                <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
+                    <!-- <span class="navbar-toggler-icon"></span> -->
+                    <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
+                    </li> -->
+                    <!-- <li class="nav-item me-3">
+                        <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
+                    </li> -->
+                <!-- </ul> -->
+                <!-- <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+                <div class="w-100 d-flex">
+                    <div class="container-fluid">
+                        <form action="" method="POST" class="">
+                            <div class="input-group">
+                                <input type="text" class="form-control ms-lg-2" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
+                                <button class="rounded-end me-lg-2" style="border:none; background-color:white; margin-top:5px;" name="search">
+                                    <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
+                                </button>   
+                                
+                            </div>
+                        </form>
                     </div>
-                    <div class="menu">
+                    <!-- <div class="d-inline-block"> -->
+                        <a href="cart.php" class="me-lg-5 pe-lg-4 mt-lg-2 mt-2">
+                            <?php
+                                $userIni = $curUser["us_id"];
+                                $hitungCart = mysqli_query($conn, "SELECT COUNT(ct_it_id) FROM cart WHERE ct_us_id = '$userIni'");
+                                $qtyCart = mysqli_fetch_row($hitungCart);
+                            ?>
+                            <i class="fa badge fa-lg p-0" value="<?=$qtyCart[0]?>">&#xf07a;</i>
+                        </a>
+                    <!-- </div> -->
+                    
+                    <div class="d-lg-flex d-sm-block">
+                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
+                        <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
+                            FILTERS
+                        </button>
+                        <ul class="dropdown-menu p-2">
+                            <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
+                            <li><button class="dropdown-item" href="#">Name : Descending</button></li>
+                            <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
+                            <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button class="dropdown-item" href="#">All Products</button></li>
+                        </ul>
+                    </div> -->
+                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
+                        <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
+                            KATEGORI
+                        </a>
 
-                        <div class="username" style="margin-bottom: -5px">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <?php
+                                $resultkategori = mysqli_query($conn, "select * from category"); 
+                                while($row = mysqli_fetch_array($resultkategori)){
+                                    ?>
+                                        <li><a class="dropdown-item" href="#"><?=$row["ca_name"]?></a></li>
+                                    <?php
+                                }
+                            ?>
+                        </ul>
+                    </div> -->
+                    <!-- PROFILEEEEEEEEEE USERRRRRRR -->
+                    <div class="action">
+                        <div class="profile" onclick="menuToggle();">
+                            <img src="temp/nahida2.jpg">
+                        </div>
+                        <div class="menu">
+                            <div class="username" style="margin-bottom: -5px">
+                                <?=$curUser["us_name"]?>
+                            </div>
+                            <div class="printilan"><?=$curUser["us_username"]?> </div>
+                            <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div> -->
                             
-                            <?=$curUser["us_name"]?>
-                        </div>
-                        <div class="printilan" style="margin-bottom: -5px"><?=$curUser["us_username"]?> 
-                        </div>
-                        <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> 
-                        </div> -->
-                        
-                        <ul>
-                        <!-- <li>
-                            <img src="./assets/icons/user.png" /><a href="#">My profile</a>
-                        </li>
-                        <li>
-                            <img src="./assets/icons/settings.png" /><a href="#">Setting</a>
-                        </li>
-                        <li>
-                            <img src="./assets/icons/question.png" /><a href="#">Help</a>
-                        </li> -->
+                            <ul>
+                            <!-- <li>
+                                <img src="./assets/icons/user.png" /><a href="#">My profile</a>
+                            </li>
+                            <li>
+                                <img src="./assets/icons/settings.png" /><a href="#">Setting</a>
+                            </li>
+                            <li>
+                                <img src="./assets/icons/question.png" /><a href="#">Help</a>
+                            </li> -->
                             <li>
                                 <img src="assets/img/logout.png" /><a href="index.php">Logout</a>
                             </li>
-                        </ul>
-                    </div>  
+                            </ul>
+                        </div>  
+                    </div>
+                    
                 </div>
-                
-            </div>
+                </div>
 
             </div>
         </nav>
 
         <!-- cart-->
-        <div class="px-3 mx-5">
+        <div class="p-3 mx-5">
             <div class="row d-flex">
                 <div class="col-9" id="maincart">
                 <?php

@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Kebijakan Privasi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
@@ -31,6 +31,9 @@
             /* .futer{
                 display: none;
             } */
+            .hp{
+                display: block;
+            }
         }
         @media screen and (min-width:1000px){
             .gambar{
@@ -39,6 +42,9 @@
             /* .futer{
                 display: flex;
             } */
+            .hp{
+                display: none;
+            }
         }
 
         html, body{
@@ -267,7 +273,6 @@
             Saat Anda mengunjungi erefiv, kami secara otomatis mengumpulkan informasi tertentu mengenai perangkat Anda, termasuk informasi tentang browser web, alamat IP, zona waktu, dan sejumlah cookie yang terinstal di perangkat Anda. Selain itu, selama Anda menjelajahi Website, kami mengumpulkan informasi tentang setiap halaman web atau produk yang Anda lihat, website atau istilah pencarian apa yang mengarahkan Anda ke Website, dan cara Anda berinteraksi dengan Website. Kami menyebut informasi yang dikumpulkan secara otomatis ini sebagai "Informasi Perangkat". Kemudian, kami mungkin akan mengumpulkan data pribadi yang Anda berikan kepada kami (termasuk tetapi tidak terbatas pada, Nama, Nama belakang, Alamat, informasi pembayaran, dll.) selama pendaftaran untuk dapat memenuhi perjanjian. <br><br>
             <h5 class="fw-bold">Mengapa kami memproses data Anda?</h5>
             Menjaga data pelanggan agar tetap aman adalah prioritas utama kami. Oleh karena itu, kami hanya dapat memproses sejumlah kecil data pengguna, sebanyak yang benar-benar diperlukan untuk menjalankan website. Informasi yang dikumpulkan secara otomatis hanya digunakan untuk mengidentifikasi kemungkinan kasus penyalahgunaan dan menyusun informasi statistik terkait penggunaan website. Informasi statistik ini tidak digabungkan sedemikian rupa hingga dapat mengidentifikasi pengguna tertentu dari sistem. <br><br>
-
             Anda dapat mengunjungi website tanpa memberi tahu kami identitas Anda atau mengungkapkan informasi apa pun, yang dapat digunakan oleh seseorang untuk mengidentifikasi Anda sebagai individu tertentu yang dapat dikenali. Namun, jika Anda ingin menggunakan beberapa fitur website, atau Anda ingin menerima newsletter kami atau memberikan detail lainnya dengan mengisi formulir, Anda dapat memberikan data pribadi kepada kami, seperti email, nama depan, nama belakang, kota tempat tinggal, organisasi, dan nomor telepon Anda. Anda dapat memilih untuk tidak memberikan data pribadi Anda kepada kami, tetapi Anda mungkin tidak dapat memanfaatkan beberapa fitur website. Contohnya, Anda tidak akan dapat menerima Newsletter kami atau menghubungi kami secara langsung dari website. Pengguna yang tidak yakin tentang informasi yang wajib diberikan dapat menghubungi kami melalui <span style="color:#5E6F64; font-weight:bold">erefiv.id@gmail.com</span>. <br><br>
             <h5 class="fw-bold">Hak-hak Anda:</h5>
             Jika Anda seorang warga Indonesia, Anda memiliki hak-hak berikut terkait data pribadi Anda: <br>
@@ -299,12 +304,11 @@
             <h5 class="fw-bold">Informasi kontak:</h5>
             Jika Anda ingin menghubungi kami untuk mempelajari Kebijakan ini lebih lanjut atau menanyakan masalah apa pun yang berkaitan dengan hak perorangan dan Informasi pribadi Anda, Anda dapat mengirim email ke <span style="color:#5E6F64; font-weight:bold">erefiv.id@gmail.com</span>. <br> <br>
         </div>
-        <hr style="color:#BA7967" class="gambar">
-       
+        <hr style="color:#BA7967">
     </div>
-    <div class="row gambar container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
+    <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5"></div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 gambar">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
@@ -320,7 +324,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
@@ -335,7 +339,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
@@ -350,7 +354,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
@@ -362,17 +366,33 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="#" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
-                    <li><a href="" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                    <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
-                    <!-- <li><a href="" style="text-decoration:none; color:#57615b">Pembayaran</a></li> -->
-                </ul>
+                    <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                </ul> 
+            </div>
+            <div class="hp">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2">Legal</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                            <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">

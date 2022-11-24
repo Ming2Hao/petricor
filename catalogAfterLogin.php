@@ -226,9 +226,9 @@
     <!-- <div class="container-fluid"> -->
         <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" name="logodipencet">
+            <a class="navbar-brand" href="indexSudahLogin.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">CATALOG</div>
+                <div class="text-white">KATALOG</div>
             </a>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                 <!-- <span class="navbar-toggler-icon"></span> -->

@@ -267,7 +267,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="#" name="logodipencet">
                     <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                    <div class="text-white">CATALOG</div>
+                    <div class="text-white gambar">HOME</div>
                 </a>
                 <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                     <!-- <span class="navbar-toggler-icon"></span> -->
@@ -290,19 +290,19 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form> -->
                 <div class="w-100 d-flex">
-                    <div class="container-fluid">
-                        <form action="" method="POST" class="">
-                            <div class="input-group">
-                                <input type="text" class="form-control ms-lg-2" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                                <button class="rounded-end me-lg-2" style="border:none; background-color:white; margin-top:5px;" name="search">
-                                    <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                                </button>   
-                                
-                            </div>
-                        </form>
+                    <div class="d-flex w-md-50 w-100">
+                        <div class="input-group mt-1 mb-2 justify-content-end">
+                            <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
+                            <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
+                                <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
+                            </a>   
+                        </div>
                     </div>
+                    <a class="mt-lg-2 me-lg-3" href="#">
+                        <div class="text-white">KATALOG</div>
+                    </a>
                     <!-- <div class="d-inline-block"> -->
-                        <a href="cart.php" class="me-lg-5 pe-lg-4 mt-lg-2">
+                        <a href="cart.php" class="me-lg-5 pe-lg-4 mt-lg-2 mt-2">
                             <?php
                                 $userIni = $curUser["us_id"];
                                 $hitungCart = mysqli_query($conn, "SELECT COUNT(ct_it_id) FROM cart WHERE ct_us_id = '$userIni'");
@@ -534,9 +534,9 @@
                         </ul>
                     </div>
                     <div class="col-6">
-                        <h5 class="fw-bold mb-2 mt-2">Support</h5>
+                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
                         <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                            <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                            <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                         </ul>
                     </div>
                 </div>

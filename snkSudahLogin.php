@@ -215,9 +215,9 @@
         </div>
     </nav>
 
-    <div class="pt-2 ps-3 col-lg-10 col-12">
+    <div class="pt-2 px-2 col-lg-10 col-12">
             <h2 class="fw-bold">Syarat dan Ketentuan</h2>
-            <p>Syarat dan ketentuan ini (&#8220;Perjanjian&#8221;) menetapkan syarat dan ketentuan umum penggunaan Anda atas situs web <a href="https://erefiv.com">erefiv.com</a> (& #8220;Situs Web&#8221; atau &#8220;Layanan&#8221;) dan salah satu produk dan layanan terkaitnya (secara kolektif, &#8220;Layanan&#8221;). Perjanjian ini mengikat secara hukum antara Anda (&#8220;Pengguna&#8221;, &#8220;Anda&#8221; atau &#8220;Anda&#8221;) dan operator Situs Web ini (&#8220;Operator&#8221;, & #8220;kita&#8221;, &#8220;kita&#8221; atau &#8220;milik kita&#8221;). Jika Anda menyepakati perjanjian ini atas nama bisnis atau badan hukum lainnya, Anda menyatakan bahwa Anda memiliki wewenang untuk mengikat entitas tersebut ke perjanjian ini, dalam hal ini istilah &#8220;Pengguna&#8221;, &#8220; kamu&#8221; atau &#8220;Anda&#8221; mengacu pada entitas tersebut. Jika Anda tidak memiliki wewenang tersebut, atau jika Anda tidak setuju dengan ketentuan perjanjian ini, Anda tidak boleh menerima perjanjian ini dan tidak boleh mengakses dan menggunakan Situs Web dan Layanan. Dengan mengakses dan menggunakan Situs Web dan Layanan, Anda mengakui bahwa Anda telah membaca, memahami, dan setuju untuk terikat dengan ketentuan Perjanjian ini. Anda mengakui bahwa Perjanjian ini adalah kontrak antara Anda dan Operator, meskipun bersifat elektronik dan tidak ditandatangani secara fisik oleh Anda, dan mengatur penggunaan Anda atas Situs Web dan Layanan.</p>
+            <p>Syarat dan ketentuan ini (&#8220;Perjanjian&#8221;) menetapkan syarat dan ketentuan umum penggunaan Anda atas situs web <a href="https://erefiv.com">erefiv.com</a> (&#8220;Situs Web&#8221; atau &#8220;Layanan&#8221;) dan salah satu produk dan layanan terkaitnya (secara kolektif, &#8220;Layanan&#8221;). Perjanjian ini mengikat secara hukum antara Anda (&#8220;Pengguna&#8221;, &#8220;Anda&#8221; atau &#8220;Anda&#8221;) dan operator Situs Web ini (&#8220;Operator&#8221;, &#8220;kita&#8221;, &#8220;kita&#8221; atau &#8220;milik kita&#8221;). Jika Anda menyepakati perjanjian ini atas nama bisnis atau badan hukum lainnya, Anda menyatakan bahwa Anda memiliki wewenang untuk mengikat entitas tersebut ke perjanjian ini, dalam hal ini istilah &#8220;Pengguna&#8221;, &#8220; kamu&#8221; atau &#8220;Anda&#8221; mengacu pada entitas tersebut. Jika Anda tidak memiliki wewenang tersebut, atau jika Anda tidak setuju dengan ketentuan perjanjian ini, Anda tidak boleh menerima perjanjian ini dan tidak boleh mengakses dan menggunakan Situs Web dan Layanan. Dengan mengakses dan menggunakan Situs Web dan Layanan, Anda mengakui bahwa Anda telah membaca, memahami, dan setuju untuk terikat dengan ketentuan Perjanjian ini. Anda mengakui bahwa Perjanjian ini adalah kontrak antara Anda dan Operator, meskipun bersifat elektronik dan tidak ditandatangani secara fisik oleh Anda, dan mengatur penggunaan Anda atas Situs Web dan Layanan.</p>
             <!-- <h4 class="fw-bold">Table of contents</h4>
             <ol class="wpembed-index">
                 <li><a href="#accounts-and-membership">Accounts and membership</a></li>
@@ -253,12 +253,12 @@
             <p><a href="&#109;&#097;&#105;&#108;&#116;&#111;&#058;e&#114;ef&#105;v.&#105;d&#64;&#103;&#109;&#97;&#105;&#108;.com">er&#101;f&#105;&#118;.&#105;&#100;&#64;&#103;m&#97;&#105;&#108;.com</a><br/>Jalan Pegangsaan Timur 78</p>
             <p>Dokumen ini terakhir diperbarui pada 22 November 2022</p>
         </div>
-        <hr style="color:#BA7967" class="gambar">
+        <hr style="color:#BA7967">
        
     </div>
     <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5"></div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 gambar">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
@@ -274,7 +274,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
@@ -289,7 +289,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
@@ -304,7 +304,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
@@ -316,17 +316,33 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
-                    <li><a href="#" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                    <li><a href="#" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                    <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
-                    <!-- <li><a href="" style="text-decoration:none; color:#57615b">Pembayaran</a></li> -->
-                </ul>
+                    <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                </ul> 
+            </div>
+            <div class="hp">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2">Legal</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                            <li><a href="#" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
