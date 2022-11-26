@@ -15,93 +15,8 @@
     }
 
     if(isset($_SESSION['currentUser'])){
-        $result = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+        $result = mysqli_query($conn,"SELECT * from h_transaksi where ht_us_id='".$_SESSION['currentUser']."'");
     }
-    if(isset($_POST["cekout"])){
-        
-    }
-    if(isset($_POST["delet"])){
-        $delet_query = "DELETE from cart where ct_id='".$_POST["delet"]."'";
-        $resdelet = $conn->query($delet_query);
-        header('Location: cart.php');
-    }
-    
-require_once('midtrans/Veritrans.php');
-
-$result3 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
-$_SESSION["totalsetelahongkir"]=0;
-while($rows = mysqli_fetch_assoc($result3)){
-    $result2=mysqli_query($conn,"SELECT * from items where it_id='".$rows["ct_it_id"]."'");
-    $result2=mysqli_fetch_assoc($result2);
-    $result2=$result2["it_price"];
-    $_SESSION["totalsetelahongkir"]=$_SESSION["totalsetelahongkir"]+($result2*$rows["ct_qty"]);
-}
-$_SESSION["totalsetelahongkir"]+=10000;
-
-//Set Your server key
-Veritrans_Config::$serverKey = "SB-Mid-server-AMzwelN9WnfCaC9Vfslm52gY";
-
-// Uncomment for production environment
-// Veritrans_Config::$isProduction = true;
-
-// Enable sanitization
-Veritrans_Config::$isSanitized = true;
-
-// Enable 3D-Secure
-Veritrans_Config::$is3ds = true;
-
-  $subtotal = $_SESSION["totalsetelahongkir"]; 
-
-// Required
-$transaction_details = array(
-  'order_id' => rand(),
-  'gross_amount' => $subtotal,
-);
-
-// Optional
-$billing_address = array(
-  'first_name'    => "Andri",
-  'last_name'     => "Litani",
-  'address'       => "Mangga 20",
-  'city'          => "Jakarta",
-  'postal_code'   => "16602",
-  'phone'         => "081122334455",
-  'country_code'  => 'IDN'
-);
-
-// Optional
-$shipping_address = array(
-  'first_name'    => "Obet",
-  'last_name'     => "Supriadi",
-  'address'       => "Manggis 90",
-  'city'          => "Jakarta",
-  'postal_code'   => "16601",
-  'phone'         => "08113366345",
-  'country_code'  => 'IDN'
-);
-
-// Optional
-$customer_details = array(
-  'first_name'    => "Andri",
-  'last_name'     => "Litani",
-  'email'         => "andri@litani.com",
-  'phone'         => "081122334455",
-  'billing_address'  => $billing_address,
-  'shipping_address' => $shipping_address
-);
-
-// Optional, remove this to display all available payment methods
-// $enable_payments = array('credit_card','cimb_clicks','mandiri_clickpay','echannel');
-// $enable_payments = array(); 
-
-// Fill transaction details
-$transaction = array(
-  'transaction_details' => $transaction_details,
-  'customer_details' => $customer_details,
-  // 'enabled_payments' => $enable_payments,
-);
-
-$snapToken = Veritrans_Snap::getSnapToken($transaction);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -439,58 +354,60 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         <!-- cart-->
         <div class="p-3 mx-5">
             <div class="row d-flex">
-                <div class="col-9" id="maincart">
+                <div class="col-12">
                 <?php
                     while($row = mysqli_fetch_assoc($result)){
-                        $item = mysqli_query($conn,"SELECT * from items where it_id='".$row["ct_it_id"]."'");
-                        $item=mysqli_fetch_assoc($item);
-                        $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
-                        $cat=mysqli_fetch_assoc($cat);
                 ?>
                 <div class="px-0 mx-0">
                     <div class="row pe-0 mb-3 w-100">
-                        <div class="col-1 px-0 mx-0 rounded">
-                            <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start w-100 h-100 col-1 px-0 mx-0 ">
-                        </div>
-                        <div class="col-9 border-start border-end mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
-                            <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
-                            <!-- <div class="p-0 m-0"> -->
-                                <?=rupiah($item["it_price"])?>X
-                                <input type="number" name="<?=$row["ct_id"]?>" class="idupdown" value="<?=$row["ct_qty"]?>" min="1" harganya="<?=$item["it_price"]?>">
-                                <br>
-                                <b class="d-flex"> TOTAL : &nbsp; <p id="<?=$row["ct_id"]?>aaa">asd</p> </b>
-                                <!-- HARUS BISA BRUBAH TOTALNYA TANPA DIREFRESH -->
-                            <!-- </div> -->
-                        </div>
-                        <div class="col-2 border-start mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
-                        <form action="#" method="post">
-                            <button type="submit" value="<?=$row["ct_id"]?>" name="delet" class="btn w-100 bg-danger text-white">
-                                Delete
-                            </button>
-                        </form>
-                        </div>
+                        <h1><?=$row["ht_id"]?></h1>
+                        <?php
+                            $resultdt = mysqli_query($conn,"SELECT * from d_transaksi where dt_ht_id='".$row["ht_id"]."'");
+                            $gt=0;
+                            while($dt = mysqli_fetch_assoc($resultdt)){
+                                $resultitem = mysqli_query($conn,"SELECT * from items where it_id='".$dt["dt_it_id"]."'");
+                                $item = mysqli_fetch_assoc($resultitem);
+                                $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
+                                $cat=mysqli_fetch_assoc($cat);
+                                ?>
+                                <div class="col-1 px-0 mx-0 rounded">
+                                    <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start w-100 h-100 col-1 px-0 mx-0 ">
+                                </div>
+                                <div class="col-9 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                                    <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
+                                    <!-- <div class="p-0 m-0"> -->
+                                        <?=rupiah($item["it_price"])?> X
+                                        <?=$dt["dt_qty"]?>
+                                        <br>
+                                        <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$item["it_price"])?></p> </b>
+                                        <?php
+                                            $gt=$gt+($dt["dt_qty"]*$item["it_price"]);
+                                        ?>
+                                        <!-- HARUS BISA BRUBAH TOTALNYA TANPA DIREFRESH -->
+                                    <!-- </div> -->
+                                </div>
+                                <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
+                                
+                                </div>
+                                <?php
+                            }
+                        ?>
+                        <p id="totalbelanja" class="p-0 m-0">
+                            totalbelanja: <?=rupiah($gt)?>
+                        </p>
+                        <p class="p-0 m-0">
+                            ongkir: <?=rupiah(10000)?>
+                        </p>
+                        <p id="grandtotal">
+                            grandtotal: 
+                            
+                            <?=rupiah($gt+10000)?>
+                        </p>
                     </div>
                 </div>
                 <?php
                     }
                 ?>
-            </div>
-                <div class="col-3" style="background-color:#f7f7f7;">
-                <p id="totalbelanja" class="p-0 m-0">
-                    totalbelanja
-                </p>
-                <p>
-                    ongkir: 10000
-                </p>
-                <p id="grandtotal">
-                    grandtotal
-                </p>
-                <form action="#" method="post">
-                    <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" formaction="pembayaran.php" style="border-radius: 50px; background-color:#8c594f; color:white;">Confirm
-                    </button>
-        
-                </form>
-                </div>
             </div>
         </div>
         <div class="befooter2" style="height: 100px; background-color:#FFDECF;">
@@ -509,11 +426,9 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         // setInterval(fetch_cart, 500);
-        setInterval(fetch_totalsemua, 500);
 		function load_ajax() {
 			// total =  document.getElementById("total");
 			// updown =  document.getElementsByClass("updown");
-            fetch_cart();
 		}
 		
 		function ajax_func(method, url, callback, data="") {
@@ -523,85 +438,6 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
 			if(method.toLowerCase() == "post") r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			r.send(data);
 		}
-
-
-        function fetch_cart(){
-            var elements = $(".idupdown");
-            for(var i = 0; i < elements.length; i++) {
-                tempname=elements[i].name+"aaa";
-                tempqty=elements[i].value;
-                tempharga=elements[i].getAttribute('harganya');
-                fields=document.getElementById(tempname);
-                temptotals=tempqty*parseInt(tempharga);
-                temptotals="IDR "+new Intl.NumberFormat("id-ID", {}).format(temptotals)+",00";
-                fields.innerHTML=temptotals;
-            }
-            fetch_totalsemua();
-            fetch_totalsemuaongkir();
-        }
-        function fetch_totalsemua(){
-            field=document.getElementById('totalbelanja');
-            r = new XMLHttpRequest();
-            r.onreadystatechange = function() {
-                if ((this.readyState==4) && (this.status==200)) {
-                    field.innerHTML = this.responseText;
-                }
-            }
-            r.open('GET', `ajaxcart/fetch_totalsemua.php`);
-            r.send();
-        }
-        function fetch_totalsemuaongkir(){
-            field=document.getElementById('grandtotal');
-            r = new XMLHttpRequest();
-            r.onreadystatechange = function() {
-                if ((this.readyState==4) && (this.status==200)) {
-                    field.innerHTML = this.responseText;
-                }
-            }
-            r.open('GET', `ajaxcart/fetch_totalsetelahongkir.php`);
-            r.send();
-        }
-
-        function pembayaran_sukses(){
-            field=document.getElementById('grandtotal');
-            r = new XMLHttpRequest();
-            r.onreadystatechange = function() {
-                if ((this.readyState==4) && (this.status==200)) {
-                    field.innerHTML = this.responseText;
-                }
-            }
-            r.open('GET', `ajaxcart/sukses.php`);
-            r.send();
-            window.location="terimakasih.php";
-            // alert("sukaes");
-        }
-
-		// function refresh_table(xhttp) {
-		// 	if ((xhttp.readyState==4) && (xhttp.status==200)) {
-		// 		fetch_cart();
-                
-		// 	}
-		// }
-        $(".idupdown").bind('keyup mouseup',function () {
-            var elements = $(".idupdown");
-            for(var i = 0; i < elements.length; i++) {
-                tempname=elements[i].name;
-                tempqty=elements[i].value;
-                asd=elements[i];
-                total=elements[i];
-                r = new XMLHttpRequest();
-                r.onreadystatechange = function() {
-                    if ((r.readyState==4) && (r.status==200)) {
-                        total.innerHTML = r.responseText;
-                    }
-                }
-                r.open('GET', `ajaxcart/fetch_harga.php?valbaru=${tempqty}&idcart=${tempname}`);
-                r.send();
-                fetch_cart();
-            }
-            fetch_totalsemua();
-            fetch_totalsemuaongkir();
-        });
 	</script>
     <script> //buat mata password
         $(document).ready(function(){

@@ -17,14 +17,6 @@
     if(isset($_SESSION['currentUser'])){
         $result = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
     }
-    if(isset($_POST["cekout"])){
-        
-    }
-    if(isset($_POST["delet"])){
-        $delet_query = "DELETE from cart where ct_id='".$_POST["delet"]."'";
-        $resdelet = $conn->query($delet_query);
-        header('Location: cart.php');
-    }
     
 require_once('midtrans/Veritrans.php');
 
@@ -52,42 +44,20 @@ Veritrans_Config::$is3ds = true;
 
   $subtotal = $_SESSION["totalsetelahongkir"]; 
 
+$nextht = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ht_id,3,3) AS UNSIGNED)) FROM h_transaksi");
+$nextht = mysqli_fetch_row($nextht)[0];
+$nextht = $nextht+1;
+$nextht="HT".str_pad($nextht,3,"0",STR_PAD_LEFT);
 // Required
 $transaction_details = array(
-  'order_id' => rand(),
+  'order_id' => $nextht,
   'gross_amount' => $subtotal,
 );
 
 // Optional
-$billing_address = array(
-  'first_name'    => "Andri",
-  'last_name'     => "Litani",
-  'address'       => "Mangga 20",
-  'city'          => "Jakarta",
-  'postal_code'   => "16602",
-  'phone'         => "081122334455",
-  'country_code'  => 'IDN'
-);
-
-// Optional
-$shipping_address = array(
-  'first_name'    => "Obet",
-  'last_name'     => "Supriadi",
-  'address'       => "Manggis 90",
-  'city'          => "Jakarta",
-  'postal_code'   => "16601",
-  'phone'         => "08113366345",
-  'country_code'  => 'IDN'
-);
-
-// Optional
 $customer_details = array(
-  'first_name'    => "Andri",
-  'last_name'     => "Litani",
-  'email'         => "andri@litani.com",
-  'phone'         => "081122334455",
-  'billing_address'  => $billing_address,
-  'shipping_address' => $shipping_address
+  'first_name'    => $curUser["us_name"],
+  'email'         => $curUser["us_email"],
 );
 
 // Optional, remove this to display all available payment methods
@@ -452,22 +422,18 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                         <div class="col-1 px-0 mx-0 rounded">
                             <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start w-100 h-100 col-1 px-0 mx-0 ">
                         </div>
-                        <div class="col-9 border-start border-end mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                        <div class="col-9 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                             <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
                             <!-- <div class="p-0 m-0"> -->
-                                <?=rupiah($item["it_price"])?>X
-                                <input type="number" name="<?=$row["ct_id"]?>" class="idupdown" value="<?=$row["ct_qty"]?>" min="1" harganya="<?=$item["it_price"]?>">
+                                <?=rupiah($item["it_price"])?> X
+                                <?=$row["ct_qty"]?>
                                 <br>
-                                <b class="d-flex"> TOTAL : &nbsp; <p id="<?=$row["ct_id"]?>aaa">asd</p> </b>
+                                <b class="d-flex"> TOTAL : &nbsp; <p id="<?=$row["ct_id"]?>aaa"><?=rupiah($row["ct_qty"]*$item["it_price"])?></p> </b>
                                 <!-- HARUS BISA BRUBAH TOTALNYA TANPA DIREFRESH -->
                             <!-- </div> -->
                         </div>
-                        <div class="col-2 border-start mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
-                        <form action="#" method="post">
-                            <button type="submit" value="<?=$row["ct_id"]?>" name="delet" class="btn w-100 bg-danger text-white">
-                                Delete
-                            </button>
-                        </form>
+                        <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
+                        
                         </div>
                     </div>
                 </div>
@@ -476,20 +442,31 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 ?>
             </div>
                 <div class="col-3" style="background-color:#f7f7f7;">
+                <?php
+                    $gt=0;
+                    $result2 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+                    while($row2 = mysqli_fetch_assoc($result2)){
+                        $item2 = mysqli_query($conn,"SELECT * from items where it_id='".$row2["ct_it_id"]."'");
+                        $item2 = mysqli_fetch_assoc($item2);
+                        $gt=$gt+($row2['ct_qty']*$item2["it_price"]);
+                    }
+                ?>
                 <p id="totalbelanja" class="p-0 m-0">
-                    totalbelanja
+                    totalbelanja: <?=rupiah($gt)?>
                 </p>
-                <p>
-                    ongkir: 10000
+                <p class="p-0 m-0">
+                    ongkir: <?=rupiah(10000)?>
                 </p>
                 <p id="grandtotal">
-                    grandtotal
+                    grandtotal: 
+                    
+                    <?=rupiah($gt+10000)?>
                 </p>
-                <form action="#" method="post">
-                    <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" formaction="pembayaran.php" style="border-radius: 50px; background-color:#8c594f; color:white;">Confirm
+                <!-- <form action="#" method="post"> -->
+                    <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" name="cekout" id="cekout" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
                     </button>
         
-                </form>
+                <!-- </form> -->
                 </div>
             </div>
         </div>
@@ -508,13 +485,6 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        // setInterval(fetch_cart, 500);
-        setInterval(fetch_totalsemua, 500);
-		function load_ajax() {
-			// total =  document.getElementById("total");
-			// updown =  document.getElementsByClass("updown");
-            fetch_cart();
-		}
 		
 		function ajax_func(method, url, callback, data="") {
 			r = new XMLHttpRequest();
@@ -523,44 +493,6 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
 			if(method.toLowerCase() == "post") r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			r.send(data);
 		}
-
-
-        function fetch_cart(){
-            var elements = $(".idupdown");
-            for(var i = 0; i < elements.length; i++) {
-                tempname=elements[i].name+"aaa";
-                tempqty=elements[i].value;
-                tempharga=elements[i].getAttribute('harganya');
-                fields=document.getElementById(tempname);
-                temptotals=tempqty*parseInt(tempharga);
-                temptotals="IDR "+new Intl.NumberFormat("id-ID", {}).format(temptotals)+",00";
-                fields.innerHTML=temptotals;
-            }
-            fetch_totalsemua();
-            fetch_totalsemuaongkir();
-        }
-        function fetch_totalsemua(){
-            field=document.getElementById('totalbelanja');
-            r = new XMLHttpRequest();
-            r.onreadystatechange = function() {
-                if ((this.readyState==4) && (this.status==200)) {
-                    field.innerHTML = this.responseText;
-                }
-            }
-            r.open('GET', `ajaxcart/fetch_totalsemua.php`);
-            r.send();
-        }
-        function fetch_totalsemuaongkir(){
-            field=document.getElementById('grandtotal');
-            r = new XMLHttpRequest();
-            r.onreadystatechange = function() {
-                if ((this.readyState==4) && (this.status==200)) {
-                    field.innerHTML = this.responseText;
-                }
-            }
-            r.open('GET', `ajaxcart/fetch_totalsetelahongkir.php`);
-            r.send();
-        }
 
         function pembayaran_sukses(){
             field=document.getElementById('grandtotal');
@@ -582,26 +514,6 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 
 		// 	}
 		// }
-        $(".idupdown").bind('keyup mouseup',function () {
-            var elements = $(".idupdown");
-            for(var i = 0; i < elements.length; i++) {
-                tempname=elements[i].name;
-                tempqty=elements[i].value;
-                asd=elements[i];
-                total=elements[i];
-                r = new XMLHttpRequest();
-                r.onreadystatechange = function() {
-                    if ((r.readyState==4) && (r.status==200)) {
-                        total.innerHTML = r.responseText;
-                    }
-                }
-                r.open('GET', `ajaxcart/fetch_harga.php?valbaru=${tempqty}&idcart=${tempname}`);
-                r.send();
-                fetch_cart();
-            }
-            fetch_totalsemua();
-            fetch_totalsemuaongkir();
-        });
 	</script>
     <script> //buat mata password
         $(document).ready(function(){
