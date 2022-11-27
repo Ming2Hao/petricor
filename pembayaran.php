@@ -11,7 +11,7 @@
     $curUser = mysqli_fetch_array($user);
 
     function rupiah($angka){
-        return "IDR " . number_format($angka,2,',','.');
+        return "Rp " . number_format($angka,2,',','.');
     }
 
     if(isset($_SESSION['currentUser'])){

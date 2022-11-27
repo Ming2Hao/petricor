@@ -6,11 +6,11 @@
     else $emailYangDipassing = [];
 
     if(isset($_POST["btnRegister"])){
-        $name = $_POST["name"];
-        $username = $_POST["username"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $cpassword = $_POST["cpassword"];
+        $name = mysqli_real_escape_string($conn,strtolower(stripslashes($_POST['name'])));
+        $username = mysqli_real_escape_string($conn,strtolower(stripslashes($_POST['username'])));
+        $email = mysqli_real_escape_string($conn,strtolower(stripslashes($_POST['email'])));
+        $password = mysqli_real_escape_string($conn,$_POST["password"]);
+        $cpassword = mysqli_real_escape_string($conn,$_POST["cpassword"]);
         $tanggal = date('Y-m-d', strtotime($_POST['dob']));
         $ada = false;
         while($row = mysqli_fetch_array($result)){
@@ -169,20 +169,19 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white gambar">DAFTAR</div>
             </a>
-            <div class= "mt-2 mt-lg-0 text-end">
-                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-2 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
-                <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">DAFTAR</a>
-                <span class="mx-lg-2 mx-0 mt-lg-2 text-white">|</span>
-                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
+            <div class="d-lg-flex justify-content-end d-sm-block mt-lg-0 mt-2">
+                <a href="catalogue.php" class="link-light mt-4 ms-0 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="contactUsBelumLogin.php" class="link-light mt-4 ms-0 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>
         </div>
     </nav>
     <div class="row w-100">
         <div class="col-lg-5 col-sm-12 col-md-12">
-            <img src="assets/img/bgRegist.jpg" alt="" style="width: 625px;" class="gambar">
+            <img src="assets/img/bgRegist.jpg" alt="" style="width: 625px;" class="gambar h-100">
         </div>
         <div class="col-lg-7 col-md-12 col-sm-12 p-3 mt-lg-2">
             <h1 class="fw-bolder px-lg-4">DAFTAR</h1>
@@ -267,7 +266,7 @@
                             &emsp13; Dengan mencentang tombol "Daftar", saya setuju untuk menerima berita erefiv melalui email.
                         </span>
                     </div>
-                </div>
+                </div> <br>
                 Sudah punya akun? <a href="login.php">Masuk Sekarang!</a>
                 <div class="text-end mt-3">
                     <button type="submit" class="mt-3 btn ps-4 pe-4 fw-bold text-center" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnRegister">Daftar</button>

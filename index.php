@@ -1,7 +1,7 @@
 <?php
     require_once("connection.php");
     function rupiah($angka){
-        return "IDR " . number_format($angka,2,',','.');
+        return "Rp " . number_format($angka,2,',','.');
     }
     // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
     $listItem = mysqli_query($conn,"SELECT * from items");
@@ -86,6 +86,21 @@
             .hp{
                 display: block;
             }
+
+        }
+        @media screen and (min-device-width: 600px) and (max-device-width: 950px) { 
+            .kartu{
+               height: 200px;
+            }
+
+            .gambar{
+                display: none;
+            }
+
+            .hp{
+                display: block;
+            }
+
         }
         @media screen and (min-width:1000px){
             .kartu{
@@ -186,14 +201,14 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                 <div class="d-flex w-md-50 w-100">
-                    <div class="input-group mt-2 mb-2 justify-content-end">
+                    <div class="input-group mt-1 mb-2 justify-content-end">
                         <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
                         <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogue.php" type="submit">
                             <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
                         </a>   
                     </div>
-                </div>
-                <div class="d-lg-flex justify-content-end d-sm-block">
+                
+                <!-- <div class="d-lg-flex justify-content-end d-sm-block"> -->
                 <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
                     <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
                         FILTERS
@@ -238,15 +253,16 @@
                             <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
                             <!-- <div class="row-sm justify-content-center"> -->
                                 
-                                <a href="catalogue.php" class="link-light mt-4 ms-lg-3 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
-                                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
-                                <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
-                                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
-                                <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
+                                <a href="catalogue.php" class="link-light mt-2 ms-lg-3 mt-lg-2 me-2" style="text-decoration:none;" id="lebar">KATALOG</a>
+                                <span class="mx-lg-2 mx-0 mt-2 mt-lg-2 text-white">|</span>
+                                <a href="contactUsBelumLogin.php" class="link-light mt-2 ms-1 ms-lg-2 mt-lg-2 me-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                                <span class="mx-lg-2 mx-0 mt-2 mt-lg-2 text-white">|</span>
+                                <a href="login.php" class="link-light mt-2 ms-1 ms-lg-2 mt-lg-2 me-2" style="text-decoration:none;" id="lebar">MASUK</a>
                             <!-- </div> -->
                         <!-- </div> -->
                     <!-- </div> -->
                 <!-- </div> -->
+                </div>
             </div>
         </div>
         </nav>
@@ -337,7 +353,7 @@
                         <!-- <div class="mt-lg-2"> -->
                             <div class="form-field">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" name="passingEmail" class="input" autocomplete="off">
+                                <input type="email" name="passingEmail" class="input" autocomplete="off">
                                 <div class="border-line">
                                 </div>
                             </div>
@@ -354,9 +370,9 @@
             </form>
         </div>
 
-        <div class="row gambar container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
-            <div class="col-lg-1 me-lg-5"></div>
-            <div class="col-lg-2 mt-lg-3">
+        <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
+            <div class="col-lg-1 me-lg-5 gambar"></div>
+            <div class="col-lg-2 mt-lg-3 gambar">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogue.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
@@ -372,7 +388,7 @@
                     <li><a href="catalogue.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogue.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
                     <li><a href="catalogue.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
@@ -387,7 +403,7 @@
                     <li><a href="catalogue.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogue.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
                     <li><a href="catalogue.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
@@ -402,7 +418,7 @@
                     <li><a href="catalogue.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogue.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
                     <li><a href="catalogue.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
@@ -414,7 +430,7 @@
                     <li><a href="catalogue.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
@@ -423,7 +439,24 @@
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
-                </ul>
+                </ul> 
+            </div>
+            <div class="hp">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2">Legal</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                            <li><a href="snkBelumLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>SNK</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
@@ -182,7 +182,10 @@
             </a>
             <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
             <div class="d-flex justify-content-end">
-                <a href="cart.php" class="me-5 pe-3 d-flex">
+            <a href="catalogAfterLogin.php" class="text-white me-3 mt-1 ms-lg-0 ms-2">KATALOG</a>
+                <div class="text-white me-3 mt-1">|</div>
+                <a href="daftartransaksi.php" class="text-white me-3 mt-1">TRANSAKSI</a>
+                <a href="cart.php" class="me-5 pe-3 mt-2 d-flex">
                     <?php
                         $userIni = $curUser["us_id"];
                         $hitungCart = mysqli_query($conn, "SELECT COUNT(ct_it_id) FROM cart WHERE ct_us_id = '$userIni'");
@@ -194,7 +197,7 @@
                     <!-- PROFILEEEEEEEEEE USERRRRRRR -->
                     <div class="action">
                         <div class="profile" onclick="menuToggle();">
-                            <img src="temp/nahida2.jpg">
+                            <img src="assets/img/displaypicture.png">
                         </div>
                         <div class="menu">
                             <div class="username" style="margin-bottom: -5px">
@@ -319,12 +322,12 @@
             <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="#" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                    <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
                     <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                    <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                 </ul> 
             </div>
             <div class="hp">
@@ -333,7 +336,7 @@
                         <h5 class="fw-bold mb-2">Legal</h5>
                         <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                             <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
-                            <li><a href="#" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                            <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                         </ul>
                     </div>
                     <div class="col-6">

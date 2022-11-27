@@ -17,6 +17,43 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
     <style>
+        @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+            .kartu{
+               height: 200px;
+            }
+
+            .gambar{
+                display: none;
+            }
+
+            .hp{
+                display: block;
+            }
+
+        }
+        @media screen and (min-device-width: 600px) and (max-device-width: 950px) { 
+            .kartu{
+               height: 200px;
+            }
+
+            .gambar{
+                display: none;
+            }
+
+            .hp{
+                display: block;
+            }
+
+        }
+        @media screen and (min-width:1000px){
+            .kartu{
+                height: 500px;
+            }
+            .hp{
+                display: none;
+            }
+        }
+
         html, body{
             width: 100%;
         }
@@ -68,13 +105,14 @@
 <body style="background-color:#FFDECF;">
     <div class="container-fluid px-0">
     <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                
             </a>
             <div class="d-lg-flex justify-content-end d-sm-block">
-                <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                <a href="catalogue.php" class="link-light mt-4 ms-0 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="contactUsBelumLogin.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
                 <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
                 <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>
@@ -83,7 +121,7 @@
 
         <div class="pt-2 ps-3 col-lg-10 col-12">
             <h2 class="fw-bold">Syarat dan Ketentuan</h2>
-            <p>Syarat dan ketentuan ini (&#8220;Perjanjian&#8221;) menetapkan syarat dan ketentuan umum penggunaan Anda atas situs web <a href="https://erefiv.com">erefiv.com</a> (& #8220;Situs Web&#8221; atau &#8220;Layanan&#8221;) dan salah satu produk dan layanan terkaitnya (secara kolektif, &#8220;Layanan&#8221;). Perjanjian ini mengikat secara hukum antara Anda (&#8220;Pengguna&#8221;, &#8220;Anda&#8221; atau &#8220;Anda&#8221;) dan operator Situs Web ini (&#8220;Operator&#8221;, & #8220;kita&#8221;, &#8220;kita&#8221; atau &#8220;milik kita&#8221;). Jika Anda menyepakati perjanjian ini atas nama bisnis atau badan hukum lainnya, Anda menyatakan bahwa Anda memiliki wewenang untuk mengikat entitas tersebut ke perjanjian ini, dalam hal ini istilah &#8220;Pengguna&#8221;, &#8220; kamu&#8221; atau &#8220;Anda&#8221; mengacu pada entitas tersebut. Jika Anda tidak memiliki wewenang tersebut, atau jika Anda tidak setuju dengan ketentuan perjanjian ini, Anda tidak boleh menerima perjanjian ini dan tidak boleh mengakses dan menggunakan Situs Web dan Layanan. Dengan mengakses dan menggunakan Situs Web dan Layanan, Anda mengakui bahwa Anda telah membaca, memahami, dan setuju untuk terikat dengan ketentuan Perjanjian ini. Anda mengakui bahwa Perjanjian ini adalah kontrak antara Anda dan Operator, meskipun bersifat elektronik dan tidak ditandatangani secara fisik oleh Anda, dan mengatur penggunaan Anda atas Situs Web dan Layanan.</p>
+            <p>Syarat dan ketentuan ini (&#8220;Perjanjian&#8221;) menetapkan syarat dan ketentuan umum penggunaan Anda atas situs web <a href="https://erefiv.com">erefiv.com</a> (&#8220;Situs Web&#8221; atau &#8220;Layanan&#8221;) dan salah satu produk dan layanan terkaitnya (secara kolektif, &#8220;Layanan&#8221;). Perjanjian ini mengikat secara hukum antara Anda (&#8220;Pengguna&#8221;, &#8220;Anda&#8221; atau &#8220;Anda&#8221;) dan operator Situs Web ini (&#8220;Operator&#8221;, &#8220;kita&#8221;, &#8220;kita&#8221; atau &#8220;milik kita&#8221;). Jika Anda menyepakati perjanjian ini atas nama bisnis atau badan hukum lainnya, Anda menyatakan bahwa Anda memiliki wewenang untuk mengikat entitas tersebut ke perjanjian ini, dalam hal ini istilah &#8220;Pengguna&#8221;, &#8220; kamu&#8221; atau &#8220;Anda&#8221; mengacu pada entitas tersebut. Jika Anda tidak memiliki wewenang tersebut, atau jika Anda tidak setuju dengan ketentuan perjanjian ini, Anda tidak boleh menerima perjanjian ini dan tidak boleh mengakses dan menggunakan Situs Web dan Layanan. Dengan mengakses dan menggunakan Situs Web dan Layanan, Anda mengakui bahwa Anda telah membaca, memahami, dan setuju untuk terikat dengan ketentuan Perjanjian ini. Anda mengakui bahwa Perjanjian ini adalah kontrak antara Anda dan Operator, meskipun bersifat elektronik dan tidak ditandatangani secara fisik oleh Anda, dan mengatur penggunaan Anda atas Situs Web dan Layanan.</p>
             <!-- <h4 class="fw-bold">Table of contents</h4>
             <ol class="wpembed-index">
                 <li><a href="#accounts-and-membership">Accounts and membership</a></li>
@@ -130,7 +168,7 @@
                     <div class="col-lg-5 mt-lg-5 mt-2 d-flex">
                         <div class="form-field">
                             <label>Email <span class="text-danger">*</span></label>
-                            <input type="text" name="passingEmail" class="input" autocomplete="off">
+                            <input type="email" name="passingEmail" class="input" autocomplete="off">
                             <div class="border-line">
                             </div>
                         </div>
@@ -143,82 +181,98 @@
         </div>
        
     </div>
-    <div class="row gambar container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
-            <div class="col-lg-1 me-lg-5"></div>
-            <div class="col-lg-2 mt-lg-3">
-                <h5 class="fw-bold mb-2">Categories</h5>
-                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="catalogue.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
-                    <li><a href="catalogue.php?fcategory=CA003" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA004" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
-                    <li><a href="catalogue.php?fcategory=CA005" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
-                    <li><a href="catalogue.php?fcategory=CA006" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
-                    <li><a href="catalogue.php?fcategory=CA007" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
-                    <li><a href="catalogue.php?fcategory=CA008" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
-                    <li><a href="catalogue.php?fcategory=CA009" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
-                    <li><a href="catalogue.php?fcategory=CA017" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA018" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 mt-lg-5">
-                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="catalogue.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
-                    <li><a href="catalogue.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
-                    <li><a href="catalogue.php?fcategory=CA022" style="text-decoration:none; color:#57615b">Bangku</a></li>
-                    <li><a href="catalogue.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
-                    <li><a href="catalogue.php?fcategory=CA023" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
-                    <li><a href="catalogue.php?fcategory=CA010" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA011" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA012" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
-                    <li><a href="catalogue.php?fcategory=CA013" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
-                    <li><a href="catalogue.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
-                    <li><a href="catalogue.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 mt-lg-5">
-                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="catalogue.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
-                    <li><a href="catalogue.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
-                    <li><a href="catalogue.php?fcategory=CA024" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
-                    <li><a href="catalogue.php?fcategory=CA025" style="text-decoration:none; color:#57615b">Karpet</a></li>
-                    <li><a href="catalogue.php?fcategory=CA026" style="text-decoration:none; color:#57615b">Lampu</a></li>
-                    <li><a href="catalogue.php?fcategory=CA027" style="text-decoration:none; color:#57615b">Vas</a></li>
-                    <li><a href="catalogue.php?fcategory=CA028" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
-                    <li><a href="catalogue.php?fcategory=CA029" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
-                    <li><a href="catalogue.php?fcategory=CA030" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA031" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
-                    <li><a href="catalogue.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 mt-lg-5">
-                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="catalogue.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
-                    <li><a href="catalogue.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
-                    <li><a href="catalogue.php?fcategory=CA036" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA037" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA038" style="text-decoration:none; color:#57615b">Linen</a></li>
-                    <li><a href="catalogue.php?fcategory=CA039" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
-                    <li><a href="catalogue.php?fcategory=CA040" style="text-decoration:none; color:#57615b">Bingkai</a></li>
-                    <li><a href="catalogue.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 mt-lg-3">
-                <h5 class="fw-bold mb-2">Legal</h5>
-                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
-                    <li><a href="#" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
-                </ul>
-                <h5 class="fw-bold mb-2 mt-2">Support</h5>
-                <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
-                    <!-- <li><a href="" style="text-decoration:none; color:#57615b">Pembayaran</a></li> -->
-                </ul>
+    <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
+        <div class="col-lg-1 me-lg-5 gambar"></div>
+        <div class="col-lg-2 mt-lg-3 gambar">
+            <h5 class="fw-bold mb-2">Categories</h5>
+            <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                <li><a href="catalogue.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
+                <li><a href="catalogue.php?fcategory=CA003" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
+                <li><a href="catalogue.php?fcategory=CA004" style="text-decoration:none; color:#57615b">Penyimpanan Sepatu</a></li>
+                <li><a href="catalogue.php?fcategory=CA005" style="text-decoration:none; color:#57615b">Kursi Sisi</a></li>
+                <li><a href="catalogue.php?fcategory=CA006" style="text-decoration:none; color:#57615b">Lemari Buku</a></li>
+                <li><a href="catalogue.php?fcategory=CA007" style="text-decoration:none; color:#57615b">Meja Lemari Aksen</a></li>
+                <li><a href="catalogue.php?fcategory=CA008" style="text-decoration:none; color:#57615b">Meja Tamu</a></li>
+                <li><a href="catalogue.php?fcategory=CA009" style="text-decoration:none; color:#57615b">Kursi Aksen</a></li>
+                <li><a href="catalogue.php?fcategory=CA017" style="text-decoration:none; color:#57615b">Lemari Pajangan</a></li>
+                <li><a href="catalogue.php?fcategory=CA018" style="text-decoration:none; color:#57615b">Meja Makan</a></li>
+                <li><a href="catalogue.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-2 mt-lg-5 gambar">
+            <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                <li><a href="catalogue.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
+                <li><a href="catalogue.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
+                <li><a href="catalogue.php?fcategory=CA022" style="text-decoration:none; color:#57615b">Bangku</a></li>
+                <li><a href="catalogue.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                <li><a href="catalogue.php?fcategory=CA023" style="text-decoration:none; color:#57615b">Meja Kerja</a></li>
+                <li><a href="catalogue.php?fcategory=CA010" style="text-decoration:none; color:#57615b">Sofa 3 Dudukan</a></li>
+                <li><a href="catalogue.php?fcategory=CA011" style="text-decoration:none; color:#57615b">Sofa 2 Dudukan</a></li>
+                <li><a href="catalogue.php?fcategory=CA012" style="text-decoration:none; color:#57615b">Kursi Ruang Kerja</a></li>
+                <li><a href="catalogue.php?fcategory=CA013" style="text-decoration:none; color:#57615b">Sofa Tempat Tidur</a></li>
+                <li><a href="catalogue.php?fcategory=CA014" style="text-decoration:none; color:#57615b">Tempat Tidur</a></li>
+                <li><a href="catalogue.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-2 mt-lg-5 gambar">
+            <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                <li><a href="catalogue.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
+                <li><a href="catalogue.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
+                <li><a href="catalogue.php?fcategory=CA024" style="text-decoration:none; color:#57615b">Meja Rapat</a></li>
+                <li><a href="catalogue.php?fcategory=CA025" style="text-decoration:none; color:#57615b">Karpet</a></li>
+                <li><a href="catalogue.php?fcategory=CA026" style="text-decoration:none; color:#57615b">Lampu</a></li>
+                <li><a href="catalogue.php?fcategory=CA027" style="text-decoration:none; color:#57615b">Vas</a></li>
+                <li><a href="catalogue.php?fcategory=CA028" style="text-decoration:none; color:#57615b">Obyek Dekoratif</a></li>
+                <li><a href="catalogue.php?fcategory=CA029" style="text-decoration:none; color:#57615b">Anak-Anak</a></li>
+                <li><a href="catalogue.php?fcategory=CA030" style="text-decoration:none; color:#57615b">Pengharum Ruangan</a></li>
+                <li><a href="catalogue.php?fcategory=CA031" style="text-decoration:none; color:#57615b">Penahan Buku</a></li>
+                <li><a href="catalogue.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-2 mt-lg-5 gambar">
+            <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                <li><a href="catalogue.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
+                <li><a href="catalogue.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
+                <li><a href="catalogue.php?fcategory=CA036" style="text-decoration:none; color:#57615b">Aksesoris Penyimpanan</a></li>
+                <li><a href="catalogue.php?fcategory=CA037" style="text-decoration:none; color:#57615b">Penyimpanan</a></li>
+                <li><a href="catalogue.php?fcategory=CA038" style="text-decoration:none; color:#57615b">Linen</a></li>
+                <li><a href="catalogue.php?fcategory=CA039" style="text-decoration:none; color:#57615b">Hewan Peliharaan</a></li>
+                <li><a href="catalogue.php?fcategory=CA040" style="text-decoration:none; color:#57615b">Bingkai</a></li>
+                <li><a href="catalogue.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
+            <h5 class="fw-bold mb-2">Legal</h5>
+            <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                <li><a href="snkBelumLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+            </ul>
+            <h5 class="fw-bold mb-2 mt-2">Support</h5>
+            <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+            </ul> 
+        </div>
+        <div class="hp">
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="fw-bold mb-2">Legal</h5>
+                    <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                        <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                        <li><a href="snkBelumLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                    <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                        <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-            &#169; 2022 Erefir Indonesia
-        </footer>
+    </div>
+    <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+        &#169; 2022 Erefir Indonesia
+    </footer>
    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

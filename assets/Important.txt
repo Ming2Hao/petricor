@@ -50,3 +50,26 @@ while ($row = mysqli_fetch_array($exeresult)) {
     <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
     <!-- <?php unset($_SESSION['sukses']); } ?> -->
     <!-- <script src="coba.js"></script> -->
+
+///////////////////////////////////////////////////////////
+   // let item = document.getElementById("hiddenItem");
+            // let xhttp = new XMLHttpRequest();
+            // xhttp.onreadystatechange = function(){
+            //     if((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)){
+            //         let data = JSON.parse(this.responseText);
+            //         try {
+            //             kuantiti.value = "";
+            //             item.value = "";
+            //             jumlahKuantiti.innerHTML = data.newVal;
+            //         }catch (error) {
+            //             console.error('Error : ', error);
+            //         }
+            //     }
+            // }
+            // xhttp.open('POST', `ajaxcart/fetch_kuantiti.php`);
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhttp.send('data='+JSON.stringify({
+            //     idUser: '<?=$curUser["us_id"]?>',
+            //     quantiti: kuantiti.value,
+            //     hiddenItem: item.value,
+            // }));

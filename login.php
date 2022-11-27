@@ -10,8 +10,8 @@
     else $adminLogin = [];
 
     if(isset($_POST["btnLogin"])){
-        $username = $_POST["username"]; //email jg bisa
-        $pass = $_POST["password"];
+        $username = mysqli_real_escape_string($conn,strtolower(stripslashes($_POST['username']))); //email jg bisa
+        $pass = mysqli_real_escape_string($conn,$_POST["password"]);
         if($username == "admin@gmail.com" && $pass == "admin" || $username=="admin" && $pass=="admin"){
             $_SESSION['adminLogin'] = $adminLogin;
             header("Location: admin.php");
@@ -49,22 +49,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
-            /* .tes{
-               margin-left: 38px;
-            } */
+            .kartu{
+               height: 200px;
+            }
 
             .gambar{
                 display: none;
             }
+
+            .hp{
+                display: block;
+            }
+
         }
-        @media screen and (min-width:1000px){
-            /* .tes{
-                margin-left: 100px;
-                margin-right: 100px;
-            } */
+        @media screen and (min-device-width: 600px) and (max-device-width: 950px) { 
+            .kartu{
+               height: 200px;
+            }
 
             .gambar{
+                display: none;
+            }
+
+            .hp{
                 display: block;
+            }
+
+        }
+        @media screen and (min-width:1000px){
+            .kartu{
+                height: 500px;
+            }
+            .hp{
+                display: none;
             }
         }
 
@@ -148,17 +165,23 @@
 </head>
 <body style="background-color:#FFDECF;">
     <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex">
             <a class="navbar-brand" href="index.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">MASUK</div>
             </a>
-            <div class= "mt-2 mt-lg-0 text-lg-end">
-                <a href="" class="link-light mt-4 ms-1 ms-lg-4 ms-2 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
+            <!-- <div class= "mt-2 mt-lg-0 text-lg-end">
+                <a href="contactUsBelumLogin.php" class="link-light mt-4 ms-1 ms-lg-4 ms-2 mt-lg-2 me-lg-1" style="text-decoration:none;" id="lebar">BANTUAN</a>
                 <span class="mx-lg-2 mx-2 mt-lg-2 text-white">|</span>
                 <a href="register.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2" style="text-decoration:none;" id="lebar">DAFTAR</a>
                 <span class="mx-lg-2 mx-2 mt-lg-2 text-white">|</span>
                 <a href="#" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-2 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">MASUK</a>
+            </div> -->
+            <div class="d-lg-flex justify-content-end d-sm-block mt-lg-0 mt-2">
+                <a href="catalogue.php" class="link-light mt-4 ms-0 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="contactUsBelumLogin.php" class="link-light mt-4 ms-0 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
+                <a href="register.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">DAFTAR</a>
             </div>
         </div>
     </nav>

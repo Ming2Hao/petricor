@@ -1,7 +1,7 @@
 <?php
 	require_once('../connection.php');
     function rupiah($angka){
-        return "IDR " . number_format($angka,2,',','.');
+        return "Rp " . number_format($angka,2,',','.');
     }
 
 
@@ -18,5 +18,5 @@
     $_SESSION["totalsetelahongkir"]=$temp;
     $temp=rupiah($temp);
     
-    echo '<p id="totalbelanja">Subtotal: '.$temp.'</p>';
+    echo '<b id="totalbelanja">Total: '.$temp.'</b>';
 ?>

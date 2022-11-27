@@ -1,7 +1,7 @@
 <?php
     require_once("connection.php");
     function rupiah($angka){
-        return "IDR " . number_format($angka,2,',','.');
+        return "Rp " . number_format($angka,2,',','.');
     }
     // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
     $listItem = mysqli_query($conn,"SELECT * from items");
@@ -46,7 +46,7 @@
 
     if(isset($_POST["detaildiklik"])){
         $_SESSION["itemIni"]=$_POST["detaildiklik"];
-        header('Location: detailBelumLogin.php');
+        header('Location: detailSudahLogin.php');
     }
     if (!isset ($_GET['page'])) {  
         $page = 2;
@@ -76,14 +76,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HOME</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <style>
-        @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+       @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
             .kartu{
                height: 200px;
             }
@@ -95,6 +95,16 @@
             .hp{
                 display: block;
             }
+
+            .potrek{
+                width: 110px;
+                height: 150px;
+                margin-top: 25px;
+            }
+
+            .profile{
+                margin-right:60px;
+            }
         }
         @media screen and (min-width:1000px){
             .kartu{
@@ -102,6 +112,10 @@
             }
             .hp{
                 display: none;
+            }
+
+            .potrek{
+                width: 180px;
             }
         }
 
@@ -298,8 +312,12 @@
                             </a>   
                         </div>
                     </div>
-                    <a class="mt-lg-2 me-lg-3" href="#">
+                    <a class="mt-2 me-3" href="catalogAfterLogin.php">
                         <div class="text-white">KATALOG</div>
+                    </a>
+                    <div class="text-white mt-2 me-3">|</div>
+                    <a class="mt-2 me-3" href="daftarTransaksi.php">
+                        <div class="text-white">TRANSAKSI</div>
                     </a>
                     <!-- <div class="d-inline-block"> -->
                         <a href="cart.php" class="me-lg-5 pe-lg-4 mt-lg-2 mt-2">
@@ -345,7 +363,7 @@
                     <!-- PROFILEEEEEEEEEE USERRRRRRR -->
                     <div class="action">
                         <div class="profile" onclick="menuToggle();">
-                            <img src="temp/nahida2.jpg">
+                            <img src="assets/img/displaypicture.png">
                         </div>
                         <div class="menu">
                             <div class="username" style="margin-bottom: -5px">
@@ -521,7 +539,7 @@
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                    <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                 </ul> 
             </div>
             <div class="hp">

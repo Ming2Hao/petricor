@@ -20,12 +20,10 @@ if(!isset($_SESSION["querysekarang"])){
 if(isset($_SESSION['qtyBarang'])) $qtyBarang = $_SESSION['qtyBarang'];
 else $qtyBarang = 0;
 
-$itemdipilih=$_SESSION["itemIni"];
-
 if(isset($_POST["tambahkeranjang"])){
     
     $cek=0;
-    
+    $itemdipilih=$_SESSION["itemIni"];
     $usersekarang=$_SESSION['currentUser'];
     $tempqty=$_POST["quantiti"];
     $_SESSION['qtyBarang'] = $tempqty;
@@ -433,10 +431,10 @@ $row = mysqli_fetch_assoc($listItem);
         <div class="col-lg-5 col-sm-12 col-md-12 ms-lg-0 ms-2">
             <h4 class="mt-lg-4 mt-1 mb-lg-3 fw-bolder" style="text-transform:uppercase; text-decoration:underline;">Deskripsi Produk <?=$row['it_name']?></h4>
             <?=$row["it_desc"]?>
-            <div class="mt-lg-4 mt-3 mb-4 mb-lg-0 float-end">
-                <input type="number" name="quantiti" id="quantiti" value="1" min="1" style="border-radius:8px; width: 72px;">
-                <button name="tambahkeranjang" id="myBtn" style="border-radius: 8px; background-color:#555; color:#ffffff;">Masukkan ke Keranjang</button>
-            </div>
+            <form action="" method="post" class="mt-lg-4 mt-3 mb-4 mb-lg-0 float-end">
+                <input type="number" name="quantiti" id="" value="1" min="1" style="border-radius:8px; width: 72px;">
+                <button type="submit" name="tambahkeranjang" id="myBtn" style="border-radius: 8px; background-color:#555; color:#ffffff;">Masukkan ke Keranjang</button>
+            </form>
         </div>
         
     </div>
@@ -458,24 +456,30 @@ $row = mysqli_fetch_assoc($listItem);
                                 <h4><?=$row['it_name']?></h4> 
                                 <h5 style="font-size:18px;" class="fw-bold"><?=rupiah($row['it_price'])?>
                                 </h5>
-                                <p>Jumlah: <span id="jumlahKuantiti"></span></p>
+                                <p>Jumlah: <?=$qtyBarang?></p>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-1 gambar" style="width: 20px;">
                         <div class="h-100" style="border-left:1px solid black;"></div>
                     </div>
-                    <div class="col-lg-5 col-12 mt-lg-5">
-                        <!-- <h4 class="fw-bold">KERANJANG KAMU</h4>
-                        <?=$qtyCart[0]?> item: <br> -->
+                    <div class="col-lg-5 col-12">
                         <h4 class="fw-bold">KERANJANG KAMU</h4>
-                        <span id="qtyCart"></span> item: <br>
+                        <?=$qtyCart[0]?> item: <br>
+                        <?php
+                            $hitungTotal = mysqli_query($conn, "SELECT SUM(i.it_price * c.ct_qty) as 'ttl'
+                            FROM cart c 
+                            JOIN users u ON u.us_id = c.ct_us_id
+                            JOIN items i ON i.it_id = c.ct_it_id");
+                            $totalcost = mysqli_fetch_row($hitungTotal);
+                        ?>
                         <div class="row gambar">
                             <div class="col-lg-7 col-4">
                                 Total Biaya Produk:
                             </div>
                             <div class="col-lg-5 col-8">
-                                <span id="total"></span>
+                                <?=rupiah($totalcost[0])?>
                             </div>
                         </div>
                         <hr>
@@ -485,17 +489,15 @@ $row = mysqli_fetch_assoc($listItem);
                                     Total:
                                 </div>
                                 <div class="col-lg-5 col-8">
-                                    <span id="totalSemua"></span>
+                                    <?=rupiah($totalcost[0])?>
                                 </div>
                             </div>    
                         </b>
-                        (sudah termasuk pajak) <br> <br> -->
-                        <!-- <div class="d-flex justify-content-end">
+                        (sudah termasuk pajak) <br> <br>
+                        <div class="d-flex justify-content-end">
                             <a class="btn text-white me-lg-5 me-2" style="background-color:#3f4441;" href="catalogAfterLogin.php">Kembali ke Katalog</a>
                             <a class="btn text-white ms-lg-5 me-lg-4" style="background-color:#888;" href="cart.php">Lihat Keranjang</a>
                         </div>
-                        <!-- <a class="btn text-white w-100" style="background-color:#3f4441;" href="catalogAfterLogin.php">Kembali ke Katalog</a>
-                        <a class="btn text-white w-100 mt-lg-5 mt-2" style="background-color:#888;" href="cart.php">Lihat Keranjang</a> -->
                     </div>
                 </div>
             </div>
@@ -523,25 +525,9 @@ $row = mysqli_fetch_assoc($listItem);
         var span = document.getElementsByClassName("close")[0];
 
         btn.onclick = function() {
-            let kuantiti = document.getElementById("quantiti").value;
             modal.classList.add("b")
             modal.classList.remove("a")
-            r = new XMLHttpRequest;
-            r.onreadystatechange = function() {
-                if (r.readyState == 4 && r.status == 200) {
-                    // document.getElementById('jumlahKuantiti').innerHTML = r.responseText;
-                    // console.log(r.responseText);
-                    var data = r.responseText.split('|');
-                    document.getElementById('jumlahKuantiti').innerHTML = data[0];
-                    document.getElementById("qtyCart").innerHTML = data[1];
-                    document.getElementById("totalSemua").innerHTML = data[2];
-                    document.getElementById("total").innerHTML = data[2];
-                    // console.log(data[1]);
-                }
-            }
-            r.open("POST", "ajaxcart/fetch_kuantiti.php", true);
-            r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            r.send("qty=" + kuantiti);
+            // modal.style.visibility = "visible";
         }
 
         span.onclick = function() {

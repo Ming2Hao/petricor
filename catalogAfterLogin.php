@@ -16,7 +16,7 @@
         $filter[]= "`it_ca_id`='$cat'";
     }
     if(isset($_POST["search"])){
-        $link = "location:catalogAfterLogin.php?searchget=".$_POST["searchbar"];
+        $link = "location:catalogAfterLogin.php?searchget=".mysqli_real_escape_string($conn,$_POST["searchbar"]);
         if (isset($_GET["fcategory"])) {
             $cat=$_GET["fcategory"];
             $link.= "&fcategory=".$cat;
@@ -24,7 +24,7 @@
         header($link);
     }
     if(isset($_GET["searchget"])){
-        $filter[]="`it_name` LIKE '%".$_GET["searchget"]."%'";
+        $filter[]="`it_name` LIKE '%".mysqli_real_escape_string($conn,$_GET["searchget"])."%'";
     }
     // if (condition) {
     //     # code...
@@ -36,7 +36,7 @@
 
 
     if(isset($_POST["detaildiklik"])){
-        $_SESSION["itemsekarang"]=$_POST["detaildiklik"];
+        $_SESSION["itemIni"]=$_POST["detaildiklik"];
         header('Location: detailSudahLogin.php');
     }
     if (!isset ($_GET['page'])) {  
@@ -57,7 +57,7 @@
     $now=$page;
 
     function rupiah($angka){
-        return "IDR " . number_format($angka,2,',','.');
+        return "Rp " . number_format($angka,2,',','.');
     }
 ?>
 <!DOCTYPE html>
@@ -73,15 +73,39 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet"/>
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <style>
-        @media screen and (min-device-width: 300px) and (max-device-width: 400px) { 
-            .tes{
-               margin-left: 38px;
+        @media screen and (min-device-width: 300px) and (max-device-width: 500px) { 
+            .kartu{
+               height: 200px;
+            }
+
+            .gambar{
+                display: none;
+            }
+
+            .hp{
+                display: block;
+            }
+
+            .potrek{
+                width: 110px;
+                height: 150px;
+                margin-top: 25px;
+            }
+
+            .profile{
+                margin-right:60px;
             }
         }
         @media screen and (min-width:1000px){
-            .tes{
-                margin-left: 100px;
-                margin-right: 100px;
+            .kartu{
+                height: 500px;
+            }
+            .hp{
+                display: none;
+            }
+
+            .potrek{
+                width: 180px;
             }
         }
 
@@ -228,8 +252,19 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="indexSudahLogin.php" name="logodipencet">
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                <div class="text-white">KATALOG</div>
             </a>
+            <div class="text-white gambar" style="font-size:18px">
+                    <?php
+                        // if ($sqlFilter!="") {
+                        //     $idKategori = substr($sqlFilter, 12, 5);
+                        //     $kategoriSekarang = mysqli_query($conn, "SELECT ca_name from category where ca_id='$idKategori'");
+                        //     $kategoriNow = mysqli_fetch_array($kategoriSekarang);
+                        //     echo "<div class='text-white' style='text-transform: uppercase;'>$kategoriNow[0]</div>";
+                        // } else {
+                            echo "KATALOG";
+                        // }
+                    ?>
+            </div>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                 <!-- <span class="navbar-toggler-icon"></span> -->
                 <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
@@ -263,14 +298,24 @@
                 </div>
                 </form>
             </div>
-            <a href="cart.php" class="me-lg-5 pe-lg-4 d-flex">
-                <?php
-                    $userIni = $curUser["us_id"];
-                    $hitungCart = mysqli_query($conn, "SELECT COUNT(ct_it_id) FROM cart WHERE ct_us_id = '$userIni'");
-                    $qtyCart = mysqli_fetch_row($hitungCart);
-                ?>
-                <i class="fa badge fa-lg p-0" value="<?=$qtyCart[0]?>">&#xf07a;</i>
-            </a>
+            <div class="d-flex ms-lg-0 ms-4 mt-lg-0 mt-3">
+                <a class="mt-lg-1 me-3" href="catalogAfterLogin.php">
+                    <div class="text-white">KATALOG</div>
+                </a>
+                <div class="text-white mt-lg-1 me-3">|</div>
+                <a class="mt-lg-1 me-3" href="daftarTransaksi.php">
+                    <div class="text-white">TRANSAKSI</div>
+                </a>
+                <a href="cart.php" class="me-lg-5 pe-lg-4 d-flex mt-lg-2">
+                    <?php
+                        $userIni = $curUser["us_id"];
+                        $hitungCart = mysqli_query($conn, "SELECT COUNT(ct_it_id) FROM cart WHERE ct_us_id = '$userIni'");
+                        $qtyCart = mysqli_fetch_row($hitungCart);
+                    ?>
+                    <i class="fa badge fa-lg p-0" value="<?=$qtyCart[0]?>">&#xf07a;</i>
+                </a>
+            </div>
+           
             <div class="d-lg-flex d-sm-block">
                 <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
                     <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
@@ -304,7 +349,7 @@
                 <!-- PROFILEEEEEEEEEE USERRRRRRR -->
                 <div class="action">
                     <div class="profile" onclick="menuToggle();">
-                        <img src="temp/nahida2.jpg">
+                        <img src="assets/img/displaypicture.png">
                     </div>
                     <div class="menu">
                         <div class="username" style="margin-bottom: -5px">
@@ -351,11 +396,27 @@
                                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                     <div class="accordion-body">
                                     <?php
-                                        $resultkategori = mysqli_query($conn, "select * from category where ca_id != 'CA001'"); 
-                                        while($row = mysqli_fetch_array($resultkategori)){
+                                        $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id != 'CA001'"); 
+                                        $daftarCount = [];
+                                        $daftarKategori = [];
+                                        $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
+                                        FROM items i JOIN category c ON i.it_ca_id = c.ca_id
+                                        WHERE c.ca_id != 'CA001'
+                                        GROUP BY c.ca_id");
+                                        while($rowc = $countKategori -> fetch_assoc()){
+                                            $daftarCount[] = $rowc;
+                                        }
+                                        while($rowb = $resultkategori -> fetch_assoc()){
+                                            $daftarKategori[] = $rowb;
+                                        }
+                                        for($i=0; $i<sizeof($daftarKategori); $i++){
                                             ?>
+                                            
                                                 <!-- <li><a class="dropdown-item" href="#"></a></li> -->
-                                                <input type="checkbox" name="" id="" class="me-2"> <?=$row["ca_name"]?> <br>
+                                                <!-- <input type="checkbox" name="" id="" class="me-2"> <br> -->
+                                                <form action="">
+                                                    <button value='<?=$daftarKategori[$i]['idcat']?>' class="d-block" style="background:none; background-color:transparent; border:none;"><?=$daftarKategori[$i]['namecat']?> (<?=$daftarCount[$i]['hitungBarang']?>)</button>
+                                                </form>
                                             <?php
                                         }
                                     ?>
@@ -427,7 +488,7 @@
                                                     </p>
                                                     <p class="card-title mb-0" style="font-size:14px;"><?=$row['it_name']?></p>
                                                     <!-- <p class="text-danger"><?=number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?=number_format(1221000, 0, "", ".")?></span></p> -->
-                                                    <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?></span></p>
+                                                    <p class="text-danger"><?=rupiah($row['it_price'])?> <span class="text-secondary" style="text-decoration:line-through">IDR <?=number_format(17187989, 0, "", ".")?>,00</span></p>
                                                 </div>
                                             </button>
                                         </form>
@@ -555,11 +616,15 @@
                                     else{
                                         ?>
                                             <li class="page-item d-flex">
-                                                <a class="page-link" href="catalogue.php?page=<?=$now+1?><?php 
+                                            <a class="page-link" href="catalogue.php?page=<?=$now+1?><?php 
                                                 if (isset($_GET["fcategory"])) 
-                                                {echo "&fcategory=".$_GET["fcategory"];} 
+                                                {
+                                                    // echo "&fcategory=".$_GET["fcategory"];
+                                                } 
                                                 if (isset($_GET["searchget"])) 
-                                                {echo "&searchget=".$_GET["searchget"];} 
+                                                {
+                                                    // echo "&searchget=".$_GET["searchget"];
+                                                } 
                                                 ?>">Next</a>
                                             </li>
                                         <?php
@@ -574,7 +639,7 @@
         <hr class="m-0" style="height:2px; color:#f7f3f2; background-color:#f7f3f2;">
         <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5"></div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 gambar">
                 <h5 class="fw-bold mb-2">Categories</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
@@ -590,7 +655,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA019" style="text-decoration:none; color:#57615b">Ruang Makan</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA020" style="text-decoration:none; color:#57615b">Kursi Bar</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA021" style="text-decoration:none; color:#57615b">Meja Persegi Panjang</a></li>
@@ -605,7 +670,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA015" style="text-decoration:none; color:#57615b">Kursi Tulis</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA016" style="text-decoration:none; color:#57615b">Lemari Pakaian</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA032" style="text-decoration:none; color:#57615b">Utilitas</a></li>
@@ -620,7 +685,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA033" style="text-decoration:none; color:#57615b">Tempat Lilin</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-5">
+            <div class="col-lg-2 mt-lg-5 gambar">
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA034" style="text-decoration:none; color:#57615b">Cermin Dinding</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA035" style="text-decoration:none; color:#57615b">Keranjang</a></li>
@@ -632,7 +697,7 @@
                     <li><a href="catalogAfterLogin.php?fcategory=CA041" style="text-decoration:none; color:#57615b">Bunga Imitasi</a></li>
                 </ul>
             </div>
-            <div class="col-lg-2 mt-lg-3">
+            <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
                 <h5 class="fw-bold mb-2">Legal</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
@@ -640,8 +705,25 @@
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
-                </ul>
+                    <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                </ul> 
+            </div>
+            <div class="hp">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2">Legal</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
+                            <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                        <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
+                            <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">

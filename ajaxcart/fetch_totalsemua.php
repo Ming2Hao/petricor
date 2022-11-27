@@ -1,7 +1,7 @@
 <?php
 	require_once('../connection.php');
     function rupiah($angka){
-        return "IDR " . number_format($angka,2,',','.');
+        return "Rp " . number_format($angka,2,',','.');
     }
 
 

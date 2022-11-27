@@ -1,7 +1,7 @@
 <?php
 require_once("connection.php");
 function rupiah($angka){
-    return "IDR " . number_format($angka,2,',','.');
+    return "Rp " . number_format($angka,2,',','.');
 }
 // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
 // if(isset($_SESSION['currentUser'])) $currentUser = $_SESSION['currentUser'];
@@ -247,17 +247,17 @@ $row = mysqli_fetch_assoc($listItem);
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
             <div class="d-flex w-md-50 w-75">
-                <div class="input-group">
-                    <input type="text" class="form-control ms-lg-2 w-100" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                    <button class="rounded-end me-lg-4 me-2" style="border:none; background-color:white; margin-top:5px;" name="search" type="submit">
+                <div class="input-group mt-1 mb-2 justify-content-end">
+                    <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
+                    <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogue.php" type="submit">
                         <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                    </button>   
+                    </a>   
                 </div>
             </div>
             <div class="d-lg-flex justify-content-end d-sm-block mt-lg-0 mt-2">
                 <a href="catalogue.php" class="link-light mt-4 ms-1 ms-lg-3 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">KATALOG</a>
                 <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
-                <a href="" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
+                <a href="contactUsBelumLogin.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
                 <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
                 <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
             </div>

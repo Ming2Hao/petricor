@@ -8,7 +8,7 @@
     $curUser = mysqli_fetch_array($user);
 
     function rupiah($angka){
-        return "IDR " . number_format($angka,2,',','.');
+        return "Rp " . number_format($angka,2,',','.');
     }
 ?>
 <!DOCTYPE html>
@@ -216,20 +216,26 @@
         </div>
     </nav>
 
-        <div class="p-2 col-lg-6">
-            <h2 class="fw-bold">Contact Us</h2>
-            <form action="" method="post">
-                <div class="mb-3 ">
-                <label for="exampleFormControlInput1" class="form-label">Subject</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Subject">
-                </div>
-                <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Comment</label>
-                    <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3" resize="none"></textarea>
-                </div>
-                <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center float-end" style="border-radius: 50px; background-color:#8c594f; color:white;" name="btnLogin" formaction="catalogAfterLogin.php">Send</button>
-            </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-12"></div>
+            <div class="col-lg-8 col-12">
+                <h2 class="fw-bold mt-2">Hubungi Kami</h2>
+                <form action="" method="post">
+                    <div class="mb-3 ">
+                    <label for="exampleFormControlInput1" class="form-label">Subjek</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
+                        <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3" resize="none"></textarea>
+                    </div>
+                    <button type="submit" class="mt-2 btn px-5 fw-bold mb-3 text-center float-end" style="border-radius: 15px; background-color:#8c594f; color:white;" name="btnLogin" formaction="catalogAfterLogin.php">Kirim</button>
+                </form>
+            </div>
+            <div class="col-2"></div>
         </div>
+    </div>
         </div>
         <br><br>
         <hr style="color:#BA7967">
@@ -301,7 +307,7 @@
                 </ul>
                 <h5 class="fw-bold mb-2 mt-2">Support</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                    <li><a href="contactUsSudahLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                    <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                 </ul> 
             </div>
             <div class="hp">
@@ -316,7 +322,7 @@
                     <div class="col-6">
                         <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
                         <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
-                            <li><a href="#" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
+                            <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                         </ul>
                     </div>
                 </div>
