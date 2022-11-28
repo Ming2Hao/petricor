@@ -437,7 +437,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                                         </div>
                                         <div class="col-lg-1 col-2 border-start mx-0 rounded-end align-items-center d-flex justify-content-center" style="background-color:#f7f7f7">
                                             <form action="#" method="post">
-                                                <button type="submit" value="<?=$row[0]?>" name="delet" class="w-100 text-white" style="background:none; border:none">
+                                                <button type="submit" value="<?=$row["ct_id"]?>" name="delet" class="w-100 text-white" style="background:none; border:none">
                                                     <i class="material-icons" style="font-size:36px;color:red">delete</i>
                                                 </button>
                                             </form>
@@ -459,11 +459,11 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 <p id="grandtotal">
                     grandtotal
                 </p>
-                <form action="#" method="post">
+                <!-- <form action="#" method="post"> -->
                     <button type="submit" class="mt-1 btn ps-4 pe-4 fw-bold text-center float-end mb-3" name="cekout" id="cekout" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
                     </button>
         
-                </form>
+                <!-- </form> -->
             </div>
             <?php
                 }
