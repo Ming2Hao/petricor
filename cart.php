@@ -348,21 +348,6 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                     <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
-                    </li> -->
-                    <!-- <li class="nav-item me-3">
-                        <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
-                    </li> -->
-                <!-- </ul> -->
-                <!-- <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> -->
                 <div class="w-100 d-flex">
                     <div class="d-flex w-md-50 w-100">
                         <div class="input-group mt-1 mb-2 justify-content-end">
@@ -399,18 +384,8 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                                 <?=$curUser["us_name"]?>
                             </div>
                             <div class="printilan"><?=$curUser["us_username"]?> </div>
-                            <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div> -->
                             
                             <ul>
-                            <!-- <li>
-                                <img src="./assets/icons/user.png" /><a href="#">My profile</a>
-                            </li>
-                            <li>
-                                <img src="./assets/icons/settings.png" /><a href="#">Setting</a>
-                            </li>
-                            <li>
-                                <img src="./assets/icons/question.png" /><a href="#">Help</a>
-                            </li> -->
                             <li>
                                 <img src="assets/img/logout.png" /><a href="index.php">Logout</a>
                             </li>
@@ -429,6 +404,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             <div class="row d-flex p-lg-2 mx-lg-3">
                 <?php
                     $row = mysqli_fetch_row($result);
+                    // var_dump($row); die;
                     if($row == null){
                 ?>
                     <div class="d-flex justify-content-center">
@@ -439,9 +415,9 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 <?php
                     } else{
                 ?>
-                <div class="col-lg-9 container-fluid" id="maincart">
+                    <div class="col-lg-9 container-fluid" id="maincart">
                     <?php
-                            while($row = mysqli_fetch_row($result)){
+                            while($row = mysqli_fetch_assoc($result)){
                                 $item = mysqli_query($conn,"SELECT * from items where it_id='".$row["ct_it_id"]."'");
                                 $item=mysqli_fetch_assoc($item);
                                 $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
@@ -455,9 +431,9 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                                         <div class="col-lg-9 col-7 border-start border-end mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                                             <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
                                                 <?=rupiah($item["it_price"])?>X
-                                                <input type="number" style="width:60px;" name="<?=$row[0]?>" class="idupdown" value="<?=$row[3]?>" min="1" harganya="<?=$item["it_price"]?>">
+                                                <input type="number" style="width:60px;" name="<?=$row["ct_id"]?>" class="idupdown" value="<?=$row["ct_qty"]?>" min="1" harganya="<?=$item["it_price"]?>">
                                                 <br><br>
-                                                <b class="d-flex"> TOTAL : &nbsp; <p id="<?=$row[0]?>aaa">asd</p> </b>
+                                                <b class="d-flex"> TOTAL : &nbsp; <p id="<?=$row["ct_id"]?>aaa">asd</p> </b>
                                         </div>
                                         <div class="col-lg-1 col-2 border-start mx-0 rounded-end align-items-center d-flex justify-content-center" style="background-color:#f7f7f7">
                                             <form action="#" method="post">

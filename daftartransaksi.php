@@ -16,6 +16,10 @@
 
     if(isset($_SESSION['currentUser'])){
         $result = mysqli_query($conn,"SELECT * from h_transaksi where ht_us_id='".$_SESSION['currentUser']."'");
+        $kumpulanHistori = [];
+        while($row = $result -> fetch_assoc()){
+            $kumpulanHistori[] = $row;
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -255,7 +259,6 @@
                 <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
             </a>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
-                <!-- <span class="navbar-toggler-icon"></span> -->
                 <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -283,7 +286,6 @@
                         ?>
                         <i class="fa badge fa-lg p-0" value="<?=$qtyCart[0]?>">&#xf07a;</i>
                     </a>
-                
                 <div class="d-lg-flex d-sm-block">
                 <!-- PROFILEEEEEEEEEE USERRRRRRR -->
                 <div class="action">
@@ -302,73 +304,75 @@
                         </ul>
                     </div>  
                 </div>
-                
             </div>
             </div>
-
         </div>
     </nav>
 
-        <!-- cart-->
-        <div class="p-3 mx-5">
-            <div class="row d-flex">
-                <div class="col-12">
-                <?php
-                    while($row = mysqli_fetch_assoc($result)){
-                ?>
-                <div class="px-0 mx-0">
-                    <div class="row pe-0 mb-3 w-100">
-                        <h1><?=$row["ht_id"]?></h1>
-                        <?php
-                            $resultdt = mysqli_query($conn,"SELECT * from d_transaksi where dt_ht_id='".$row["ht_id"]."'");
-                            $gt=0;
-                            while($dt = mysqli_fetch_assoc($resultdt)){
-                                $resultitem = mysqli_query($conn,"SELECT * from items where it_id='".$dt["dt_it_id"]."'");
-                                $item = mysqli_fetch_assoc($resultitem);
-                                $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
-                                $cat=mysqli_fetch_assoc($cat);
-                                ?>
-                                <div class="col-1 px-0 mx-0 rounded">
-                                    <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start w-100 h-100 col-1 px-0 mx-0 ">
-                                </div>
-                                <div class="col-9 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
-                                    <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
-                                    <!-- <div class="p-0 m-0"> -->
-                                        <?=rupiah($item["it_price"])?> X
-                                        <?=$dt["dt_qty"]?>
-                                        <br>
-                                        <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$item["it_price"])?></p> </b>
-                                        <?php
-                                            $gt=$gt+($dt["dt_qty"]*$item["it_price"]);
-                                        ?>
-                                        <!-- HARUS BISA BRUBAH TOTALNYA TANPA DIREFRESH -->
-                                    <!-- </div> -->
-                                </div>
-                                <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
-                                
-                                </div>
+    <!-- cart-->
+    <div class="p-3 mx-5">
+        <div class="row d-flex">
+            <div class="col-12">
+            <?php
+
+                // while($row = mysqli_fetch_assoc($result)){
+                for($i=sizeof($kumpulanHistori)-1; $i>=0; $i--){
+            ?>
+            <div class="px-0 mx-0">
+                <div class="row pe-0 mb-3 w-100">
+                    <div class="col-12 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                        <h3 class="fw-bold"><?=$kumpulanHistori[$i]["ht_id"]?></h3>
+                        <hr>
+                    </div>
+                    <?php
+                        $resultdt = mysqli_query($conn,"SELECT * from d_transaksi where dt_ht_id='".$kumpulanHistori[$i]["ht_id"]."'");
+                        $gt=0;
+                        while($dt = mysqli_fetch_assoc($resultdt)){
+                            $resultitem = mysqli_query($conn,"SELECT * from items where it_id='".$dt["dt_it_id"]."'");
+                            $item = mysqli_fetch_assoc($resultitem);
+                            $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
+                            $cat=mysqli_fetch_assoc($cat);
+                            ?>
+                            <div class="col-3 px-0 mx-0 rounded">
+                                <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start w-100 col-1 px-0 mx-0 ">
+                            </div>
+                            <div class="col-9 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                                <p class="w-100">
+                                    <?=$item["it_name"]?><br><?=$cat["ca_name"]?>
+                                </p>
+                                <?=rupiah($item["it_price"])?> 
+                                <br>Jumlah: <?=$dt["dt_qty"]?>
+                                <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$item["it_price"])?></p> </b>
                                 <?php
-                            }
-                        ?>
+                                    $gt=$gt+($dt["dt_qty"]*$item["it_price"]);
+                                ?>
+                            </div>
+                            <!-- <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
+                            
+                            </div> -->
+                            <?php
+                        }
+                    ?>
+                    <div class="col-12 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                         <p id="totalbelanja" class="p-0 m-0">
                             totalbelanja: <?=rupiah($gt)?>
                         </p>
                         <p class="p-0 m-0">
                             ongkir: <?=rupiah(10000)?>
                         </p>
-                        <p id="grandtotal">
-                            grandtotal: 
-                            
-                            <?=rupiah($gt+10000)?>
+                        <p id="grandtotal" class="p-0 m-0">
+                            grandtotal: <?=rupiah($gt+10000)?>
                         </p>
                     </div>
-                </div>
-                <?php
-                    }
-                ?>
+                   
                 </div>
             </div>
+            <?php
+                }
+            ?>
+            </div>
         </div>
+    </div>
 
 
 

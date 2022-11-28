@@ -300,7 +300,7 @@
             </div>
             <div class="d-flex ms-lg-0 ms-4 mt-lg-0 mt-3">
                 <a class="mt-lg-1 me-3" href="catalogAfterLogin.php">
-                    <div class="text-white">KATALOG</div>
+                    <div class="text-white fw-bold">KATALOG</div>
                 </a>
                 <div class="text-white mt-lg-1 me-3">|</div>
                 <a class="mt-lg-1 me-3" href="daftarTransaksi.php">

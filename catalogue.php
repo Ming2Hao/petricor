@@ -268,7 +268,7 @@
                     <!-- <div class="col-lg-12 mt-4 mt-lg-2"> -->
                         <!-- <div class="mt-sm-5"> -->
                             <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
-                            <a href="catalogue.php" class="link-light mt-4 ms-2 ms-lg-3 mt-lg-0 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">KATALOG</a>
+                            <a href="catalogue.php" class="link-light fw-bold mt-4 ms-2 ms-lg-3 mt-lg-0 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">KATALOG</a>
                             <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
                             <a href="contactUsBelumLogin.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
                             <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>

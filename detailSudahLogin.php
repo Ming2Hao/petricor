@@ -489,13 +489,13 @@ $row = mysqli_fetch_assoc($listItem);
                                 </div>
                             </div>    
                         </b>
-                        (sudah termasuk pajak) <br> <br> -->
-                        <!-- <div class="d-flex justify-content-end">
+                        (sudah termasuk pajak) <br> <br>
+                        <div class="d-flex justify-content-end">
                             <a class="btn text-white me-lg-5 me-2" style="background-color:#3f4441;" href="catalogAfterLogin.php">Kembali ke Katalog</a>
                             <a class="btn text-white ms-lg-5 me-lg-4" style="background-color:#888;" href="cart.php">Lihat Keranjang</a>
                         </div>
                         <!-- <a class="btn text-white w-100" style="background-color:#3f4441;" href="catalogAfterLogin.php">Kembali ke Katalog</a>
-                        <a class="btn text-white w-100 mt-lg-5 mt-2" style="background-color:#888;" href="cart.php">Lihat Keranjang</a> -->
+                        <a class="btn text-white w-100 mt-lg-5 mt-2" style="background-color:#888;" href="cart.php">Lihat Keranjang</a>-->
                     </div>
                 </div>
             </div>
