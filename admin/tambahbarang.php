@@ -12,10 +12,19 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Welcome, Admin</h1>
+    <h2>TAMBAH BARANG</h2>
     <form action="upload.php" method="post" enctype="multipart/form-data">
+        <button type="submit" formaction="masterbarang.php">master barang</button>
+        <button type="submit" formaction="masteruser.php">master user</button>
+        <button type="submit" formaction="mastertransaksi.php">master transaksi</button>
+        <button type="submit" formaction="tambahbarang.php">tambah barang</button>
+        <br>
         <input type="text" name="nama" id="" placeholder="nama barang">
         <br>
         <input type="number" min="1" name="harga" id="" placeholder="harga">
+        <br>
+        <input type="number" min="1" name="stok" id="" placeholder="stok">
         <br>
         <textarea name="deskripsi" cols="40" rows="5" placeholder="Deskripsi"></textarea>
         <br>

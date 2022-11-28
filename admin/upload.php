@@ -36,10 +36,12 @@ if($cek==0){
             $harga=$_POST["harga"];
             $deskripsi=$_POST["deskripsi"];
             $kategori=$_POST["kategori"];
+            $stok=$_POST["stok"];
             $lokasigambar="gambar/". "logo". $nomorgambar ."." . $formatfile;
-            $qwery="INSERT INTO `items`(`it_id`, `it_gambar`, `it_name`, `it_price`, `it_desc`, `it_ca_id`) VALUES ('$nextitid','$lokasigambar','$nama','$harga','$deskripsi','$kategori')";
+            $qwery="INSERT INTO `items`(`it_id`, `it_gambar`, `it_name`, `it_price`, `it_desc`, `it_ca_id`,`it_stok`) VALUES ('$nextitid','$lokasigambar','$nama','$harga','$deskripsi','$kategori','$stok')";
             $result = mysqli_query($conn, $qwery);
             echo "<script> alert ('sukses tambah barang'); </script>";
+            header('location:masterbarang.php');
         } else {
             echo "GAGAL";
         }
