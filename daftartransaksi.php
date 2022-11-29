@@ -340,11 +340,11 @@
                                 <p class="w-100">
                                     <?=$item["it_name"]?><br><?=$cat["ca_name"]?>
                                 </p>
-                                <?=rupiah($item["it_price"])?> 
+                                <?=rupiah($dt["dt_price"])?> 
                                 <br>Jumlah: <?=$dt["dt_qty"]?>
-                                <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$item["it_price"])?></p> </b>
+                                <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$dt["dt_price"])?></p> </b>
                                 <?php
-                                    $gt=$gt+($dt["dt_qty"]*$item["it_price"]);
+                                    $gt=$gt+($dt["dt_qty"]*$dt["dt_price"]);
                                 ?>
                             </div>
                             <!-- <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">

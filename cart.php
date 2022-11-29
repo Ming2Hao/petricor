@@ -25,83 +25,6 @@
         $resdelet = $conn->query($delet_query);
         header('Location: cart.php');
     }
-    
-require_once('midtrans/Veritrans.php');
-
-$result3 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
-$_SESSION["totalsetelahongkir"]=0;
-while($rows = mysqli_fetch_assoc($result3)){
-    $result2=mysqli_query($conn,"SELECT * from items where it_id='".$rows["ct_it_id"]."'");
-    $result2=mysqli_fetch_assoc($result2);
-    $result2=$result2["it_price"];
-    $_SESSION["totalsetelahongkir"]=$_SESSION["totalsetelahongkir"]+($result2*$rows["ct_qty"]);
-}
-$_SESSION["totalsetelahongkir"]+=10000;
-
-//Set Your server key
-Veritrans_Config::$serverKey = "SB-Mid-server-AMzwelN9WnfCaC9Vfslm52gY";
-
-// Uncomment for production environment
-// Veritrans_Config::$isProduction = true;
-
-// Enable sanitization
-Veritrans_Config::$isSanitized = true;
-
-// Enable 3D-Secure
-Veritrans_Config::$is3ds = true;
-
-  $subtotal = $_SESSION["totalsetelahongkir"]; 
-
-// Required
-$transaction_details = array(
-  'order_id' => rand(),
-  'gross_amount' => $subtotal,
-);
-
-// Optional
-$billing_address = array(
-  'first_name'    => "Andri",
-  'last_name'     => "Litani",
-  'address'       => "Mangga 20",
-  'city'          => "Jakarta",
-  'postal_code'   => "16602",
-  'phone'         => "081122334455",
-  'country_code'  => 'IDN'
-);
-
-// Optional
-$shipping_address = array(
-  'first_name'    => "Obet",
-  'last_name'     => "Supriadi",
-  'address'       => "Manggis 90",
-  'city'          => "Jakarta",
-  'postal_code'   => "16601",
-  'phone'         => "08113366345",
-  'country_code'  => 'IDN'
-);
-
-// Optional
-$customer_details = array(
-  'first_name'    => "Andri",
-  'last_name'     => "Litani",
-  'email'         => "andri@litani.com",
-  'phone'         => "081122334455",
-  'billing_address'  => $billing_address,
-  'shipping_address' => $shipping_address
-);
-
-// Optional, remove this to display all available payment methods
-// $enable_payments = array('credit_card','cimb_clicks','mandiri_clickpay','echannel');
-// $enable_payments = array(); 
-
-// Fill transaction details
-$transaction = array(
-  'transaction_details' => $transaction_details,
-  'customer_details' => $customer_details,
-  // 'enabled_payments' => $enable_payments,
-);
-
-$snapToken = Veritrans_Snap::getSnapToken($transaction);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -403,7 +326,8 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         <div class="w-100 container-fluid">
             <div class="row d-flex p-lg-2 mx-lg-3">
                 <?php
-                    $row = mysqli_fetch_row($result);
+                    $resulttemp2 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+                    $row = mysqli_fetch_row($resulttemp2);
                     // var_dump($row); die;
                     if($row == null){
                 ?>
@@ -459,11 +383,11 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 <p id="grandtotal">
                     grandtotal
                 </p>
-                <!-- <form action="#" method="post"> -->
-                    <button type="submit" class="mt-1 btn ps-4 pe-4 fw-bold text-center float-end mb-3" name="cekout" id="cekout" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
+                <form action="#" method="post">
+                    <button type="submit" class="mt-1 btn ps-4 pe-4 fw-bold text-center float-end mb-3" formaction="pembayaran.php" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
                     </button>
         
-                <!-- </form> -->
+                </form>
             </div>
             <?php
                 }
@@ -604,11 +528,11 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             fetch_totalsemuaongkir();
         }
         function fetch_totalsemua(){
-            field=document.getElementById('totalbelanja');
+            fields=document.getElementById('totalbelanja');
             r = new XMLHttpRequest();
             r.onreadystatechange = function() {
                 if ((this.readyState==4) && (this.status==200)) {
-                    field.innerHTML = this.responseText;
+                    fields.innerHTML = this.responseText;
                 }
             }
             r.open('GET', `ajaxcart/fetch_totalsemua.php`);
@@ -626,19 +550,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             r.send();
         }
 
-        function pembayaran_sukses(){
-            field=document.getElementById('grandtotal');
-            r = new XMLHttpRequest();
-            r.onreadystatechange = function() {
-                if ((this.readyState==4) && (this.status==200)) {
-                    field.innerHTML = this.responseText;
-                }
-            }
-            r.open('GET', `ajaxcart/sukses.php`);
-            r.send();
-            window.location="terimakasih.php";
-            // alert("sukaes");
-        }
+        
 
 		// function refresh_table(xhttp) {
 		// 	if ((xhttp.readyState==4) && (xhttp.status==200)) {
@@ -685,29 +597,6 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             toggleMenu.classList.toggle("active");
         }
     </script>
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-9CaaIAOw-0qDQW_5"></script>
-    <script type="text/javascript">
-      document.getElementById('cekout').onclick = function(){
-        // SnapToken acquired from previous step
-        window.snap.pay('<?=$snapToken?>', {
-          onSuccess: function(result){
-            pembayaran_sukses();
-            alert("payment success!"); console.log(result);
-          },
-          onPending: function(result){
-            /* You may add your own implementation here */
-            alert("wating your payment!"); console.log(result);
-          },
-          onError: function(result){
-            /* You may add your own implementation here */
-            alert("payment failed!"); console.log(result);
-          },
-          onClose: function(){
-            /* You may add your own implementation here */
-            alert('you closed the popup without finishing the payment');
-          }
-      });
-      };
-    </script>
+
 </body>
 </html>

@@ -396,13 +396,23 @@
                                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                     <div class="accordion-body">
                                     <?php
-                                        $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id != 'CA001'"); 
+                                        if(isset($_GET["searchget"])){
+                                            $tempsearch2 = $_GET["searchget"];
+                                            $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category ca join items i on ca.ca_id=i.it_ca_id where i.it_name like '%$tempsearch2%' and ca_id!='CA001' GROUP BY ca.ca_id order by ca.ca_name");
+                                            $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
+                                            FROM items i JOIN category c ON i.it_ca_id = c.ca_id
+                                            WHERE i.it_name like '%$tempsearch2%' and c.ca_id != 'CA001'
+                                            GROUP BY c.ca_id order by c.ca_name");
+                                        }
+                                        else{
+                                            $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id!='CA001' order by ca.ca_name");
+                                            $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
+                                            FROM items i JOIN category c ON i.it_ca_id = c.ca_id
+                                            WHERE c.ca_id != 'CA001'
+                                            GROUP BY c.ca_id order by c.ca_name");
+                                        }
                                         $daftarCount = [];
                                         $daftarKategori = [];
-                                        $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
-                                        FROM items i JOIN category c ON i.it_ca_id = c.ca_id
-                                        WHERE c.ca_id != 'CA001'
-                                        GROUP BY c.ca_id");
                                         while($rowc = $countKategori -> fetch_assoc()){
                                             $daftarCount[] = $rowc;
                                         }
@@ -414,9 +424,10 @@
                                             
                                                 <!-- <li><a class="dropdown-item" href="#"></a></li> -->
                                                 <!-- <input type="checkbox" name="" id="" class="me-2"> <br> -->
-                                                <form action="">
-                                                    <button value='<?=$daftarKategori[$i]['idcat']?>' class="d-block" style="background:none; background-color:transparent; border:none;"><?=$daftarKategori[$i]['namecat']?> (<?=$daftarCount[$i]['hitungBarang']?>)</button>
-                                                </form>
+                                                <div><a href="catalogueAfterLogin.php?fcategory=<?= $daftarKategori[$i]['idcat'] ?><?php if (isset($_GET["searchget"])) {
+                                                                                                                $tempsearch = $_GET["searchget"];
+                                                                                                                echo "&searchget=$tempsearch";
+                                                                                                            } ?>"><?= $daftarKategori[$i]['namecat'] ?> (<?= $daftarCount[$i]['hitungBarang'] ?>)</a></div>
                                             <?php
                                         }
                                     ?>

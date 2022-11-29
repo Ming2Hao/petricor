@@ -12,17 +12,18 @@
     if(isset($_POST["btnLogin"])){
         $username = mysqli_real_escape_string($conn,strtolower(stripslashes($_POST['username']))); //email jg bisa
         $pass = mysqli_real_escape_string($conn,$_POST["password"]);
-        if($username == "admin@gmail.com" && $pass == "admin" || $username=="admin" && $pass=="admin"){
-            $_SESSION['adminLogin'] = $adminLogin;
-            header("Location: admin.php");
-        }
         $ada = false;
         while($row = mysqli_fetch_array($result)){
             if($username == $row["us_email"] || $username == $row["us_username"]){
                 $ada = true;
                 if($pass == $row["us_password"]){
-                    $_SESSION['currentUser'] = $row["us_id"];
-                    header("Location: indexSudahLogin.php");
+                    if($row["us_status"]==0){
+                        echo "<script>alert('akun anda telah disuspend')</script>";
+                    }
+                    else{
+                        $_SESSION['currentUser'] = $row["us_id"];
+                        header("Location: indexSudahLogin.php");
+                    }
                 }else{
                     echo "<script>alert('Password Salah!')</script>";
                 }

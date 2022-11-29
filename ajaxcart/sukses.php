@@ -25,7 +25,10 @@
         $nextdt="DT".str_pad($nextdt,3,"0",STR_PAD_LEFT);
         $ctitid=$row["ct_it_id"];
         $ctqty=$row["ct_qty"];
-        $idt_query = "INSERT INTO `d_transaksi`(`dt_id`, `dt_it_id`, `dt_ht_id`, `dt_qty`) VALUES ('$nextdt','$ctitid','$nextht','$ctqty')";
+        $dtprice = mysqli_query($conn,"SELECT * from items where it_id='$ctitid'");
+        $dtprice2 = mysqli_fetch_assoc($dtprice);
+        $dtpricefinal = $dtprice2["it_price"];
+        $idt_query = "INSERT INTO `d_transaksi`(`dt_id`, `dt_it_id`, `dt_ht_id`, `dt_qty`,`dt_price`) VALUES ('$nextdt','$ctitid','$nextht','$ctqty','$dtpricefinal')";
         $resdt = $conn->query($idt_query);
     }
     $delet_query2 = "DELETE from cart where ct_us_id='".$_SESSION['currentUser']."'";
