@@ -424,7 +424,7 @@
                                             
                                                 <!-- <li><a class="dropdown-item" href="#"></a></li> -->
                                                 <!-- <input type="checkbox" name="" id="" class="me-2"> <br> -->
-                                                <div><a href="catalogueAfterLogin.php?fcategory=<?= $daftarKategori[$i]['idcat'] ?><?php if (isset($_GET["searchget"])) {
+                                                <div><a href="catalogAfterLogin.php?fcategory=<?= $daftarKategori[$i]['idcat'] ?><?php if (isset($_GET["searchget"])) {
                                                                                                                 $tempsearch = $_GET["searchget"];
                                                                                                                 echo "&searchget=$tempsearch";
                                                                                                             } ?>"><?= $daftarKategori[$i]['namecat'] ?> (<?= $daftarCount[$i]['hitungBarang'] ?>)</a></div>

@@ -57,6 +57,7 @@
             .profile{
                 margin-right:60px;
             }
+
         }
         @media screen and (min-width:1000px){
             .kartu{
@@ -78,7 +79,7 @@
         *{
             /* font-family: 'Josefins Sans'; */
             font-family:'Montserrat';
-            text-transform:capitalize;
+            /* text-transform:capitalize; */
             box-sizing: border-box;
         }
 
@@ -310,8 +311,21 @@
     </nav>
 
     <!-- cart-->
-    <div class="p-lg-3 mx-lg-5 w-100 container-fluid">
-        <div class="row d-flex">
+        <?php
+            if(sizeof($kumpulanHistori)==0){
+        ?>
+            <div class="mb-3">
+            <div class="d-flex justify-content-center">
+                <img src="assets/img/notransaction.png" alt="" style="width:250px; text-align:center">
+            </div>
+                <h4 class="text-center fw-bold">Anda belum melakukan transaksi apapun</h4>
+                <div class="text-center">Segera lakukan transaksi untuk mendapatkan furnitur yang bagus</div>
+            </div>
+        <?php
+            } else {
+        ?>
+        <div class="p-lg-3 mx-lg-5 w-100 container-fluid">
+            <div class="row d-flex">
             <div class="col-12">
             <?php
 
@@ -392,6 +406,9 @@
             ?>
             </div>
         </div>
+        <?php
+            }
+        ?>
     </div>
 
 
@@ -486,9 +503,21 @@
             </div>
         </div>
     </div>
-    <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-        &#169; 2022 Erefiv Indonesia
-    </footer>
+    <?php
+            if(sizeof($kumpulanHistori)==0){
+        ?>
+            <footer class="text-center p-2 fixed-bottom" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+                &#169; 2022 Erefiv Indonesia
+            </footer>
+        <?php
+            }else {
+        ?>
+            <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+                &#169; 2022 Erefiv Indonesia
+            </footer>
+        <?php
+            }
+        ?>
     <!-- </div> -->
     <!-- </div> -->
 

@@ -346,7 +346,7 @@
             <div class="row w-100 mx-0 d-flex">
                 <div class="col-lg-1 col-sm-0"></div>
                 <div class="col-lg-5 mt-lg-4 mt-2 me-lg-5 col-sm-12 text-white">
-                    <h1 class="fw-bolder">DAFTAR SEKARANG UNTUK PENAWARAN KHUSUS</h1>
+                    <h2 class="fw-bolder">DAFTAR SEKARANG UNTUK PENAWARAN KHUSUS</h2>
                 </div>
                 <!-- <div class="d-flex justify-content-end"> -->
                     <div class="col-lg-5 mt-lg-5 mt-2 d-flex">

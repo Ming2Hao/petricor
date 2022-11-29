@@ -48,9 +48,11 @@ $nextht = mysqli_query($conn,"SELECT MAX(CAST(SUBSTRING(ht_id,3,3) AS UNSIGNED))
 $nextht = mysqli_fetch_row($nextht)[0];
 $nextht = $nextht+1;
 $nextht="HT".str_pad($nextht,3,"0",STR_PAD_LEFT);
+date_default_timezone_set("Asia/Bangkok");
+$waktu = date('YmdHis');
 // Required
 $transaction_details = array(
-  'order_id' => $nextht,
+  'order_id' => $waktu.$nextht,
   'gross_amount' => $subtotal,
 );
 

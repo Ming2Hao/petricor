@@ -62,6 +62,10 @@
             .profile{
                 margin-right:60px;
             }
+
+            .kosong{
+                width: 400px;
+            }
         }
         @media screen and (min-width:1000px){
             .kartu{
@@ -73,6 +77,10 @@
 
             .potrek{
                 width: 180px;
+            }
+
+            .kosong{
+                width:550px; 
             }
         }
 
@@ -275,9 +283,9 @@
                     <div class="d-flex w-md-50 w-100">
                         <div class="input-group mt-1 mb-2 justify-content-end">
                             <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
-                            <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
+                            <!-- <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
                                 <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                            </a>   
+                            </a>    -->
                         </div>
                     </div>
                     <a class="mt-2 me-3" href="catalogAfterLogin.php">
@@ -332,7 +340,7 @@
                     if($row == null){
                 ?>
                     <div class="d-flex justify-content-center">
-                        <img src="assets/img/empty.png" alt="" style="width:1000px; text-align:center">
+                        <img src="assets/img/empty.png" alt="" style="text-align:center" class="kosong">
                     </div>
                     <h4 class="text-center fw-bold">Keranjang kamu masih kosong</h4>
                     <div class="text-center">Ayo isi keranjang mu dengan furnitur kami yang menawan!!</div>
@@ -360,10 +368,29 @@
                                                 <b class="d-flex"> TOTAL : &nbsp; <p id="<?=$row["ct_id"]?>aaa">asd</p> </b>
                                         </div>
                                         <div class="col-lg-1 col-2 border-start mx-0 rounded-end align-items-center d-flex justify-content-center" style="background-color:#f7f7f7">
-                                            <form action="#" method="post">
-                                                <button type="submit" value="<?=$row["ct_id"]?>" name="delet" class="w-100 text-white" style="background:none; border:none">
+                                            
+                                                <button type="submit" class="w-100 text-white" style="background:none; border:none" data-bs-target="#modalSure" data-bs-toggle="modal">
                                                     <i class="material-icons" style="font-size:36px;color:red">delete</i>
                                                 </button>
+                                                <!-- Modal -->
+                                            <form action="#" method="post">
+                                                <div class="modal fade" id="modalSure" tabindex="-1" aria-labelledby="modalSure" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Item</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah kamu yakin ingin menghapus item ini dari chart?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-danger" name="delet" value="<?=$row["ct_id"]?>" >Hapus</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -484,9 +511,23 @@
                 </div>
             </div>
         </div>
-        <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-            &#169; 2022 Erefiv Indonesia
-        </footer>
+        <?php
+            if($row == null){
+        ?>
+            <footer class="text-center p-2 fixed-bottom" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+                &#169; 2022 Erefiv Indonesia
+            </footer>
+        <?php
+            }else {
+        ?>
+            <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
+                &#169; 2022 Erefiv Indonesia
+            </footer>
+        <?php
+            }
+        ?>
+
+        
     <!-- </div> -->
     <!-- </div> -->
 

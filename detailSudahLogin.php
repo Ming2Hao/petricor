@@ -366,9 +366,9 @@ $row = mysqli_fetch_assoc($listItem);
                 <div class="d-flex w-md-50 w-100">
                     <div class="input-group mt-1 mb-2 justify-content-end">
                         <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
-                        <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
+                        <!-- <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
                             <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                        </a>   
+                        </a>    -->
                     </div>
                 </div>
                 <a class="mt-2 me-3" href="catalogAfterLogin.php">
@@ -433,7 +433,8 @@ $row = mysqli_fetch_assoc($listItem);
         <div class="col-lg-5 col-sm-12 col-md-12 ms-lg-0 ms-2">
             <h4 class="mt-lg-4 mt-1 mb-lg-3 fw-bolder" style="text-transform:uppercase; text-decoration:underline;">Deskripsi Produk <?=$row['it_name']?></h4>
             <?=$row["it_desc"]?>
-            <div class="mt-lg-4 mt-3 mb-4 mb-lg-0 float-end">
+            <p class="fw-bolder mt-3 text-end">Stok : <?=$row['it_stok']?> buah</p>
+            <div class="mt-lg-2 mt-2 mb-4 mb-lg-0 float-end">
                 <input type="number" name="quantiti" id="quantiti" value="1" min="1" style="border-radius:8px; width: 72px;">
                 <button name="tambahkeranjang" id="myBtn" style="border-radius: 8px; background-color:#555; color:#ffffff;">Masukkan ke Keranjang</button>
             </div>
