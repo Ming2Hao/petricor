@@ -276,7 +276,7 @@
     </div>
         
     <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-        &#169; 2022 Erefir Indonesia
+        &#169; 2022 Erefiv Indonesia
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

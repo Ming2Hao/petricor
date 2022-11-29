@@ -266,9 +266,9 @@
                 <div class="d-flex w-md-50 w-100">
                     <div class="input-group mt-1 mb-2 justify-content-end">
                         <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
-                        <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
+                        <!-- <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
                             <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                        </a>   
+                        </a>    -->
                     </div>
                 </div>
                 <a class="mt-2 me-3" href="catalogAfterLogin.php">
@@ -310,7 +310,7 @@
     </nav>
 
     <!-- cart-->
-    <div class="p-3 mx-5">
+    <div class="p-lg-3 mx-lg-5 w-100 container-fluid">
         <div class="row d-flex">
             <div class="col-12">
             <?php
@@ -319,11 +319,15 @@
                 for($i=sizeof($kumpulanHistori)-1; $i>=0; $i--){
             ?>
             <div class="px-0 mx-0">
-                <div class="row pe-0 mb-3 w-100">
-                    <div class="col-12 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                <div class="row pe-0">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10 col-12 border-start mx-0 align-items-center py-lg-3 py-1 mx-0" style="background-color:#f7f7f7;">
                         <h3 class="fw-bold"><?=$kumpulanHistori[$i]["ht_id"]?></h3>
-                        <hr>
+                        <hr class="mb-0 pb-0">
                     </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="row">
                     <?php
                         $resultdt = mysqli_query($conn,"SELECT * from d_transaksi where dt_ht_id='".$kumpulanHistori[$i]["ht_id"]."'");
                         $gt=0;
@@ -333,40 +337,56 @@
                             $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
                             $cat=mysqli_fetch_assoc($cat);
                             ?>
-                            <div class="col-3 px-0 mx-0 rounded">
-                                <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start w-100 col-1 px-0 mx-0 ">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-2 col-5 px-0 mx-0 d-flex justify-content-center" style="background-color:#f7f7f7;">
+                                <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start col-1 px-0 mx-0" style="width: 180px">
                             </div>
-                            <div class="col-9 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
-                                <p class="w-100">
-                                    <?=$item["it_name"]?><br><?=$cat["ca_name"]?>
-                                </p>
+                            <div class="col-lg-4 col-7 border-start align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                                <h4 class="w-100">
+                                    <?=$item["it_name"]?>
+                                </h4>
+                                <?=$cat["ca_name"]?> <br>
                                 <?=rupiah($dt["dt_price"])?> 
+                                <div class="hp">
+                                    <br>Jumlah: <?=$dt["dt_qty"]?>
+                                    <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$dt["dt_price"])?></p> </b>
+                                    <?php
+                                        $gt=$gt+($dt["dt_qty"]*$dt["dt_price"]);
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="col-4 gambar border-start align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                                 <br>Jumlah: <?=$dt["dt_qty"]?>
                                 <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$dt["dt_price"])?></p> </b>
                                 <?php
                                     $gt=$gt+($dt["dt_qty"]*$dt["dt_price"]);
                                 ?>
                             </div>
+                            <div class="col-lg-1"></div>
                             <!-- <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
                             
                             </div> -->
                             <?php
                         }
                     ?>
-                    <div class="col-12 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
-                        <p id="totalbelanja" class="p-0 m-0">
-                            totalbelanja: <?=rupiah($gt)?>
-                        </p>
-                        <p class="p-0 m-0">
-                            ongkir: <?=rupiah(10000)?>
-                        </p>
-                        <p id="grandtotal" class="p-0 m-0">
-                            grandtotal: <?=rupiah($gt+10000)?>
-                        </p>
                     </div>
-                   
+                    <div class="row mb-3 text-end">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10 col-12 border-top mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                            <p id="totalbelanja" class="p-0 m-0">
+                                Total : <?=rupiah($gt)?>
+                            </p>
+                            <p class="p-0 m-0">
+                                Ongkir : <?=rupiah(10000)?>
+                            </p>
+                            <p id="grandtotal" class="p-0 m-0 fw-bold">
+                                Grand Total : <?=rupiah($gt+10000)?>
+                            </p>
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
                 </div>
-            </div>
+            
             <?php
                 }
             ?>
@@ -376,11 +396,11 @@
 
 
 
-    <hr style="color:#BA7967">
+    <hr style="color:#BA7967" class="mt-0">
     <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
         <div class="col-lg-1 me-lg-5"></div>
         <div class="col-lg-2 mt-lg-3 gambar">
-            <h5 class="fw-bold mb-2">Categories</h5>
+            <h5 class="fw-bold mb-2">Kategori</h5>
             <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                 <li><a href="catalogAfterLogin.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
                 <li><a href="catalogAfterLogin.php?fcategory=CA003" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
@@ -438,12 +458,12 @@
             </ul>
         </div>
         <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
-            <h5 class="fw-bold mb-2">Legal</h5>
+            <h5 class="fw-bold mb-2">Hukum</h5>
             <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                 <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
                 <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
             </ul>
-            <h5 class="fw-bold mb-2 mt-2">Support</h5>
+            <h5 class="fw-bold mb-2 mt-2">Mendukung</h5>
             <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                 <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
             </ul> 
@@ -451,14 +471,14 @@
         <div class="hp">
             <div class="row">
                 <div class="col-6">
-                    <h5 class="fw-bold mb-2">Legal</h5>
+                    <h5 class="fw-bold mb-2">Hukum</h5>
                     <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                         <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
                         <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                     </ul>
                 </div>
                 <div class="col-6">
-                    <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                    <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Mendukung</h5>
                     <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                         <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                     </ul>
@@ -467,7 +487,7 @@
         </div>
     </div>
     <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-        &#169; 2022 Erefir Indonesia
+        &#169; 2022 Erefiv Indonesia
     </footer>
     <!-- </div> -->
     <!-- </div> -->

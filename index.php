@@ -203,9 +203,9 @@
                 <div class="d-flex w-md-50 w-100">
                     <div class="input-group mt-1 mb-2 justify-content-end">
                         <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
-                        <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogue.php" type="submit">
+                        <!-- <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogue.php" type="submit">
                             <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                        </a>   
+                        </a>    -->
                     </div>
                 
                 <!-- <div class="d-lg-flex justify-content-end d-sm-block"> -->
@@ -346,7 +346,7 @@
             <div class="row w-100 mx-0 d-flex">
                 <div class="col-lg-1 col-sm-0"></div>
                 <div class="col-lg-5 mt-lg-4 mt-2 me-lg-5 col-sm-12 text-white">
-                    <h1 class="fw-bolder">REGISTER NOW FOR SPECIAL OFFERS</h1>
+                    <h1 class="fw-bolder">DAFTAR SEKARANG UNTUK PENAWARAN KHUSUS</h1>
                 </div>
                 <!-- <div class="d-flex justify-content-end"> -->
                     <div class="col-lg-5 mt-lg-5 mt-2 d-flex">
@@ -373,7 +373,7 @@
         <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5 gambar"></div>
             <div class="col-lg-2 mt-lg-3 gambar">
-                <h5 class="fw-bold mb-2">Categories</h5>
+                <h5 class="fw-bold mb-2">Kategori</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogue.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
                     <li><a href="catalogue.php?fcategory=CA003" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
@@ -431,12 +431,12 @@
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
-                <h5 class="fw-bold mb-2">Legal</h5>
+                <h5 class="fw-bold mb-2">Hukum</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
                     <li><a href="snkBelumLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
-                <h5 class="fw-bold mb-2 mt-2">Support</h5>
+                <h5 class="fw-bold mb-2 mt-2">Mendukung</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                 </ul> 
@@ -444,14 +444,14 @@
             <div class="hp">
                 <div class="row">
                     <div class="col-6">
-                        <h5 class="fw-bold mb-2">Legal</h5>
+                        <h5 class="fw-bold mb-2">Hukum</h5>
                         <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                             <li><a href="kebijakanBelumLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
                             <li><a href="snkBelumLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                         </ul>
                     </div>
                     <div class="col-6">
-                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Mendukung</h5>
                         <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                             <li><a href="contactUsBelumLogin.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                         </ul>
@@ -461,7 +461,7 @@
         </div>
 
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-            &#169; 2022 Erefir Indonesia
+            &#169; 2022 Erefiv Indonesia
         </footer>
 
 

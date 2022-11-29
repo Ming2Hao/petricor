@@ -232,6 +232,8 @@
             <h5 id="accounts-and-membership" class="fw-bold">Akun dan keanggotaan</h5>
             <p>Anda harus berusia minimal 16 tahun untuk menggunakan Situs Web dan Layanan. Dengan menggunakan Situs Web dan Layanan dan dengan menyetujui Perjanjian ini, Anda menjamin dan menyatakan bahwa Anda berusia minimal 16 tahun.</p>
             <p>Jika Anda membuat akun di Situs Web, Anda bertanggung jawab untuk menjaga keamanan akun Anda dan Anda bertanggung jawab penuh atas semua aktivitas yang terjadi di bawah akun tersebut dan tindakan lain yang diambil sehubungan dengannya. Kami mungkin, tetapi tidak berkewajiban untuk, memantau dan meninjau akun baru sebelum Anda masuk dan mulai menggunakan Layanan. Memberikan informasi kontak palsu dalam bentuk apa pun dapat mengakibatkan penghentian akun Anda. Anda harus segera memberi tahu kami tentang penggunaan akun Anda yang tidak sah atau pelanggaran keamanan lainnya. Kami tidak akan bertanggung jawab atas tindakan atau kelalaian apa pun oleh Anda, termasuk kerugian apa pun yang timbul sebagai akibat dari tindakan atau kelalaian tersebut. Kami dapat menangguhkan, menonaktifkan, atau menghapus akun Anda (atau bagian mana pun darinya) jika kami memutuskan bahwa Anda telah melanggar ketentuan mana pun dari Perjanjian ini atau bahwa perilaku atau konten Anda cenderung merusak reputasi dan niat baik kami. Jika kami menghapus akun Anda karena alasan di atas, Anda tidak dapat mendaftar ulang untuk Layanan kami. Kami dapat memblokir alamat email dan alamat protokol Internet Anda untuk mencegah pendaftaran lebih lanjut.</p>
+            <h5 id="prohibited-uses" class="fw-bold">Pengiriman di Erefiv</h5>
+            <p>Pengiriman akan dikirim oleh ekspedisi pilihan kami. Estimasi tiba adalah satu bulan setelah pemesanan dilakukan. Segala kerusakan yang terjadi sebelum tiba di tangan pelanggan, akan kami tanggung secara penuh. Apabila kerusakan terjadi setelah diantar oleh kami dalam rentang waktu seminggu, maka itu sudah bukan tanggung jawab dari kami.</p>
             <h5 id="links-to-other-resources" class="fw-bold">Tautan ke sumber daya lain</h5>
             <p>Meskipun Situs Web dan Layanan dapat menautkan ke sumber daya lain (seperti situs web, aplikasi seluler, dll.), kami tidak, secara langsung atau tidak langsung, menyiratkan persetujuan, asosiasi, sponsor, dukungan, atau afiliasi apa pun dengan sumber daya tertaut apa pun, kecuali dinyatakan secara khusus disini. Kami tidak bertanggung jawab untuk memeriksa atau mengevaluasi, dan kami tidak menjamin penawaran dari, bisnis atau individu mana pun atau konten dari sumber daya mereka. Kami tidak bertanggung jawab atau berkewajiban atas tindakan, produk, layanan, dan konten dari pihak ketiga lainnya. Anda harus dengan hati-hati meninjau pernyataan hukum dan ketentuan lain penggunaan sumber daya apa pun yang Anda akses melalui tautan di Situs Web. Tautan Anda ke sumber daya di luar situs lainnya adalah risiko Anda sendiri.</p>
             <h5 id="prohibited-uses" class="fw-bold">Penggunaan yang dilarang</h5>
@@ -262,7 +264,7 @@
     <div class="row container-fluid w-100 mb-4 mt-3 mx-0 container-fluid">
             <div class="col-lg-1 me-lg-5"></div>
             <div class="col-lg-2 mt-lg-3 gambar">
-                <h5 class="fw-bold mb-2">Categories</h5>
+                <h5 class="fw-bold mb-2">Kategori</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="catalogAfterLogin.php?fcategory=CA002" style="text-decoration:none; color:#57615b">Meja Nakas</a></li>
                     <li><a href="catalogAfterLogin.php?fcategory=CA003" style="text-decoration:none; color:#57615b">Kursi Berlengan</a></li>
@@ -320,12 +322,12 @@
                 </ul>
             </div>
             <div class="col-lg-2 mt-lg-3 col-sm-6 gambar">
-                <h5 class="fw-bold mb-2">Legal</h5>
+                <h5 class="fw-bold mb-2">Hukum</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
                     <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                 </ul>
-                <h5 class="fw-bold mb-2 mt-2">Support</h5>
+                <h5 class="fw-bold mb-2 mt-2">Mendukung</h5>
                 <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                     <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                 </ul> 
@@ -333,14 +335,14 @@
             <div class="hp">
                 <div class="row">
                     <div class="col-6">
-                        <h5 class="fw-bold mb-2">Legal</h5>
+                        <h5 class="fw-bold mb-2">Hukum</h5>
                         <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                             <li><a href="kebijakanSudahLogin.php" style="text-decoration:none; color:#57615b">Kebijakan Privasi</a></li>
                             <li><a href="snkSudahLogin.php" style="text-decoration:none; color:#57615b">Syarat dan Ketentuan</a></li>
                         </ul>
                     </div>
                     <div class="col-6">
-                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Support</h5>
+                        <h5 class="fw-bold mb-2 mt-lg-2 mt-0">Mendukung</h5>
                         <ul style="list-style-type: none; margin: 0; padding: 0; font-size:12px;">
                             <li><a href="contactUs.php" style="text-decoration:none; color:#57615b">Hubungi Kami</a></li>
                         </ul>
@@ -349,7 +351,7 @@
             </div>
         </div>
         <footer class="text-center p-2" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-            &#169; 2022 Erefir Indonesia
+            &#169; 2022 Erefiv Indonesia
         </footer>
    
 

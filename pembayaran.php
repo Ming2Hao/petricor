@@ -303,34 +303,22 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                     <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
-                    </li> -->
-                    <!-- <li class="nav-item me-3">
-                        <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
-                    </li> -->
-                <!-- </ul> -->
-                <!-- <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> -->
                 <div class="w-100 d-flex">
-                    <div class="container-fluid">
-                        <form action="" method="POST" class="">
-                            <div class="input-group">
-                                <input type="text" class="form-control ms-lg-2" placeholder="Cari barang" style="height:34px; margin-top:5px;" name="searchbar">
-                                <button class="rounded-end me-lg-2" style="border:none; background-color:white; margin-top:5px;" name="search">
-                                    <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
-                                </button>   
-                                
-                            </div>
-                        </form>
+                    <div class="d-flex w-md-50 w-100">
+                        <div class="input-group mt-1 mb-2 justify-content-end">
+                            <input type="text" class="form-control ms-lg-2 w-100" autocomplete="off" placeholder="Cari barang" style="height:34px; margin-top:5px; display:none;" name="searchbar">
+                            <!-- <a class="rounded me-lg-4 me-2 px-2" style="border:none; background-color:white; margin-top:5px;" href="catalogAfterLogin.php" type="submit">
+                                <img src="assets/img/search.png" class="iconsearch" alt="Icon Search" style="width: 20px; height:20px;">
+                            </a>    -->
+                        </div>
                     </div>
-                    <!-- <div class="d-inline-block"> -->
+                    <a class="mt-2 me-3" href="catalogAfterLogin.php">
+                        <div class="text-white">KATALOG</div>
+                    </a>
+                    <div class="text-white mt-2 me-3">|</div>
+                    <a class="mt-2 me-3" href="daftarTransaksi.php">
+                        <div class="text-white">TRANSAKSI</div>
+                    </a>
                         <a href="cart.php" class="me-lg-5 pe-lg-4 mt-lg-2 mt-2">
                             <?php
                                 $userIni = $curUser["us_id"];
@@ -339,60 +327,20 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                             ?>
                             <i class="fa badge fa-lg p-0" value="<?=$qtyCart[0]?>">&#xf07a;</i>
                         </a>
-                    <!-- </div> -->
                     
                     <div class="d-lg-flex d-sm-block">
-                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
-                        <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
-                            FILTERS
-                        </button>
-                        <ul class="dropdown-menu p-2">
-                            <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
-                            <li><button class="dropdown-item" href="#">Name : Descending</button></li>
-                            <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
-                            <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><button class="dropdown-item" href="#">All Products</button></li>
-                        </ul>
-                    </div> -->
-                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
-                        <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
-                            KATEGORI
-                        </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <?php
-                                $resultkategori = mysqli_query($conn, "select * from category"); 
-                                while($row = mysqli_fetch_array($resultkategori)){
-                                    ?>
-                                        <li><a class="dropdown-item" href="#"><?=$row["ca_name"]?></a></li>
-                                    <?php
-                                }
-                            ?>
-                        </ul>
-                    </div> -->
                     <!-- PROFILEEEEEEEEEE USERRRRRRR -->
                     <div class="action">
                         <div class="profile" onclick="menuToggle();">
-                            <img src="temp/nahida2.jpg">
+                            <img src="assets/img/displaypicture.png">
                         </div>
                         <div class="menu">
                             <div class="username" style="margin-bottom: -5px">
                                 <?=$curUser["us_name"]?>
                             </div>
                             <div class="printilan"><?=$curUser["us_username"]?> </div>
-                            <!-- <div class="printilan"><?=rupiah($curUser["us_saldo"])?> </div> -->
                             
                             <ul>
-                            <!-- <li>
-                                <img src="./assets/icons/user.png" /><a href="#">My profile</a>
-                            </li>
-                            <li>
-                                <img src="./assets/icons/settings.png" /><a href="#">Setting</a>
-                            </li>
-                            <li>
-                                <img src="./assets/icons/question.png" /><a href="#">Help</a>
-                            </li> -->
                             <li>
                                 <img src="assets/img/logout.png" /><a href="index.php">Logout</a>
                             </li>
@@ -474,14 +422,12 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 
         </div>
         <footer class="text-center p-2 fixed-bottom" style="background-color:#5E6F64; height: 38px; font-size:12px; color:burlywood">
-            &#169; 2022 Erefir Indonesia
+            &#169; 2022 Erefiv Indonesia
         </footer>
     </div>
-    <!-- </div> -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
