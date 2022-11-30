@@ -410,12 +410,15 @@
                                         </div>
                                         <div class="col-lg-1 col-2 border-start mx-0 rounded-end align-items-center d-flex justify-content-center" style="background-color:#f7f7f7">
                                             
-                                            <form action="#" method="post">
-                                                <button type="submit" class="w-100 text-white" style="background:none; border:none" data-bs-target="#modalSure" data-bs-toggle="modal" value="<?=$row["ct_id"]?>" name="delet">
-                                                    <i class="material-icons" style="font-size:36px;color:red">delete</i>
-                                                </button>
-                                                <!-- Modal -->
-                                                <!-- <div class="modal fade" id="modalSure" tabindex="-1" aria-labelledby="modalSure" aria-hidden="true">
+                                            <!-- <button type="button" name="delet" class="w-100 text-white delete" style="background:none; border:none" data-bs-target="#modalSure" data-bs-toggle="modal" data-id="<?=$row["ct_id"]?>">
+                                                <i class="material-icons" style="font-size:36px;color:red">delete</i>
+                                            </button> -->
+                                            <a class='delete' data-id="<?=$row['ct_id']?>"  href='javascript:void(0)'>
+                                                <i class="material-icons" style="font-size:36px;color:red">delete</i>
+                                            </a>
+                                            <!-- Modal -->
+                                            <!-- <form action="#" method="post">
+                                                <div class="modal fade" id="modalSure" tabindex="-1" aria-labelledby="modalSure" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                         <div class="modal-header">
@@ -427,12 +430,12 @@
                                                         </div>
                                                         <div class="modal-footer" id="modfooter">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                            <button type="submit" class="btn btn-danger" name="delet" value="" >Hapus</button>
+                                                            <button type="submit" class="btn btn-danger" data-id="">Hapus</button>
                                                         </div>
                                                         </div>
                                                     </div>
-                                                </div> -->
-                                            </form>
+                                                </div>
+                                            </form> -->
                                         </div>
                                     </div>
                                 </div>
@@ -446,13 +449,15 @@
                     totalbelanja
                 </p>
                 <p>
-                    ongkir: <?=rupiah(10000)?>
+                    Ongkir: <?=rupiah(10000)?>
                 </p>
                 <p id="grandtotal">
                     grandtotal
                 </p>
                 <form action="#" method="post">
-                    <input type="text" name="alamats" id="" placeholder="Masukkan alamat">
+                    <!-- <input type="text" name="alamats" id="" placeholder="Masukkan alamat" style="border-radius: 5px;" class="w-100"> <br> <br> -->
+                    <label for="alamat">Alamat:</label>
+                    <textarea class="form-control" placeholder="Masukkan alamat" id="exampleFormControlTextarea1" rows="3" resize="none" name="alamats"></textarea> <br>
                     <button type="submit" class="mt-1 btn ps-4 pe-4 fw-bold text-center float-end mb-3" name="cekot" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
                     </button>
         
@@ -575,9 +580,10 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="assets/bootbox.min.js"></script>
     <script>
         // setInterval(fetch_cart, 500);
         setInterval(fetch_totalsemua, 500);
@@ -672,6 +678,42 @@
        	  	   $(this).parent(".form-field").removeClass("active")
        	  	}
        	  })
+
+        $('.delete').click(function(e){
+            e.preventDefault();
+            var brgId = $(this).attr('data-id');
+            bootbox.dialog({
+                closeButton: false,
+                message: "Apakah anda yakin ingin menghapus item ini dari chart?",
+                buttons: {
+                    success: {
+                    label: "Batal",
+                    className: "btn-success",
+                    callback: function() {
+                    $('.bootbox').modal('hide');
+                    }
+                    },
+                    danger: {
+                    label: "Hapus",
+                    className: "btn-danger",
+                    callback: function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'deleterecord.php',
+                            data: 'delete='+brgId
+                        })
+                        .done(function(){
+                            location.reload();
+                                    
+                        })
+                        // .fail(function(){
+                        //     bootbox.alert('Error....');
+                        // })
+                    }
+                    }
+                    }
+            });
+        });
        })
     </script>
     <script>

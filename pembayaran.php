@@ -298,7 +298,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             <div class="container-fluid">
                 <a class="navbar-brand" href="indexSudahLogin.php" name="logodipencet">
                     <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                    <div class="text-white gambar">CART</div>
+                    <!-- <div class="text-white gambar">CART</div> -->
                 </a>
                 <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                     <!-- <span class="navbar-toggler-icon"></span> -->

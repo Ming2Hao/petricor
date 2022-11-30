@@ -209,21 +209,6 @@ if (isset($_POST['passing'])) {
                 <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
-                </li>
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
-                </li> -->
-                <!-- <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
-                </li> -->
-                <!-- </ul> -->
-                <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
                 <div class="d-flex w-md-50 w-75">
                     <form action="" method="POST" class="d-flex container-fluid">
                         <div class="input-group">
@@ -239,56 +224,11 @@ if (isset($_POST['passing'])) {
                 </div>
                 </form>
                 <div class="d-lg-flex justify-content-end d-sm-block mt-lg-0 mt-2">
-                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2 ms-lg-0" id="lebar">
-                    <button type="button" class="btn dropdown-toggle py-2 px-lg-3 text-white w-100" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#5E6F64;">
-                        FILTERS
-                    </button>
-                    <ul class="dropdown-menu p-2">
-                        <li><button class="dropdown-item" href="#">Name : Ascending</button></li>
-                        <li><button class="dropdown-item" href="#">Name : Descending</button></li>
-                        <li><button class="dropdown-item" href="#">Price : Low to High</button></li>
-                        <li><button class="dropdown-item" href="#">Price : High to Low</button></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><button class="dropdown-item" href="#">All Products</button></li>
-                    </ul>
-                </div> -->
-                    <!-- <div class="dropdown me-2 me-lg-3 mt-3 mt-lg-2">
-                    <a class="btn btn-secondary dropdown-toggle text-white py-2 px-lg-3 w-100" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  style="background-color:#5E6F64;">
-                        KATEGORI
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <?php
-                        $resultkategori = mysqli_query($conn, "select * from category");
-                        while ($row = mysqli_fetch_array($resultkategori)) {
-                        ?>
-                                    <li><a class="dropdown-item" href="#"><?= $row["ca_name"] ?></a></li>
-                                <?php
-                            }
-                                ?>
-                    </ul>
-                </div> -->
-                    <!-- <div class="row"> -->
-                    <!-- <div class="col-lg-3"> -->
-                    <!-- <form action="">
-                        <a hred="cart.php" class="d-flex">
-                            <img src="assets/img/cart.png" alt="iconCart" class="me-1 mt-3 mt-lg-1 ms-lg-1" style="width:36px; height:36px;" id="lebar">
-                            <div class="text-white mt-lg-2">CART</div>
-                        </a>
-                        </form> -->
-                    <!-- <label for="cart" class="d-lg-none d-block text-white mt-4">Cart</label> -->
-                    <!-- </div> -->
-                    <!-- <div class="col-lg-12 mt-4 mt-lg-2"> -->
-                    <!-- <div class="mt-sm-5"> -->
-                    <!-- <span class="ms-lg-2 mx-0 mt-lg-2 text-white">|</span> -->
                     <a href="catalogue.php" class="link-light fw-bold mt-4 ms-2 ms-lg-3 mt-lg-0 me-lg-2 fw-bold" style="text-decoration:none;" id="lebar">KATALOG</a>
                     <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
                     <a href="contactUsBelumLogin.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">BANTUAN</a>
                     <span class="mx-lg-2 mx-0 mt-lg-0 text-white">|</span>
                     <a href="login.php" class="link-light mt-4 ms-1 ms-lg-2 mt-lg-0 me-lg-2" style="text-decoration:none;" id="lebar">MASUK</a>
-                    <!-- </div> -->
-                    <!-- </div> -->
-                    <!-- </div> -->
                 </div>
             </div>
     </nav>
@@ -416,8 +356,7 @@ if (isset($_POST['passing'])) {
                                                 ?>
                                             </p>
                                             <p class="card-title mb-0" style="font-size:14px;"><?= $row['it_name'] ?></p>
-                                            <!-- <p class="text-danger"><?= number_format(1000000, 0, "", "."); ?> <span class="text-secondary" style="text-decoration:line-through">Rp <?= number_format(1221000, 0, "", ".") ?></span></p> -->
-                                            <p class="text-danger"><?= rupiah($row['it_price']) ?> <span class="text-secondary" style="text-decoration:line-through">IDR <?= number_format(17187989, 0, "", ".") ?>,00</span></p>
+                                            <p class="text-danger"><?= rupiah($row['it_price']) ?> <span class="text-secondary" style="text-decoration:line-through"><?=rupiah($row['it_price']+1237898)?></span></p>
                                         </div>
                                     </button>
                                 </form>
