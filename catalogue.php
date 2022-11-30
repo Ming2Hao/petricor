@@ -7,7 +7,7 @@ function rupiah($angka)
 }
 
 $query = "SELECT * FROM items";
-$filter = [];
+$filter = ["it_stat='1'"];
 if (isset($_GET["fcategory"])) {
     $cat = $_GET["fcategory"];
     $filter[] = "`it_ca_id`='$cat'";
@@ -311,17 +311,17 @@ if (isset($_POST['passing'])) {
                                     <?php
                                     if(isset($_GET["searchget"])){
                                         $tempsearch2 = $_GET["searchget"];
-                                        $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category ca join items i on ca.ca_id=i.it_ca_id where i.it_name like '%$tempsearch2%' and ca_id!='CA001' GROUP BY ca.ca_id order by ca.ca_name");
+                                        $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category ca join items i on ca.ca_id=i.it_ca_id where i.it_name like '%$tempsearch2%' and ca_id!='CA001' and i.it_stat='1' GROUP BY ca.ca_id order by ca.ca_name");
                                         $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
                                         FROM items i JOIN category c ON i.it_ca_id = c.ca_id
-                                        WHERE i.it_name like '%$tempsearch2%' and c.ca_id != 'CA001'
+                                        WHERE i.it_name like '%$tempsearch2%' and c.ca_id != 'CA001' and i.it_stat='1'
                                         GROUP BY c.ca_id order by c.ca_name");
                                     }
                                     else{
                                         $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id!='CA001' order by ca.ca_name");
                                         $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
                                         FROM items i JOIN category c ON i.it_ca_id = c.ca_id
-                                        WHERE c.ca_id != 'CA001'
+                                        WHERE c.ca_id != 'CA001' and i.it_stat='1'
                                         GROUP BY c.ca_id order by c.ca_name");
                                     }
                                     $daftarCount = [];

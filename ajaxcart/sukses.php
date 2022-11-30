@@ -14,7 +14,8 @@
         $total=$total+($item2["it_price"]*$row["ct_qty"]);
     }
     $tanggal=date("Y-m-d");
-    $iht_query = "INSERT INTO `h_transaksi`(`ht_id`, `ht_us_id`, `ht_date`, `ht_total`) VALUES ('$nextht','$curruser','$tanggal','$total')";
+    $alamats=$_SESSION["alamats"];
+    $iht_query = "INSERT INTO `h_transaksi`(`ht_id`, `ht_us_id`, `ht_date`, `ht_total`,`ht_alamat`) VALUES ('$nextht','$curruser','$tanggal','$total','$alamats')";
     $resht = $conn->query($iht_query);
 
     $result33 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");

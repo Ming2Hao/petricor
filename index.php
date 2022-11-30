@@ -4,7 +4,7 @@
         return "Rp " . number_format($angka,2,',','.');
     }
     // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
-    $listItem = mysqli_query($conn,"SELECT * from items");
+    $listItem = mysqli_query($conn,"SELECT * from items where it_stat='1'");
     if (isset($_SESSION['currentUser'])) unset($_SESSION['currentUser']);
     if (isset($_SESSION['emailPassing'])) unset($_SESSION['emailPassing']);
     // $tempquery="SELECT * from items";
@@ -47,7 +47,7 @@
     }
     $results_per_page = 4;  
     $page_first_result = ($page-1) * $results_per_page;
-    $_SESSION["querysekarang"]="SELECT * FROM items ORDER BY RAND()";
+    $_SESSION["querysekarang"]="SELECT * FROM items where it_stat='1' ORDER BY RAND()";
     $query = $_SESSION["querysekarang"];
     $result = mysqli_query($conn, $query);  
     $number_of_result = mysqli_num_rows($result);

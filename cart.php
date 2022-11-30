@@ -3,7 +3,7 @@
     if(!isset($_SESSION['currentUser'])){
         header('Location: login.php');
     }
-
+    $_SESSION["alamats"]="";
     if(isset($_SESSION['currentUser'])) $currentUser = $_SESSION['currentUser'];
     else $currentUser = [];
     if (!isset($_SESSION['currentUser'])) header("Location: index.php");
@@ -17,8 +17,49 @@
     if(isset($_SESSION['currentUser'])){
         $result = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
     }
-    if(isset($_POST["cekout"])){
-        
+    if(isset($_POST["cekot"])){
+        $resultcartlist = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+        $semuatersedia=true;
+        $barangyangtidaktersedia=[];
+        while($rowcartlist=mysqli_fetch_assoc($resultcartlist)){
+            $resultitem = mysqli_query($conn,"SELECT * from items where it_id='".$rowcartlist["ct_it_id"]."'");
+            $resultitem=mysqli_fetch_assoc($resultitem);
+            if($rowcartlist["ct_qty"]>$resultitem["it_stok"]){
+                array_push($barangyangtidaktersedia,$resultitem["it_id"]);
+                // $barangyangtidaktersedia=$resultitem["it_name"];
+                $semuatersedia=false;
+            }
+        }
+        if($semuatersedia==true){
+            if(isset($_POST["alamats"])){
+                if($_POST["alamats"]==""){
+                    echo ("<script>alert ('Harap isi alamat terlebih dahulu')</script>");
+                }
+                else{
+                    $_SESSION["alamats"]=$_POST["alamats"];
+                    header('location: pembayaran.php');
+                }
+            }
+            else{
+                echo ("<script>alert ('Harap isi alamat terlebih dahulu')</script>");
+            }
+        }
+        else{
+            $stringtidaktersedia="";
+            foreach ($barangyangtidaktersedia as $xx) {
+                if($stringtidaktersedia==""){
+                    $resultitem2 = mysqli_query($conn,"SELECT * from items where it_id='".$xx."'");
+                    $resultitem2=mysqli_fetch_assoc($resultitem2);
+                    $stringtidaktersedia=$resultitem2["it_name"]." (Sisa: ".$resultitem2["it_stok"]." item)";
+                }
+                else{
+                    $resultitem2 = mysqli_query($conn,"SELECT * from items where it_id='".$xx."'");
+                    $resultitem2=mysqli_fetch_assoc($resultitem2);
+                    $stringtidaktersedia=$stringtidaktersedia.", ".$resultitem2["it_name"]." (Sisa: ".$resultitem2["it_stok"]." item)";
+                }
+            }
+            echo ("<script>alert ('Terdapat barang yang tidak tersedia: ".$stringtidaktersedia."')</script>");
+        }
     }
     if(isset($_POST["delet"])){
         $delet_query = "DELETE from cart where ct_id='".$_POST["delet"]."'";
@@ -363,18 +404,18 @@
                                         <div class="col-lg-9 col-7 border-start border-end mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                                             <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
                                                 <?=rupiah($item["it_price"])?>X
-                                                <input type="number" style="width:60px;" name="<?=$row["ct_id"]?>" class="idupdown" value="<?=$row["ct_qty"]?>" min="1" harganya="<?=$item["it_price"]?>">
+                                                <input type="number" style="width:60px;" name="<?=$row["ct_id"]?>" class="idupdown" value="<?=$row["ct_qty"]?>" min="1" harganya="<?=$item["it_price"]?>" onKeyDown="return false">
                                                 <br><br>
                                                 <b class="d-flex"> TOTAL : &nbsp; <p id="<?=$row["ct_id"]?>aaa">asd</p> </b>
                                         </div>
                                         <div class="col-lg-1 col-2 border-start mx-0 rounded-end align-items-center d-flex justify-content-center" style="background-color:#f7f7f7">
                                             
-                                                <button type="submit" class="w-100 text-white" style="background:none; border:none" data-bs-target="#modalSure" data-bs-toggle="modal">
+                                            <form action="#" method="post">
+                                                <button type="submit" class="w-100 text-white" style="background:none; border:none" data-bs-target="#modalSure" data-bs-toggle="modal" value="<?=$row["ct_id"]?>" name="delet">
                                                     <i class="material-icons" style="font-size:36px;color:red">delete</i>
                                                 </button>
                                                 <!-- Modal -->
-                                            <form action="#" method="post">
-                                                <div class="modal fade" id="modalSure" tabindex="-1" aria-labelledby="modalSure" aria-hidden="true">
+                                                <!-- <div class="modal fade" id="modalSure" tabindex="-1" aria-labelledby="modalSure" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                         <div class="modal-header">
@@ -384,13 +425,13 @@
                                                         <div class="modal-body">
                                                             Apakah kamu yakin ingin menghapus item ini dari chart?
                                                         </div>
-                                                        <div class="modal-footer">
+                                                        <div class="modal-footer" id="modfooter">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                            <button type="submit" class="btn btn-danger" name="delet" value="<?=$row["ct_id"]?>" >Hapus</button>
+                                                            <button type="submit" class="btn btn-danger" name="delet" value="" >Hapus</button>
                                                         </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </form>
                                         </div>
                                     </div>
@@ -411,7 +452,8 @@
                     grandtotal
                 </p>
                 <form action="#" method="post">
-                    <button type="submit" class="mt-1 btn ps-4 pe-4 fw-bold text-center float-end mb-3" formaction="pembayaran.php" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
+                    <input type="text" name="alamats" id="" placeholder="Masukkan alamat">
+                    <button type="submit" class="mt-1 btn ps-4 pe-4 fw-bold text-center float-end mb-3" name="cekot" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
                     </button>
         
                 </form>

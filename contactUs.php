@@ -10,6 +10,20 @@
     function rupiah($angka){
         return "Rp " . number_format($angka,2,',','.');
     }
+    if(isset($_POST['kirim'])){
+        // if(isset($_POST["komentars"])){
+            if($_POST["imel"]==""||$_POST["subyek"]==""||$_POST["komentars"]==""){
+                echo "<script>alert('ada field yang kosong')</script>";
+            }
+            else{
+                $_SESSION['imel'] = $_POST["imel"];
+                $_SESSION['subyek'] = $_POST["subyek"];
+                $_SESSION['komentars'] = $_POST["komentars"];
+                echo "<script>alert('sukses')</script>";
+                header('location:mailer/mailer.php');
+            }
+        // }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -222,15 +236,17 @@
             <div class="col-lg-8 col-12">
                 <h2 class="fw-bold mt-2">Hubungi Kami</h2>
                 <form action="" method="post">
-                    <div class="mb-3 ">
-                    <label for="exampleFormControlInput1" class="form-label">Subjek</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput" placeholder="" name="imel">
+                        <label for="exampleFormControlInput1" class="form-label">Subjek</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="subyek">
                     </div>
                     <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
-                        <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3" resize="none"></textarea>
+                        <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" resize="none" name="komentars"></textarea>
                     </div>
-                    <button type="submit" class="mt-2 btn px-5 fw-bold mb-3 text-center float-end" style="border-radius: 15px; background-color:#8c594f; color:white;" name="btnLogin" formaction="catalogAfterLogin.php">Kirim</button>
+                    <button type="submit" class="mt-2 btn px-5 fw-bold mb-3 text-center float-end" style="border-radius: 15px; background-color:#8c594f; color:white;" name="kirim">Kirim</button>
                 </form>
             </div>
             <div class="col-2"></div>

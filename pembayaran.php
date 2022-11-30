@@ -407,10 +407,13 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 <p class="p-0 m-0">
                     ongkir: <?=rupiah(10000)?>
                 </p>
-                <p id="grandtotal">
+                <p id="grandtotal" class="p-0 m-0">
                     grandtotal: 
                     
                     <?=rupiah($gt+10000)?>
+                </p>
+                <p>
+                    Alamat: <?=$_SESSION["alamats"]?>
                 </p>
                 <!-- <form action="#" method="post"> -->
                     <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" name="cekout" id="cekout" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
