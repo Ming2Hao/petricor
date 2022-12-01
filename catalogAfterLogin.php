@@ -10,40 +10,61 @@
 
     
     $query = "SELECT * FROM items";
-    $filter=["it_stat='1'"];
+    $filter = ["it_stat='1'"];
     if (isset($_GET["fcategory"])) {
-        $cat=$_GET["fcategory"];
-        $filter[]= "`it_ca_id`='$cat'";
+        $cat = $_GET["fcategory"];
+        $filter[] = "`it_ca_id`='$cat'";
     }
-    if(isset($_POST["search"])){
-        $link = "location:catalogAfterLogin.php?searchget=".mysqli_real_escape_string($conn,$_POST["searchbar"]);
+    if (isset($_POST["terapkan"])) {
+        echo $_POST["mengsorting"];
+        $link="location:catalogAfterLogin.php?sortmode=".$_POST["mengsorting"]; 
         if (isset($_GET["fcategory"])) {
-            $cat=$_GET["fcategory"];
-            $link.= "&fcategory=".$cat;
-        }        
+            $cat = $_GET["fcategory"];
+            $link .= "&fcategory=" . $cat;
+        } 
+        if (isset($_GET["searchget"])) {
+            $link .= "&searchget=" . $_GET["searchget"];
+        }
+        header($link);
+
+    }
+    if (isset($_POST["search"])) {
+        $link = "location:catalogAfterLogin.php?searchget=" . mysqli_real_escape_string($conn, $_POST["searchbar"]);
+        if (isset($_GET["fcategory"])) {
+            $cat = $_GET["fcategory"];
+            $link .= "&fcategory=" . $cat;
+        }
         header($link);
     }
-    if(isset($_GET["searchget"])){
-        $filter[]="`it_name` LIKE '%".mysqli_real_escape_string($conn,$_GET["searchget"])."%'";
+    if (isset($_GET["searchget"])) {
+        $filter[] = "`it_name` LIKE '%" . mysqli_real_escape_string($conn, $_GET["searchget"]) . "%'";
     }
     // if (condition) {
     //     # code...
     // }
-    $sqlFilter = implode(" AND ",$filter);
-    if ($sqlFilter!="") {
-        $query.=" WHERE $sqlFilter";
+    $sqlFilter = implode(" AND ", $filter);
+    $queryCount = "SELECT COUNT(*) AS HITUNG FROM items";
+    if ($sqlFilter != "") {
+        $query .= " WHERE $sqlFilter";
     }
-
-
-    if(isset($_POST["detaildiklik"])){
-        $_SESSION["itemIni"]=$_POST["detaildiklik"];
+    if (isset($_GET["sortmode"])) {
+        $query .=" ORDER BY ".$_GET["sortmode"];
+    }
+    if (isset($_POST["detaildiklik"])) {
+        $_SESSION["itemIni"] = $_POST["detaildiklik"];
         header('Location: detailSudahLogin.php');
     }
-    if (!isset ($_GET['page'])) {  
+    if (!isset($_GET['page'])) {
         $page = 1;
-    } else {  
-        $page = $_GET['page'];  
+    } else {
+        $page = $_GET['page'];
     }
+    if(isset($_GET["searchget"])){
+        $queryCount.=" WHERE it_name like '%".$_GET["searchget"]."%'";
+    }
+    $res=mysqli_query($conn,$queryCount);
+    $rowCount=mysqli_fetch_assoc($res);
+    $hitungJumlahItem = $rowCount["HITUNG"];
     $results_per_page = 18;  
     $page_first_result = ($page-1) * $results_per_page;
     // $query = $_SESSION["querysekarang"];  
@@ -266,25 +287,9 @@
                     ?>
             </div>
             <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
-                <!-- <span class="navbar-toggler-icon"></span> -->
                 <img src="assets/img/burger.png" alt="" style="width:60px; height:30px;">
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3 fw-bold" aria-current="page" href="#">HOME</a>
-                </li>
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#"></a>
-                </li> -->
-                <!-- <li class="nav-item me-3">
-                    <a class="nav-link text-white me-3" aria-current="page" href="#">HISTORY</a>
-                </li> -->
-            <!-- </ul> -->
-            <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
             <div class="container-fluid w-100">
             <form action="" method="POST" class="d-flex container-fluid">
                 <div class="input-group">
@@ -394,44 +399,61 @@
                                     </button>
                                     </h2>
                                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                    <div class="accordion-body">
-                                    <?php
-                                        if(isset($_GET["searchget"])){
-                                            $tempsearch2 = $_GET["searchget"];
-                                            $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category ca join items i on ca.ca_id=i.it_ca_id where i.it_name like '%$tempsearch2%' and ca_id!='CA001' and i.it_stat='1' GROUP BY ca.ca_id order by ca.ca_name");
-                                            $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
-                                            FROM items i JOIN category c ON i.it_ca_id = c.ca_id
-                                            WHERE i.it_name like '%$tempsearch2%' and c.ca_id != 'CA001' and i.it_stat='1'
-                                            GROUP BY c.ca_id order by c.ca_name");
-                                        }
-                                        else{
-                                            $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id!='CA001' order by ca.ca_name");
-                                            $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
-                                            FROM items i JOIN category c ON i.it_ca_id = c.ca_id
-                                            WHERE c.ca_id != 'CA001' and i.it_stat='1'
-                                            GROUP BY c.ca_id order by c.ca_name");
-                                        }
-                                        $daftarCount = [];
-                                        $daftarKategori = [];
-                                        while($rowc = $countKategori -> fetch_assoc()){
-                                            $daftarCount[] = $rowc;
-                                        }
-                                        while($rowb = $resultkategori -> fetch_assoc()){
-                                            $daftarKategori[] = $rowb;
-                                        }
-                                        for($i=0; $i<sizeof($daftarKategori); $i++){
-                                            ?>
+                                        <div class="accordion-body">
+                                            <div><a href="catalogAfterLogin.php?<?php if (isset($_GET["searchget"])) {
+                                                                                                                        $tempsearch = $_GET["searchget"];
+                                                                                                                        echo "&searchget=$tempsearch";
+                                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                                        // $query.= " ORDER BY ". $_GET["sortmode"];
+                                                                                                                        echo "&sortmode=".$_GET["sortmode"];
+                                                                                                                    } ?>">All (<?=$hitungJumlahItem?>)</a></div>
+                                            <?php
+                                            if(isset($_GET["searchget"])){
+                                                $tempsearch2 = $_GET["searchget"];
+                                                $query="select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category ca join items i on ca.ca_id=i.it_ca_id where i.it_name like '%$tempsearch2%' and ca_id!='CA001' and i.it_stat='1' GROUP BY ca.ca_id order by ca.ca_name";
+                                                $resultkategori = mysqli_query($conn, $query);
+                                                $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
+                                                FROM items i JOIN category c ON i.it_ca_id = c.ca_id
+                                                WHERE i.it_name like '%$tempsearch2%' and c.ca_id != 'CA001' and i.it_stat='1'
+                                                GROUP BY c.ca_id order by c.ca_name");
+                                            }
+                                            else{
+                                                $query="select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id!='CA001' order by ca.ca_name";
+                                                $resultkategori = mysqli_query($conn, $query);
+                                                $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
+                                                FROM items i JOIN category c ON i.it_ca_id = c.ca_id
+                                                WHERE c.ca_id != 'CA001' and i.it_stat='1'
+                                                GROUP BY c.ca_id order by c.ca_name");
+                                            }
+                                            $daftarCount = [];
+                                            $daftarKategori = [];
+
                                             
+                                                
+                                            while ($rowc = $countKategori->fetch_assoc()) {
+                                                $daftarCount[] = $rowc;
+                                            }
+                                            while ($rowb = $resultkategori->fetch_assoc()) {
+                                                $daftarKategori[] = $rowb;
+                                            }
+                                            for ($i = 0; $i < sizeof($daftarKategori); $i++) {
+                                            ?>
+
                                                 <!-- <li><a class="dropdown-item" href="#"></a></li> -->
                                                 <!-- <input type="checkbox" name="" id="" class="me-2"> <br> -->
                                                 <div><a href="catalogAfterLogin.php?fcategory=<?= $daftarKategori[$i]['idcat'] ?><?php if (isset($_GET["searchget"])) {
-                                                                                                                $tempsearch = $_GET["searchget"];
-                                                                                                                echo "&searchget=$tempsearch";
-                                                                                                            } ?>"><?= $daftarKategori[$i]['namecat'] ?> (<?= $daftarCount[$i]['hitungBarang'] ?>)</a></div>
+                                                                                                                        $tempsearch = $_GET["searchget"];
+                                                                                                                        echo "&searchget=$tempsearch";
+                                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                                        // $query.= " ORDER BY ". $_GET["sortmode"];
+                                                                                                                        echo "&sortmode=".$_GET["sortmode"];
+                                                                                                                    } ?>"><?= $daftarKategori[$i]['namecat'] ?> (<?= $daftarCount[$i]['hitungBarang'] ?>)</a></div>
+
+                                            
                                             <?php
-                                        }
-                                    ?>
-                                    </div>
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item">
@@ -441,35 +463,35 @@
                                     </button>
                                     </h2>
                                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                                        <div class="accordion-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Nama: A-Z
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Nama: Z-A
-                                                </label>
-                                            </div> 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Harga: Rendah-Tinggi
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Harga: Tinggi-Rendah
-                                                </label>
-                                            </div>
-                                        </div>
+                                    <div class="accordion-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="3 ASC" name="mengsorting" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Nama: A-Z
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="3 DESC" name="mengsorting" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Nama: Z-A
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="4 ASC" name="mengsorting" id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault3">
+                                            Harga: Rendah-Tinggi
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="4 DESC" name="mengsorting" id="flexRadioDefault4">
+                                        <label class="form-check-label" for="flexRadioDefault4">
+                                            Harga: Tinggi-Rendah
+                                        </label>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn text-white px-4 mt-3 float-end" style="background-color:#BA7967;">Terapkan</button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn text-white px-4 mt-3 float-end" name="terapkan" style="background-color:#BA7967;">Terapkan</button>
                             </div> 
                         </form>
                     </div>
@@ -519,128 +541,145 @@
                 <div class="col-lg-9 col-12">
                     <div class="row w-100 ms-lg-0 ms-3">
                         <nav aria-label="..." class="w-100 d-flex justify-content-center mt-3">
-                            <ul class="pagination" class="w-100 d-flex">
+                        <ul class="pagination" class="w-100 d-flex">
+                            <?php
+                            if ($now == 1) {
+                            ?>
+                                <li class="page-item disabled d-flex">
+                                    <a class="page-link">Previous</a>
+                                </li>
+                            <?php
+                            } else {
+                            ?>
+                                <li class="page-item d-flex">
+                                    <a class="page-link" href="catalogAfterLogin.php?page=<?= $now - 1 ?><?php if (isset($_GET["fcategory"])) {
+                                                                                                        echo "&fcategory=" . $_GET["fcategory"];
+                                                                                                    }
+                                                                                                    if (isset($_GET["searchget"])) {
+                                                                                                        echo "&searchget=" . $_GET["searchget"];
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
+                                                                                                    } ?>">Previous</a>
+                                </li>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            // $tempctr=0;
+                            // for($page = $now-5; $page <= $now+5; $page++){
+                            //     if($page>0){
+                            //         $tempctr++;
+                            //     }
+                            // }
+                            if ($now - 3 < 0) {
+                                $start = 1;
+                            } else if ($now - 3 == 0) {
+                                $start = 1;
+                            } else {
+                                $start = $now - 3;
+                            }
+                            if ($now + 3 < $number_of_page) {
+                                $end = $now + 3;
+                            } else if ($now + 3 == $number_of_page) {
+                                $end = $number_of_page;
+                            } else {
+                                $end = $number_of_page;
+                            }
+                            $kasihstart = false;
+                            $kasihend = false;
+                            if ($start > 1) {
+                            ?>
+                                <li class="page-item d-flex" aria-current="page">
+                                    <a class="page-link" href="catalogAfterLogin.php?page=1<?php if (isset($_GET["fcategory"])) {
+                                                                                        echo "&fcategory=" . $_GET["fcategory"];
+                                                                                    }
+                                                                                    if (isset($_GET["searchget"])) {
+                                                                                        echo "&searchget=" . $_GET["searchget"];
+                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                        echo "&sortmode=" . $_GET["sortmode"];
+                                                                                    }
+                                                                                    ?>">1</a>
+                                </li>
+                                <li class="page-item d-flex" aria-current="page">
+                                    <a class="page-link">...</a>
+                                </li>
                                 <?php
-                                    if($now==1){
-                                        ?>
-                                            <li class="page-item disabled d-flex">
-                                                <a class="page-link">Previous</a>
-                                            </li>
-                                        <?php
-                                    }
-                                    else{
-                                        ?>
-                                            <li class="page-item d-flex">
-                                                <a class="page-link" href="catalogue.php?page=<?=$now-1?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
-                                                    {echo "&searchget=".$_GET["searchget"];}  ?>">Previous</a>
-                                            </li>
-                                        <?php
-                                    }
+                            }
+
+                            for ($page = $start; $page <= $end; $page++) {
+                                if ($page == $now) {
                                 ?>
+                                    <li class="page-item d-flex" aria-current="page" style="background-color:gainsboro; border-radius:5px;">
+                                        <a class="page-link" href="catalogAfterLogin.php?page=<?= $page ?><?php if (isset($_GET["fcategory"])) {
+                                                                                                        echo "&fcategory=" . $_GET["fcategory"];
+                                                                                                    }
+                                                                                                    if (isset($_GET["searchget"])) {
+                                                                                                        echo "&searchget=" . $_GET["searchget"];
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
+                                                                                                    }  ?>"><?= $page ?></a>
+                                    </li>
                                 <?php
-                                    // $tempctr=0;
-                                    // for($page = $now-5; $page <= $now+5; $page++){
-                                    //     if($page>0){
-                                    //         $tempctr++;
-                                    //     }
-                                    // }
-                                    if($now-3<0){
-                                        $start=1;
-                                    }
-                                    else if($now-3==0){
-                                        $start=1;
-                                    }
-                                    else{
-                                        $start=$now-3;
-                                    }
-                                    if($now+3<$number_of_page){
-                                        $end=$now+3;
-                                    }
-                                    else if($now+3==$number_of_page){
-                                        $end=$number_of_page;
-                                    }
-                                    else{
-                                        $end=$number_of_page;
-                                    }
-                                    $kasihstart=false;
-                                    $kasihend=false;
-                                    if($start>1){
-                                        ?>
-                                            <li class="page-item d-flex" aria-current="page">
-                                                <a class="page-link" href="catalogue.php?page=1<?php if (isset($_GET["fcategory"])) 
-                                                    {echo "&fcategory=".$_GET["fcategory"];}
-                                                    if (isset($_GET["searchget"])) 
-                                                    {echo "&searchget=".$_GET["searchget"];} 
-                                                    ?>">1</a>
-                                            </li>
-                                            <li class="page-item d-flex" aria-current="page">
-                                                <a class="page-link">...</a>
-                                            </li>
-                                        <?php
-                                    }
-                                    
-                                    for($page = $start; $page <= $end; $page++) {
-                                        if($page==$now){
-                                            ?>
-                                                <li class="page-item d-flex" aria-current="page" style="background-color:gainsboro; border-radius:5px;">
-                                                    <a class="page-link" href="catalogue.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) {echo "&fcategory=".$_GET["fcategory"];} if (isset($_GET["searchget"])) 
-                                                    {echo "&searchget=".$_GET["searchget"];}  ?>"><?=$page?></a>
-                                                </li>
-                                            <?php
-                                        }
-                                        else{
-                                            ?>
-                                                <li class="page-item d-flex">
-                                                    <a class="page-link" href="catalogue.php?page=<?=$page?><?php if (isset($_GET["fcategory"])) 
-                                                    {echo "&fcategory=".$_GET["fcategory"];}
-                                                    if (isset($_GET["searchget"])) 
-                                                    {echo "&searchget=".$_GET["searchget"];} 
-                                                    ?>"><?=$page?></a>
-                                                </li>
-                                            <?php
-                                        }
-                                    }
-                                    if($end<$number_of_page){
-                                        ?>
-                                            <li class="page-item d-flex" aria-current="page">
-                                                <a class="page-link">...</a>
-                                            </li>
-                                            <li class="page-item d-flex" aria-current="page">
-                                            <a class="page-link" href="catalogue.php?page=<?=$number_of_page?><?php if (isset($_GET["fcategory"])) 
-                                                    {echo "&fcategory=".$_GET["fcategory"];}
-                                                    if (isset($_GET["searchget"])) 
-                                                    {echo "&searchget=".$_GET["searchget"];} 
-                                                    ?>"><?=$number_of_page?></a>
-                                            </li>
-                                        <?php
-                                    }
+                                } else {
                                 ?>
+                                    <li class="page-item d-flex">
+                                        <a class="page-link" href="catalogAfterLogin.php?page=<?= $page ?><?php if (isset($_GET["fcategory"])) {
+                                                                                                        echo "&fcategory=" . $_GET["fcategory"];
+                                                                                                    }
+                                                                                                    if (isset($_GET["searchget"])) {
+                                                                                                        echo "&searchget=" . $_GET["searchget"];
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
+                                                                                                    }
+                                                                                                    ?>"><?= $page ?></a>
+                                    </li>
                                 <?php
-                                    if($now==$number_of_page){
-                                        ?>
-                                            <li class="page-item disabled d-flex">
-                                                <a class="page-link">Next</a>
-                                            </li>
-                                        <?php
-                                    }
-                                    else{
-                                        ?>
-                                            <li class="page-item d-flex">
-                                            <a class="page-link" href="catalogue.php?page=<?=$now+1?><?php 
-                                                if (isset($_GET["fcategory"])) 
-                                                {
-                                                    // echo "&fcategory=".$_GET["fcategory"];
-                                                } 
-                                                if (isset($_GET["searchget"])) 
-                                                {
-                                                    // echo "&searchget=".$_GET["searchget"];
-                                                } 
-                                                ?>">Next</a>
-                                            </li>
-                                        <?php
-                                    }
+                                }
+                            }
+                            if ($end < $number_of_page) {
                                 ?>
-                            </ul>
+                                <li class="page-item d-flex" aria-current="page">
+                                    <a class="page-link">...</a>
+                                </li>
+                                <li class="page-item d-flex" aria-current="page">
+                                    <a class="page-link" href="catalogAfterLogin.php?page=<?= $number_of_page ?><?php if (isset($_GET["fcategory"])) {
+                                                                                                            echo "&fcategory=" . $_GET["fcategory"];
+                                                                                                        }
+                                                                                                        if (isset($_GET["searchget"])) {
+                                                                                                            echo "&searchget=" . $_GET["searchget"];
+                                                                                                        } if (isset($_GET["sortmode"])) {
+                                                                                                            echo "&sortmode=" . $_GET["sortmode"];
+                                                                                                        }
+                                                                                                        ?>"><?= $number_of_page ?></a>
+                                </li>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if ($now == $number_of_page) {
+                            ?>
+                                <li class="page-item disabled d-flex">
+                                    <a class="page-link">Next</a>
+                                </li>
+                            <?php
+                            } else {
+                            ?>
+                                <li class="page-item d-flex">
+                                    <a class="page-link" href="catalogAfterLogin.php?page=<?= $now + 1 ?><?php
+                                                                                                    if (isset($_GET["fcategory"])) {
+                                                                                                        echo "&fcategory=".$_GET["fcategory"];
+                                                                                                    }
+                                                                                                    if (isset($_GET["searchget"])) {
+                                                                                                        echo "&searchget=".$_GET["searchget"];
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
+                                                                                                    }
+                                                                                                    ?>">Next</a>
+                                </li>
+                            <?php
+                            }
+                            ?>
+                        </ul>
                         </nav>
                     </div>
                 </div>

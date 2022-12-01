@@ -12,6 +12,19 @@ if (isset($_GET["fcategory"])) {
     $cat = $_GET["fcategory"];
     $filter[] = "`it_ca_id`='$cat'";
 }
+if (isset($_POST["terapkan"])) {
+    echo $_POST["mengsorting"];
+    $link="location:catalogue.php?sortmode=".$_POST["mengsorting"]; 
+    if (isset($_GET["fcategory"])) {
+        $cat = $_GET["fcategory"];
+        $link .= "&fcategory=" . $cat;
+    } 
+    if (isset($_GET["searchget"])) {
+        $link .= "&searchget=" . $_GET["searchget"];
+    }
+    header($link);
+
+}
 if (isset($_POST["search"])) {
     $link = "location:catalogue.php?searchget=" . mysqli_real_escape_string($conn, $_POST["searchbar"]);
     if (isset($_GET["fcategory"])) {
@@ -27,8 +40,12 @@ if (isset($_GET["searchget"])) {
 //     # code...
 // }
 $sqlFilter = implode(" AND ", $filter);
+$queryCount = "SELECT COUNT(*) AS HITUNG FROM items";
 if ($sqlFilter != "") {
     $query .= " WHERE $sqlFilter";
+}
+if (isset($_GET["sortmode"])) {
+    $query .=" ORDER BY ".$_GET["sortmode"];
 }
 if (isset($_POST["detaildiklik"])) {
     $_SESSION["itemIni"] = $_POST["detaildiklik"];
@@ -39,6 +56,12 @@ if (!isset($_GET['page'])) {
 } else {
     $page = $_GET['page'];
 }
+if(isset($_GET["searchget"])){
+    $queryCount.=" WHERE it_name like '%".$_GET["searchget"]."%'";
+}
+$res=mysqli_query($conn,$queryCount);
+$rowCount=mysqli_fetch_assoc($res);
+$hitungJumlahItem = $rowCount["HITUNG"];
 $results_per_page = 18;
 $page_first_result = ($page - 1) * $results_per_page;
 // $query = $_SESSION["querysekarang"];  
@@ -248,17 +271,26 @@ if (isset($_POST['passing'])) {
                             </h2>
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
+                                    <div><a href="catalogue.php?<?php if (isset($_GET["searchget"])) {
+                                                                                                                $tempsearch = $_GET["searchget"];
+                                                                                                                echo "&searchget=$tempsearch";
+                                                                                                            } if (isset($_GET["sortmode"])) {
+                                                                                                                // $query.= " ORDER BY ". $_GET["sortmode"];
+                                                                                                                echo "&sortmode=".$_GET["sortmode"];
+                                                                                                            } ?>">All (<?=$hitungJumlahItem?>)</a></div>
                                     <?php
                                     if(isset($_GET["searchget"])){
                                         $tempsearch2 = $_GET["searchget"];
-                                        $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category ca join items i on ca.ca_id=i.it_ca_id where i.it_name like '%$tempsearch2%' and ca_id!='CA001' and i.it_stat='1' GROUP BY ca.ca_id order by ca.ca_name");
+                                        $query="select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category ca join items i on ca.ca_id=i.it_ca_id where i.it_name like '%$tempsearch2%' and ca_id!='CA001' and i.it_stat='1' GROUP BY ca.ca_id order by ca.ca_name";
+                                        $resultkategori = mysqli_query($conn, $query);
                                         $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
                                         FROM items i JOIN category c ON i.it_ca_id = c.ca_id
                                         WHERE i.it_name like '%$tempsearch2%' and c.ca_id != 'CA001' and i.it_stat='1'
                                         GROUP BY c.ca_id order by c.ca_name");
                                     }
                                     else{
-                                        $resultkategori = mysqli_query($conn, "select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id!='CA001' order by ca.ca_name");
+                                        $query="select ca.ca_id as 'idcat', ca.ca_name as 'namecat' from category as ca where ca_id!='CA001' order by ca.ca_name";
+                                        $resultkategori = mysqli_query($conn, $query);
                                         $countKategori = mysqli_query($conn, "SELECT COUNT(it_id) as 'hitungBarang'
                                         FROM items i JOIN category c ON i.it_ca_id = c.ca_id
                                         WHERE c.ca_id != 'CA001' and i.it_stat='1'
@@ -283,6 +315,9 @@ if (isset($_POST['passing'])) {
                                         <div><a href="catalogue.php?fcategory=<?= $daftarKategori[$i]['idcat'] ?><?php if (isset($_GET["searchget"])) {
                                                                                                                 $tempsearch = $_GET["searchget"];
                                                                                                                 echo "&searchget=$tempsearch";
+                                                                                                            } if (isset($_GET["sortmode"])) {
+                                                                                                                // $query.= " ORDER BY ". $_GET["sortmode"];
+                                                                                                                echo "&sortmode=".$_GET["sortmode"];
                                                                                                             } ?>"><?= $daftarKategori[$i]['namecat'] ?> (<?= $daftarCount[$i]['hitungBarang'] ?>)</a></div>
 
                                        
@@ -301,33 +336,33 @@ if (isset($_POST['passing'])) {
                             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                                 <div class="accordion-body">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" value="3 ASC" name="mengsorting" id="flexRadioDefault1">
                                         <label class="form-check-label" for="flexRadioDefault1">
                                             Nama: A-Z
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" value="3 DESC" name="mengsorting" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">
                                             Nama: Z-A
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" value="4 ASC" name="mengsorting" id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault3">
                                             Harga: Rendah-Tinggi
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="mengsorting" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" value="4 DESC" name="mengsorting" id="flexRadioDefault4">
+                                        <label class="form-check-label" for="flexRadioDefault4">
                                             Harga: Tinggi-Rendah
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn text-white px-4 mt-3 float-end" style="background-color:#BA7967;">Terapkan</button>
+                        <button type="submit" class="btn text-white px-4 mt-3 float-end" name="terapkan" style="background-color:#BA7967;">Terapkan</button>
                     </div>
                 </form>
             </div>
@@ -393,7 +428,9 @@ if (isset($_POST['passing'])) {
                                                                                                     }
                                                                                                     if (isset($_GET["searchget"])) {
                                                                                                         echo "&searchget=" . $_GET["searchget"];
-                                                                                                    }  ?>">Previous</a>
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
+                                                                                                    } ?>">Previous</a>
                                 </li>
                             <?php
                             }
@@ -429,6 +466,8 @@ if (isset($_POST['passing'])) {
                                                                                     }
                                                                                     if (isset($_GET["searchget"])) {
                                                                                         echo "&searchget=" . $_GET["searchget"];
+                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                        echo "&sortmode=" . $_GET["sortmode"];
                                                                                     }
                                                                                     ?>">1</a>
                                 </li>
@@ -447,6 +486,8 @@ if (isset($_POST['passing'])) {
                                                                                                     }
                                                                                                     if (isset($_GET["searchget"])) {
                                                                                                         echo "&searchget=" . $_GET["searchget"];
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
                                                                                                     }  ?>"><?= $page ?></a>
                                     </li>
                                 <?php
@@ -458,6 +499,8 @@ if (isset($_POST['passing'])) {
                                                                                                     }
                                                                                                     if (isset($_GET["searchget"])) {
                                                                                                         echo "&searchget=" . $_GET["searchget"];
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
                                                                                                     }
                                                                                                     ?>"><?= $page ?></a>
                                     </li>
@@ -475,6 +518,8 @@ if (isset($_POST['passing'])) {
                                                                                                         }
                                                                                                         if (isset($_GET["searchget"])) {
                                                                                                             echo "&searchget=" . $_GET["searchget"];
+                                                                                                        } if (isset($_GET["sortmode"])) {
+                                                                                                            echo "&sortmode=" . $_GET["sortmode"];
                                                                                                         }
                                                                                                         ?>"><?= $number_of_page ?></a>
                                 </li>
@@ -493,10 +538,12 @@ if (isset($_POST['passing'])) {
                                 <li class="page-item d-flex">
                                     <a class="page-link" href="catalogue.php?page=<?= $now + 1 ?><?php
                                                                                                     if (isset($_GET["fcategory"])) {
-                                                                                                        // echo "&fcategory=".$_GET["fcategory"];
+                                                                                                        echo "&fcategory=".$_GET["fcategory"];
                                                                                                     }
                                                                                                     if (isset($_GET["searchget"])) {
-                                                                                                        // echo "&searchget=".$_GET["searchget"];
+                                                                                                        echo "&searchget=".$_GET["searchget"];
+                                                                                                    } if (isset($_GET["sortmode"])) {
+                                                                                                        echo "&sortmode=" . $_GET["sortmode"];
                                                                                                     }
                                                                                                     ?>">Next</a>
                                 </li>

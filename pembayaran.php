@@ -102,6 +102,20 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             .hp{
                 display: block;
             }
+
+            .potrek{
+                width: 110px;
+                height: 150px;
+                margin-top: 25px;
+            }
+
+            .profile{
+                margin-right:60px;
+            }
+
+            .kosong{
+                width: 400px;
+            }
         }
         @media screen and (min-width:1000px){
             .kartu{
@@ -109,6 +123,14 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
             }
             .hp{
                 display: none;
+            }
+
+            .potrek{
+                width: 180px;
+            }
+
+            .kosong{
+                width:550px; 
             }
         }
 
@@ -119,7 +141,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         *{
             /* font-family: 'Josefins Sans'; */
             font-family:'Montserrat';
-            text-transform:capitalize;
+            /* text-transform:capitalize; */
             box-sizing: border-box;
         }
 
@@ -294,13 +316,13 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
     </style>
 </head>
 <body style="background-color:#FFDECF;" onload="load_ajax()">
-    <div class="container-fluid px-0">
+    <!-- <div class="container-fluid px-0"> -->
         
     <nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color:#3F4441;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="indexSudahLogin.php" name="logodipencet">
                     <img src="assets/img/logoFix.jpg" alt="Logo Petricor" width="120" height="40" class="me-2">
-                    <!-- <div class="text-white gambar">CART</div> -->
+                    <div class="text-white gambar">PEMBAYARAN</div>
                 </a>
                 <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border:none;">
                     <!-- <span class="navbar-toggler-icon"></span> -->
@@ -359,9 +381,9 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
         </nav>
 
         <!-- cart-->
-        <div class="p-3 mx-5">
-            <div class="row d-flex">
-                <div class="col-9" id="maincart">
+        <div class="w-100 container-fluid">
+            <div class="row d-flex p-lg-2 mx-lg-3">
+                <div class="col-lg-9 container-fluid" id="maincart">
                 <?php
                     while($row = mysqli_fetch_assoc($result)){
                         $item = mysqli_query($conn,"SELECT * from items where it_id='".$row["ct_it_id"]."'");
@@ -369,12 +391,12 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                         $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
                         $cat=mysqli_fetch_assoc($cat);
                 ?>
-                <div class="px-0 mx-0">
-                    <div class="row pe-0 mb-3 w-100">
-                        <div class="col-1 px-0 mx-0 rounded">
+                <div class="px-lg-0 mx-lg-0">
+                    <div class="row pe-0 mb-lg-2 mb-1 me-lg-2">
+                        <div class="col-lg-2 col-3 px-0 mx-0 rounded">
                             <img src="<?=$item["it_gambar"]?>" alt="" class="rounded-start w-100 h-100 col-1 px-0 mx-0 ">
                         </div>
-                        <div class="col-9 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
+                        <div class="col-lg-9 col-7 border-start mx-0 align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                             <p class="w-100"><?=$item["it_name"]?><br><?=$cat["ca_name"]?></p>
                             <!-- <div class="p-0 m-0"> -->
                                 <?=rupiah($item["it_price"])?> X
@@ -384,7 +406,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                                 <!-- HARUS BISA BRUBAH TOTALNYA TANPA DIREFRESH -->
                             <!-- </div> -->
                         </div>
-                        <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
+                        <div class="col-lg-1 col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
                         
                         </div>
                     </div>
@@ -393,7 +415,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                     }
                 ?>
             </div>
-                <div class="col-3" style="background-color:#f7f7f7;">
+                <div class="col-lg-3 pt-3 h-100 fixed" style="background-color:#f7f7f7;">
                 <?php
                     $gt=0;
                     $result2 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
@@ -420,7 +442,7 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                     Alamat: <?=$_SESSION["alamats"]?>
                 </p>
                 <!-- <form action="#" method="post"> -->
-                    <button type="submit" class="mt-2 btn ps-4 pe-4 fw-bold text-center" name="cekout" id="cekout" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
+                    <button type="submit" class="mt-1 btn ps-4 pe-4 fw-bold text-center float-end mb-3" name="cekout" id="cekout" style="border-radius: 50px; background-color:#8c594f; color:white;">Check Out
                     </button>
         
                 <!-- </form> -->

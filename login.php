@@ -194,7 +194,7 @@
             <h1 class="fw-bolder px-lg-4">MASUK</h1>
             <form class="px-lg-4 pe-0 pt-2" method="POST">
                 <div class="mt-2">
-                    <div class="form-field">
+                    <div class="form-field active">
                         <label>Username/ Email <span class="text-danger">*</span></label>
                         <input type="text" name="username" class="input" autocomplete="off">
                         <div class="border-line">
@@ -202,7 +202,7 @@
                     </div>
                 </div>
                 <div class="mt-2">
-                    <div class="form-field">
+                    <div class="form-field active">
                         <label>Password <span class="text-danger">*</span></label>
                         <input type="password" id="password" name="password" class="input" autocomplete="off">
                         <i class="fa-solid fa-eye" id="eye"></i>
