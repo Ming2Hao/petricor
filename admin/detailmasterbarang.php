@@ -30,6 +30,7 @@
 </head>
 <body>
     <form action="#" method="post">
+        <button type="submit" formaction="masterbarang.php">back</button>
         <table border="1" width="75%">
             <tr>
                 <th>ID</th>

@@ -448,8 +448,8 @@
                 <p id="totalbelanja" class="p-0 m-0">
                     totalbelanja
                 </p>
-                <p>
-                    Ongkir: <?=rupiah(10000)?>
+                <p id="ongkeer">
+                    ongkir: 
                 </p>
                 <p id="grandtotal">
                     grandtotal
@@ -587,6 +587,7 @@
     <script>
         // setInterval(fetch_cart, 500);
         setInterval(fetch_totalsemua, 500);
+        setInterval(fetch_ongkir, 500);
 		function load_ajax() {
 			// total =  document.getElementById("total");
 			// updown =  document.getElementsByClass("updown");
@@ -615,6 +616,18 @@
             }
             fetch_totalsemua();
             fetch_totalsemuaongkir();
+            fetch_ongkir();
+        }
+        function fetch_ongkir(){
+            fields2=document.getElementById('ongkeer');
+            r = new XMLHttpRequest();
+            r.onreadystatechange = function() {
+                if ((this.readyState==4) && (this.status==200)) {
+                    fields2.innerHTML = this.responseText;
+                }
+            }
+            r.open('GET', `ajaxcart/fetch_ongkeer.php`);
+            r.send();
         }
         function fetch_totalsemua(){
             fields=document.getElementById('totalbelanja');
@@ -666,6 +679,7 @@
             }
             fetch_totalsemua();
             fetch_totalsemuaongkir();
+            fetch_ongkir();
         });
 	</script>
     <script> //buat mata password

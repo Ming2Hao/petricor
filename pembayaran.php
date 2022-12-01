@@ -22,13 +22,15 @@ require_once('midtrans/Veritrans.php');
 
 $result3 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
 $_SESSION["totalsetelahongkir"]=0;
+$ongkirzz=0;
 while($rows = mysqli_fetch_assoc($result3)){
     $result2=mysqli_query($conn,"SELECT * from items where it_id='".$rows["ct_it_id"]."'");
     $result2=mysqli_fetch_assoc($result2);
     $result2=$result2["it_price"];
+    $ongkirzz=$ongkirzz+($rows["ct_qty"]*100000);
     $_SESSION["totalsetelahongkir"]=$_SESSION["totalsetelahongkir"]+($result2*$rows["ct_qty"]);
 }
-$_SESSION["totalsetelahongkir"]+=10000;
+$_SESSION["totalsetelahongkir"]+=$ongkirzz;
 
 //Set Your server key
 Veritrans_Config::$serverKey = "SB-Mid-server-AMzwelN9WnfCaC9Vfslm52gY";
@@ -395,22 +397,24 @@ $snapToken = Veritrans_Snap::getSnapToken($transaction);
                 <?php
                     $gt=0;
                     $result2 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
+                    $ongkirs=0;
                     while($row2 = mysqli_fetch_assoc($result2)){
                         $item2 = mysqli_query($conn,"SELECT * from items where it_id='".$row2["ct_it_id"]."'");
                         $item2 = mysqli_fetch_assoc($item2);
                         $gt=$gt+($row2['ct_qty']*$item2["it_price"]);
+                        $ongkirs=$ongkirs+($row2["ct_qty"]*100000);
                     }
                 ?>
                 <p id="totalbelanja" class="p-0 m-0">
                     totalbelanja: <?=rupiah($gt)?>
                 </p>
                 <p class="p-0 m-0">
-                    ongkir: <?=rupiah(10000)?>
+                    ongkir: <?=rupiah($ongkirs)?>
                 </p>
                 <p id="grandtotal" class="p-0 m-0">
                     grandtotal: 
                     
-                    <?=rupiah($gt+10000)?>
+                    <?=rupiah($gt+$ongkirs)?>
                 </p>
                 <p>
                     Alamat: <?=$_SESSION["alamats"]?>

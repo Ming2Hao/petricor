@@ -345,11 +345,13 @@
                     <?php
                         $resultdt = mysqli_query($conn,"SELECT * from d_transaksi where dt_ht_id='".$kumpulanHistori[$i]["ht_id"]."'");
                         $gt=0;
+                        $ongkeers=0;
                         while($dt = mysqli_fetch_assoc($resultdt)){
                             $resultitem = mysqli_query($conn,"SELECT * from items where it_id='".$dt["dt_it_id"]."'");
                             $item = mysqli_fetch_assoc($resultitem);
                             $cat = mysqli_query($conn,"SELECT * from category where ca_id='".$item["it_ca_id"]."'");
                             $cat=mysqli_fetch_assoc($cat);
+                            $ongkeers=$ongkeers+($dt["dt_qty"]*100000);
                             ?>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-2 col-5 px-0 mx-0 d-flex justify-content-center" style="background-color:#f7f7f7;">
@@ -361,20 +363,18 @@
                                 </h4>
                                 <?=$cat["ca_name"]?> <br>
                                 <?=rupiah($dt["dt_price"])?> 
+                                <?php
+                                    $gt=$gt+($dt["dt_qty"]*$dt["dt_price"]);
+                                ?>
                                 <div class="hp">
                                     <br>Jumlah: <?=$dt["dt_qty"]?>
                                     <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$dt["dt_price"])?></p> </b>
-                                    <?php
-                                        $gt=$gt+($dt["dt_qty"]*$dt["dt_price"]);
-                                    ?>
+                                    
                                 </div>
                             </div>
                             <div class="col-4 gambar border-start align-items-center py-3 mx-0" style="background-color:#f7f7f7;">
                                 <br>Jumlah: <?=$dt["dt_qty"]?>
                                 <b class="d-flex"> TOTAL : &nbsp; <p><?=rupiah($dt["dt_qty"]*$dt["dt_price"])?></p> </b>
-                                <?php
-                                    $gt=$gt+($dt["dt_qty"]*$dt["dt_price"]);
-                                ?>
                             </div>
                             <div class="col-lg-1"></div>
                             <!-- <div class="col-2 mx-0 rounded-end align-items-center d-flex align-items-center" style="background-color:#f7f7f7;">
@@ -391,10 +391,10 @@
                                 Total : <?=rupiah($gt)?>
                             </p>
                             <p class="p-0 m-0">
-                                Ongkir : <?=rupiah(10000)?>
+                                Ongkir : <?=rupiah($ongkeers)?>
                             </p>
                             <p id="grandtotal" class="p-0 m-0 fw-bold">
-                                Grand Total : <?=rupiah($gt+10000)?>
+                                Grand Total : <?=rupiah($kumpulanHistori[$i]["ht_total"])?>
                             </p>
                         </div>
                         <div class="col-lg-1"></div>

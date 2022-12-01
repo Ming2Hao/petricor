@@ -6,13 +6,16 @@
     $nextht="HT".str_pad($nextht,3,"0",STR_PAD_LEFT);
     $_SESSION["notransaksi"]=$nextht;
     $curruser=$_SESSION["currentUser"];
-    $total=10000;
+    $total=0;
+    $tempongkir=0;
     $result22 = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
     while($row = mysqli_fetch_assoc($result22)){
         $item2 = mysqli_query($conn,"SELECT * from items where it_id='".$row["ct_it_id"]."'");
         $item2=mysqli_fetch_assoc($item2);
+        $tempongkir=$tempongkir+($row["ct_qty"]*100000);
         $total=$total+($item2["it_price"]*$row["ct_qty"]);
     }
+    $total=$total+$tempongkir;
     $tanggal=date("Y-m-d");
     $alamats=$_SESSION["alamats"];
     $iht_query = "INSERT INTO `h_transaksi`(`ht_id`, `ht_us_id`, `ht_date`, `ht_total`,`ht_alamat`) VALUES ('$nextht','$curruser','$tanggal','$total','$alamats')";

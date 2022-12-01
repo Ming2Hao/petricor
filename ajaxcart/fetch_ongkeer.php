@@ -7,17 +7,14 @@
 
 	$cart = mysqli_query($conn,"SELECT * from cart where ct_us_id='".$_SESSION['currentUser']."'");
     $temp=0;
-    $counterqty=0;
     while($row = mysqli_fetch_assoc($cart)){
         $items = mysqli_query($conn,"SELECT * from items where it_id='".$row['ct_it_id']."'");
         $items = mysqli_fetch_assoc($items);
-        $counterqty=$counterqty+($row["ct_qty"]*100000);
-        $fff=$row["ct_qty"]*$items["it_price"];
-        $temp=$temp+$fff;
-    }
-    $temp=$temp+$counterqty;
-    $_SESSION["totalsetelahongkir"]=$temp;
-    $temp=rupiah($temp);
     
-    echo '<b id="totalbelanja">Total: '.$temp.'</b>';
+        $temp=$temp+($row["ct_qty"]*100000);
+    }
+    $temp=rupiah($temp);
+
+    
+    echo '<p id="ongkeer">ongkir: '.$temp.'</p>';
 ?>
